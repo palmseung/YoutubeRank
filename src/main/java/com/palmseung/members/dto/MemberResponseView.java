@@ -1,7 +1,7 @@
 package com.palmseung.members.dto;
 
 import com.palmseung.members.domain.Member;
-import com.palmseung.members.domain.Role;
+import com.palmseung.members.domain.MemberRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,15 +13,15 @@ public class MemberResponseView {
     private String email;
     private String name;
     private String password;
-    private Role role;
+    private MemberRole memberRole;
 
     @Builder
-    public MemberResponseView(Long id, String email, String name, String password, Role role) {
+    public MemberResponseView(Long id, String email, String name, String password, MemberRole memberRole) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
-        this.role = role;
+        this.memberRole = memberRole;
     }
 
     public static MemberResponseView of(Member member){
@@ -30,7 +30,7 @@ public class MemberResponseView {
                 .email(member.getEmail())
                 .name(member.getName())
                 .password(member.getPassword())
-                .role(member.getRole())
+                .memberRole(member.getMemberRole())
                 .build();
     }
 }

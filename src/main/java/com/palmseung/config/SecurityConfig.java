@@ -5,7 +5,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import static com.palmseung.members.domain.Role.ADMIN;
+import static com.palmseung.members.domain.MemberRole.ADMIN;
 
 @Configuration
 @EnableWebSecurity

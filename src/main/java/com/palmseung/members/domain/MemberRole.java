@@ -3,13 +3,13 @@ package com.palmseung.members.domain;
 import lombok.Getter;
 
 @Getter
-public enum Role {
+public enum MemberRole {
     ADMIN("ADMIN"),
     USER("USER");
 
     private String memberRole;
 
-    Role(String role) {
+    MemberRole(String role) {
         this.memberRole = role;
     }
 }

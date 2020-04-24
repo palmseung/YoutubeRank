@@ -2,7 +2,7 @@ package com.palmseung.members.service;
 
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;
-import com.palmseung.members.domain.Role;
+import com.palmseung.members.domain.MemberRole;
 import com.palmseung.members.dto.CreateMemberRequestView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +17,7 @@ public class MemberService {
     public Member create(CreateMemberRequestView requestView) {
         String encodedPassword = passwordEncoder.encode(requestView.getPassword());
         requestView.changePassword(encodedPassword);
-        requestView.assginRole(Role.USER);
+        requestView.assginRole(MemberRole.USER);
 
         return memberRepository.save(requestView.toEntity());
     }

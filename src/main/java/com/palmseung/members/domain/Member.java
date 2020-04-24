@@ -26,14 +26,14 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private MemberRole memberRole;
 
     @Builder
-    public Member(Long id, String email, String name, String password, Role role) {
+    public Member(Long id, String email, String name, String password, MemberRole memberRole) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
-        this.role = role;
+        this.memberRole = memberRole;
     }
 }
