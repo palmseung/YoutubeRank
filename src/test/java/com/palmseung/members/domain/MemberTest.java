@@ -7,9 +7,9 @@ import static com.palmseung.members.MemberConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MemberTest {
-    @DisplayName("Member객체가 생성될 때, createDate()값이 정해진다. ")
+    @DisplayName("Member객체가 생성될 때, createDate/modifiedDate field도 생성된다. ")
     @Test
-    void validateCreatedDate() {
+    void validateCreatedAndModifiedDate() {
         //when
         Member member = Member.builder()
                 .email(TEST_EMAIL)
@@ -19,5 +19,6 @@ public class MemberTest {
 
         //then
         assertThat(member).hasFieldOrProperty("createdDate");
+        assertThat(member).hasFieldOrProperty("modifiedDate");
     }
 }
