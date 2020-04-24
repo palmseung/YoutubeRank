@@ -2,6 +2,7 @@ package com.palmseung.modules.user;
 
 import com.palmseung.modules.users.domain.User;
 import com.palmseung.modules.users.domain.UserRepository;
+import com.palmseung.modules.users.dto.CreateUserRequestView;
 import com.palmseung.modules.users.service.UserService;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -11,10 +12,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static com.palmseung.modules.users.UserConstant.TEST_PASSWORD;
-import static com.palmseung.modules.users.UserConstant.TEST_USER;
+import static com.palmseung.modules.users.UserConstant.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -33,10 +32,10 @@ public class UserServiceTest {
     @Test
     public void create() {
         //given
-        given(userRepository.save(TEST_USER)).willReturn(TEST_USER);
+        CreateUserRequestView requestView = createRequestView();
 
         //when
-        userService.create(TEST_USER);
+        userService.create(requestView);
 
         //then
         verify(userRepository, times(1))
@@ -47,13 +46,21 @@ public class UserServiceTest {
     @Test
     public void encodePassword() {
         //given
-        given(userRepository.save(TEST_USER)).willReturn(TEST_USER);
+        CreateUserRequestView requestView = createRequestView();
 
         //when
-        userService.create(TEST_USER);
+        userService.create(requestView);
 
         //then
         verify(passwordEncoder, times(1))
                 .encode(TEST_PASSWORD);
+    }
+
+    private CreateUserRequestView createRequestView() {
+        return CreateUserRequestView.builder()
+                .email(TEST_EMAIL)
+                .name(TEST_NAME)
+                .password(TEST_PASSWORD)
+                .build();
     }
 }
