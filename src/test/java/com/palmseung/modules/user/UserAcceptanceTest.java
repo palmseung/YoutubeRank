@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
-import static com.palmseung.modules.users.dto.UserConstant.*;
+import static com.palmseung.modules.users.UserConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserAcceptanceTest extends AbstractAcceptanceTest {

@@ -7,7 +7,7 @@ import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static com.palmseung.modules.users.dto.UserConstant.BASE_URI_USER;
+import static com.palmseung.modules.users.UserConstant.BASE_URI_USER;
 
 public class UserHttpTest {
     private WebTestClient webTestClient;
