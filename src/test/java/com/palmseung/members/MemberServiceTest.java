@@ -1,29 +1,29 @@
-package com.palmseung.modules.user;
+package com.palmseung.members;
 
-import com.palmseung.modules.users.domain.User;
-import com.palmseung.modules.users.domain.UserRepository;
-import com.palmseung.modules.users.dto.CreateUserRequestView;
-import com.palmseung.modules.users.service.UserService;
-import org.junit.Test;
+import com.palmseung.members.domain.Member;
+import com.palmseung.members.domain.MemberRepository;
+import com.palmseung.members.dto.CreateMemberRequestView;
+import com.palmseung.members.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static com.palmseung.modules.users.UserConstant.*;
+import static com.palmseung.members.MemberConstant.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
-public class UserServiceTest {
+@ExtendWith(MockitoExtension.class)
+public class MemberServiceTest {
     @InjectMocks
-    private UserService userService;
+    private MemberService memberService;
 
     @Mock
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -32,32 +32,32 @@ public class UserServiceTest {
     @Test
     public void create() {
         //given
-        CreateUserRequestView requestView = createRequestView();
+        CreateMemberRequestView requestView = createRequestView();
 
         //when
-        userService.create(requestView);
+        memberService.create(requestView);
 
         //then
-        verify(userRepository, times(1))
-                .save(any(User.class));
+        verify(memberRepository, times(1))
+                .save(any(Member.class));
     }
 
     @DisplayName("create 메소드가 호출되면, Passwornd를 encoding하는 메소드가 호출된다.")
     @Test
     public void encodePassword() {
         //given
-        CreateUserRequestView requestView = createRequestView();
+        CreateMemberRequestView requestView = createRequestView();
 
         //when
-        userService.create(requestView);
+        memberService.create(requestView);
 
         //then
         verify(passwordEncoder, times(1))
                 .encode(TEST_PASSWORD);
     }
 
-    private CreateUserRequestView createRequestView() {
-        return CreateUserRequestView.builder()
+    private CreateMemberRequestView createRequestView() {
+        return CreateMemberRequestView.builder()
                 .email(TEST_EMAIL)
                 .name(TEST_NAME)
                 .password(TEST_PASSWORD)

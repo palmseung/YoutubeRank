@@ -1,4 +1,4 @@
-package com.palmseung.modules.user;
+package com.palmseung.members;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;

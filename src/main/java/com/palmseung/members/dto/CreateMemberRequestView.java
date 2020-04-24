@@ -1,39 +1,39 @@
-package com.palmseung.modules.users.dto;
+package com.palmseung.members.dto;
 
-import com.palmseung.modules.users.domain.User;
+import com.palmseung.members.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class CreateUserRequestView {
+public class CreateMemberRequestView {
     private String email;
     private String name;
     private String password;
 
     @Builder
-    public CreateUserRequestView(String email, String name, String password) {
+    public CreateMemberRequestView(String email, String name, String password) {
         this.email = email;
         this.name = name;
         this.password = password;
     }
 
-    public static CreateUserRequestView of(String email, String name, String password){
-        return CreateUserRequestView.builder()
+    public static CreateMemberRequestView of(String email, String name, String password){
+        return CreateMemberRequestView.builder()
                 .email(email)
                 .name(name)
                 .password(password)
                 .build();
     }
 
-    public CreateUserRequestView changePassword(String encodedPassword){
+    public CreateMemberRequestView changePassword(String encodedPassword){
         this.password = encodedPassword;
         return this;
     }
 
-    public User toEntity(){
-        return User.builder()
+    public Member toEntity(){
+        return Member.builder()
                 .email(email)
                 .name(name)
                 .password(password)

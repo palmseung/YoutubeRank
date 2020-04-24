@@ -1,4 +1,4 @@
-package com.palmseung.modules.users.domain;
+package com.palmseung.members.domain;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class User {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -25,7 +25,7 @@ public class User {
     private String password;
 
     @Builder
-    public User(Long id, String email, String name, String password) {
+    public Member(Long id, String email, String name, String password) {
         this.id = id;
         this.email = email;
         this.name = name;
