@@ -1,9 +1,8 @@
-package com.palmseung.members;
+package com.palmseung.members.service;
 
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;
 import com.palmseung.members.dto.CreateMemberRequestView;
-import com.palmseung.members.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

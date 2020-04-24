@@ -1,4 +1,4 @@
-package com.palmseung.members;
+package com.palmseung.members.atdd;
 
 import com.palmseung.members.dto.CreateMemberRequestView;
 import com.palmseung.members.dto.MemberResponseView;

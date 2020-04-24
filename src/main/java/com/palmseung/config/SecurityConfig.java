@@ -5,6 +5,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import static com.palmseung.members.domain.Role.ADMIN;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -13,7 +15,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .mvcMatchers("/", "/login", "/sign-up", "/api/users/sign-up").permitAll();
+                .mvcMatchers("/", "/login", "/sign-up", "/api/users/sign-up").permitAll()
+                .and()
+                .authorizeRequests().mvcMatchers("/admin").hasRole(ADMIN.getMemberRole());
 
     }
 }

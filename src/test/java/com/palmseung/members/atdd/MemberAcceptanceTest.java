@@ -1,5 +1,8 @@
-package com.palmseung.members;
+package com.palmseung.members.atdd;
 
+import com.palmseung.AbstractAcceptanceTest;
+import com.palmseung.members.domain.Role;
+import com.palmseung.members.dto.MemberResponseView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,11 +22,13 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void signUp() {
         //when
-        Long id = memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD)
-                .getResponseBody()
-                .getId();
+        MemberResponseView response
+                = memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD).getResponseBody();
 
         //then
-        assertThat(id).isEqualTo(1L);
+        assertThat(response.getId()).isEqualTo(1L);
+        assertThat(response.getEmail()).isEqualTo(TEST_EMAIL);
+        assertThat(response.getPassword()).contains("bcrypt");
+        assertThat(response.getRole()).isEqualTo(Role.USER);
     }
 }
