@@ -9,7 +9,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static com.palmseung.modules.users.UserConstant.TEST_PASSWORD;
 import static com.palmseung.modules.users.UserConstant.TEST_USER;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -24,6 +26,9 @@ public class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @DisplayName("create메소드가 호출되면, userRepository의 save 메소드가 1번 호출된다.")
     @Test
     public void create() {
@@ -36,5 +41,19 @@ public class UserServiceTest {
         //then
         verify(userRepository, times(1))
                 .save(any(User.class));
+    }
+
+    @DisplayName("create 메소드가 호출되면, Passwornd를 encoding하는 메소드가 호출된다.")
+    @Test
+    public void encodePassword() {
+        //given
+        given(userRepository.save(TEST_USER)).willReturn(TEST_USER);
+
+        //when
+        userService.create(TEST_USER);
+
+        //then
+        verify(passwordEncoder, times(1))
+                .encode(TEST_PASSWORD);
     }
 }
