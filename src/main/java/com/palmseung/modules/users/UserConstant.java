@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserConstant {
+    public static final String BASE_URI_USER_API = "/api/users";
     public static final String BASE_URI_USER = "/users";
     public static final Long TEST_ID = 1l;
     public static final String TEST_EMAIL = "user@email.com";

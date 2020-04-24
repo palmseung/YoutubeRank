@@ -7,7 +7,7 @@ import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static com.palmseung.modules.users.UserConstant.BASE_URI_USER;
+import static com.palmseung.modules.users.UserConstant.BASE_URI_USER_API;
 
 public class UserHttpTest {
     private WebTestClient webTestClient;
@@ -23,7 +23,7 @@ public class UserHttpTest {
                 .password(password)
                 .build();
 
-        return webTestClient.post().uri(BASE_URI_USER)
+        return webTestClient.post().uri(BASE_URI_USER_API)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .body(Mono.just(requestView), CreateUserRequestView.class)
