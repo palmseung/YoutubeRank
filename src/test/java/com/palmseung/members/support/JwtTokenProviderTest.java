@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.palmseung.members.MemberConstant.TEST_EMAIL;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 @SpringBootTest(classes = JwtTokenProvider.class)
 public class JwtTokenProviderTest {
@@ -57,9 +58,8 @@ public class JwtTokenProviderTest {
         String token = TEST_EMAIL;
 
         //when
-        boolean isValidToken = jwtTokenProvider.isValidToken(token);
-
-        //then
-        assertThat(isValidToken).isFalse();
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            jwtTokenProvider.isValidToken(token);
+        }).withMessageContaining("invalid");
     }
 }

@@ -2,6 +2,7 @@ package com.palmseung.support.jwt;
 
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Getter;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.Base64;
 import java.util.Date;
+
+import static com.palmseung.support.Messages.WARNING_JWT_INVALID_TOKEN;
 
 @Setter
 @Getter
@@ -53,6 +56,18 @@ public class JwtTokenProvider {
     }
 
     public boolean isValidToken(String token) {
+        try {
+            if (getExpirationFromToken(token).after(new Date())) {
+                return true;
+            }
+        } catch (RuntimeException e) {
+            throw new IllegalArgumentException(WARNING_JWT_INVALID_TOKEN);
+        }
         return false;
+    }
+
+    private Date getExpirationFromToken(String token) {
+        Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+        return claims.getBody().getExpiration();
     }
 }
