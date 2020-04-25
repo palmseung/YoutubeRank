@@ -51,4 +51,8 @@ public class JwtTokenProvider {
                 .getBody()
                 .getSubject();
     }
+
+    public boolean isValidToken(String token) {
+        return false;
+    }
 }

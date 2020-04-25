@@ -36,4 +36,30 @@ public class JwtTokenProviderTest {
         //then
         assertThat(email).isEqualTo(TEST_EMAIL);
     }
+
+    @DisplayName("Jwt - 유효성 검증 (유효한 토큰)")
+    @Test
+    public void validateTokenValidityWhenValid() {
+        //given
+        String token = jwtTokenProvider.createToken(TEST_EMAIL);
+
+        //when
+        boolean isValidToken = jwtTokenProvider.isValidToken(token);
+
+        //then
+        assertThat(isValidToken).isTrue();
+    }
+
+    @DisplayName("Jwt - 유효성 검증 (유효하지 않은 토큰)")
+    @Test
+    public void validateTokenValidityWhenInvalid() {
+        //given
+        String token = TEST_EMAIL;
+
+        //when
+        boolean isValidToken = jwtTokenProvider.isValidToken(token);
+
+        //then
+        assertThat(isValidToken).isFalse();
+    }
 }
