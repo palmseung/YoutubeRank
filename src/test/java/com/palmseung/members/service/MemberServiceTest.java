@@ -92,6 +92,14 @@ public class MemberServiceTest {
         }).doesNotThrowAnyException();
     }
 
+    @DisplayName("회원 탈퇴 - 가입 되지 않은 이메일")
+    @Test
+    void deleteInvalidEmail(){
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.delete(TEST_MEMBER);
+        });
+    }
+
     private CreateMemberRequestView createRequestView() {
         return CreateMemberRequestView.builder()
                 .email(TEST_EMAIL)
