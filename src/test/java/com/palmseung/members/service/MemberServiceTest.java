@@ -11,8 +11,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Optional;
+
 import static com.palmseung.members.MemberConstant.*;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -27,7 +31,7 @@ public class MemberServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
-    @DisplayName("create메소드가 호출되면, userRepository의 save 메소드가 1번 호출된다.")
+    @DisplayName("회원 가입 - save 메소드 호출")
     @Test
     public void create() {
         //given
@@ -41,7 +45,7 @@ public class MemberServiceTest {
                 .save(any(Member.class));
     }
 
-    @DisplayName("create 메소드가 호출되면, Passwornd를 encoding하는 메소드가 호출된다.")
+    @DisplayName("회원 가입 - passwordEncoder 메소드 호출")
     @Test
     public void encodePassword() {
         //given
@@ -53,6 +57,18 @@ public class MemberServiceTest {
         //then
         verify(passwordEncoder, times(1))
                 .encode(TEST_PASSWORD);
+    }
+
+    @DisplayName("회원 가입 - 이미 존재 하는 이메일")
+    @Test
+    public void validateEmail() {
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+
+        //when, then
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.create(createRequestView());
+        });
     }
 
     private CreateMemberRequestView createRequestView() {
