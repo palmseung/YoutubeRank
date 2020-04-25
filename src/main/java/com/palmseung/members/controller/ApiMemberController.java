@@ -8,10 +8,7 @@ import com.palmseung.members.dto.CreateMemberRequestView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -30,5 +27,14 @@ public class ApiMemberController {
                 .created(URI.create(MemberConstant.BASE_URI_USER_API + "/" + createdMember.getId()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity deleteById(@PathVariable Long id){
+        memberService.delete(memberService.findById(id));
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }

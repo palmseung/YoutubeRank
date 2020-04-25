@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.palmseung.Messages.WARNING_MEMBER_EXISTING_EMAIL;
+import static com.palmseung.support.Messages.WARNING_MEMBER_EXISTING_EMAIL;
+import static com.palmseung.support.Messages.WARNING_MEMBER_INVALID_MEMBER;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +27,20 @@ public class MemberService {
         requestView.assginRole(MemberRole.USER);
 
         return memberRepository.save(requestView.toEntity());
+    }
+
+    public void delete(Member member) {
+        memberRepository.delete(findByEmail(member.getEmail()));
+    }
+
+    public Member findByEmail(String email) {
+        return findMemberByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException(WARNING_MEMBER_INVALID_MEMBER));
+    }
+
+    public Member findById(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(WARNING_MEMBER_INVALID_MEMBER));
     }
 
     private void validateEmail(String email) {

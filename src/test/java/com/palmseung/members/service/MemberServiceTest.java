@@ -14,8 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 import static com.palmseung.members.MemberConstant.*;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -24,7 +23,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 public class MemberServiceTest {
     @InjectMocks
-    private MemberService memberService;
+    MemberService memberService;
 
     @Mock
     private MemberRepository memberRepository;
@@ -34,7 +33,7 @@ public class MemberServiceTest {
 
     @DisplayName("회원 가입 - 정상")
     @Test
-    public void create(){
+    public void create() {
         //given
         CreateMemberRequestView requestView = createRequestView();
 
@@ -81,6 +80,68 @@ public class MemberServiceTest {
         //when, then
         assertThatIllegalArgumentException().isThrownBy(() -> {
             memberService.create(createRequestView());
+        });
+    }
+
+    @DisplayName("회원 탈퇴 - 정상")
+    @Test
+    void delete() {
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+
+        //when, then
+        assertThatCode(() -> {
+            memberService.delete(TEST_MEMBER);
+        }).doesNotThrowAnyException();
+    }
+
+    @DisplayName("회원 탈퇴 - 가입 되지 않은 이메일")
+    @Test
+    void deleteInvalidEmail() {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.delete(TEST_MEMBER);
+        });
+    }
+
+    @DisplayName("회원 조회 by 이메일 - 정상")
+    @Test
+    void findByEmail() {
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+
+        //when
+        Member member = memberService.findByEmail(TEST_EMAIL);
+
+        //then
+        assertThat(member).isEqualTo(TEST_MEMBER);
+    }
+
+    @DisplayName("회원 조회 by 이메일 - 가입 되지 않은 이메일")
+    @Test
+    void findByInvalidEmail() {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.findByEmail(TEST_EMAIL);
+        });
+    }
+
+    @DisplayName("회원 조회 by 아이디 - 정상")
+    @Test
+    void findById() {
+        //given
+        given(memberRepository.findById(TEST_ID)).willReturn(Optional.of(TEST_MEMBER));
+
+        //when
+        Member member = memberService.findById(TEST_ID);
+
+        //then
+        assertThat(member).isEqualTo(TEST_MEMBER);
+    }
+
+    @DisplayName("회원 조회 by 아이디 - 존재 하지 않는 아이디")
+    @Test
+    void findByInvalidId(){
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.findById(TEST_ID);
         });
     }
 
