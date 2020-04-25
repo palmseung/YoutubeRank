@@ -14,8 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 import static com.palmseung.members.MemberConstant.*;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -102,6 +101,19 @@ public class MemberServiceTest {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             memberService.delete(TEST_MEMBER);
         });
+    }
+
+    @DisplayName("회원 조회 - 정상")
+    @Test
+    void findByEmail() {
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+
+        //when
+        Member member = memberService.findByEmail(TEST_EMAIL);
+
+        //then
+        assertThat(member).isEqualTo(TEST_MEMBER);
     }
 
     private CreateMemberRequestView createRequestView() {
