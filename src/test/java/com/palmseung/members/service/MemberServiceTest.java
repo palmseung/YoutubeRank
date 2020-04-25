@@ -118,7 +118,7 @@ public class MemberServiceTest {
 
     @DisplayName("회원 조회 - 가입 되지 않은 이메일")
     @Test
-    void findByInvalidEmail(){
+    void findByInvalidEmail() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             memberService.findByEmail(TEST_EMAIL);
         });

@@ -30,10 +30,7 @@ public class MemberService {
     }
 
     public void delete(Member member) {
-        Member savedMember = findMemberByEmail(member.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException(WARNING_MEMBER_INVALID_MEMBER));
-
-        memberRepository.delete(savedMember);
+        memberRepository.delete(findByEmail(member.getEmail()));
     }
 
     public Member findByEmail(String email) {
