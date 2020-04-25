@@ -28,4 +28,13 @@ public class ApiMemberController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity deleteById(@PathVariable Long id){
+        memberService.delete(memberService.findById(id));
+
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 }
