@@ -59,7 +59,7 @@ public class MemberServiceTest {
                 .encode(TEST_PASSWORD);
     }
 
-    @DisplayName("회원 가입 - 이미 존재 하는 이메일")
+    @DisplayName("회원 가입 - 이미 존재 하는 이메일 검증")
     @Test
     public void validateEmail() {
         //given

@@ -8,6 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+import static com.palmseung.Messages.WARNING_MEMBER_EXISTING_EMAIL;
+
 @RequiredArgsConstructor
 @Service
 public class MemberService {
@@ -15,10 +19,24 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     public Member create(CreateMemberRequestView requestView) {
+        validateEmail(requestView.getEmail());
+
         String encodedPassword = passwordEncoder.encode(requestView.getPassword());
         requestView.changePassword(encodedPassword);
         requestView.assginRole(MemberRole.USER);
 
         return memberRepository.save(requestView.toEntity());
+    }
+
+    private void validateEmail(String email) {
+        Optional<Member> member = findMemberByEmail(email);
+
+        if (member.isPresent()) {
+            throw new IllegalArgumentException(WARNING_MEMBER_EXISTING_EMAIL);
+        }
+    }
+
+    private Optional<Member> findMemberByEmail(String email) {
+        return memberRepository.findByEmail(email);
     }
 }
