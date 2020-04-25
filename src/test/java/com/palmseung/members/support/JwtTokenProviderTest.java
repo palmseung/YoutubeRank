@@ -23,4 +23,17 @@ public class JwtTokenProviderTest {
         //then
         assertThat(token).isNotEmpty();
     }
+
+    @DisplayName("Jwt - 토큰에서 email 추출")
+    @Test
+    void extractEmail() {
+        //given
+        String token = jwtTokenProvider.createToken(TEST_EMAIL);
+
+        //when
+        String email = jwtTokenProvider.extractEmail(token);
+
+        //then
+        assertThat(email).isEqualTo(TEST_EMAIL);
+    }
 }

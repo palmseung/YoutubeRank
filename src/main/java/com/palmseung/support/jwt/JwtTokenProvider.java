@@ -44,4 +44,8 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
+
+    public String extractEmail(String token) {
+        return null;
+    }
 }
