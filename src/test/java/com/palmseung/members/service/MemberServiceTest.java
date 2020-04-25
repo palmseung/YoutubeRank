@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 import static com.palmseung.members.MemberConstant.*;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -31,9 +32,21 @@ public class MemberServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
+    @DisplayName("회원 가입 - 정상")
+    @Test
+    public void create(){
+        //given
+        CreateMemberRequestView requestView = createRequestView();
+
+        //when, then
+        assertThatCode(() -> {
+            memberService.create(requestView);
+        }).doesNotThrowAnyException();
+    }
+
     @DisplayName("회원 가입 - save 메소드 호출")
     @Test
-    public void create() {
+    public void create_save() {
         //given
         CreateMemberRequestView requestView = createRequestView();
 
@@ -47,7 +60,7 @@ public class MemberServiceTest {
 
     @DisplayName("회원 가입 - passwordEncoder 메소드 호출")
     @Test
-    public void encodePassword() {
+    public void create_encodePassword() {
         //given
         CreateMemberRequestView requestView = createRequestView();
 
