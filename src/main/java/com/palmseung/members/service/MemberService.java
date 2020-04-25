@@ -34,10 +34,13 @@ public class MemberService {
     }
 
     public Member findByEmail(String email) {
-        Member savedMember = findMemberByEmail(email)
+        return findMemberByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException(WARNING_MEMBER_INVALID_MEMBER));
+    }
 
-        return savedMember;
+    public Member findById(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(WARNING_MEMBER_INVALID_MEMBER));
     }
 
     private void validateEmail(String email) {
@@ -50,9 +53,5 @@ public class MemberService {
 
     private Optional<Member> findMemberByEmail(String email) {
         return memberRepository.findByEmail(email);
-    }
-
-    public Member findById(Long testId) {
-        return null;
     }
 }
