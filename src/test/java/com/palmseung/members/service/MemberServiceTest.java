@@ -103,7 +103,7 @@ public class MemberServiceTest {
         });
     }
 
-    @DisplayName("회원 조회 - 정상")
+    @DisplayName("회원 조회 by 이메일 - 정상")
     @Test
     void findByEmail() {
         //given
@@ -116,12 +116,25 @@ public class MemberServiceTest {
         assertThat(member).isEqualTo(TEST_MEMBER);
     }
 
-    @DisplayName("회원 조회 - 가입 되지 않은 이메일")
+    @DisplayName("회원 조회 by 이메일 - 가입 되지 않은 이메일")
     @Test
     void findByInvalidEmail() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             memberService.findByEmail(TEST_EMAIL);
         });
+    }
+
+    @DisplayName("회원 조회 by 아이디 - 정상")
+    @Test
+    void findById() {
+        //given
+        given(memberRepository.findById(TEST_ID)).willReturn(Optional.of(TEST_MEMBER));
+
+        //when
+        Member member = memberService.findById(TEST_ID);
+
+        //then
+        assertThat(member).isEqualTo(TEST_MEMBER);
     }
 
     private CreateMemberRequestView createRequestView() {
