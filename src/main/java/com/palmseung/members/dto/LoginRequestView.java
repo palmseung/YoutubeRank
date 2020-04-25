@@ -1,19 +1,24 @@
 package com.palmseung.members.dto;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoginRequestView {
     private String email;
     private String password;
+    private String accessToken;
+    private String tokenType;
+
+    public LoginRequestView() {
+    }
 
     @Builder
-    public LoginRequestView(String email, String password) {
+    public LoginRequestView(String email, String password,
+                            String accessToken, String tokenType) {
         this.email = email;
         this.password = password;
+        this.accessToken = accessToken;
+        this.tokenType = tokenType;
     }
 }

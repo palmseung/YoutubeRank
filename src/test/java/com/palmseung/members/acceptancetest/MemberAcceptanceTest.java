@@ -1,7 +1,6 @@
 package com.palmseung.members.acceptancetest;
 
 import com.palmseung.AbstractAcceptanceTest;
-import com.palmseung.members.domain.MemberRole;
 import com.palmseung.members.dto.LoginRequestView;
 import com.palmseung.members.dto.MemberResponseView;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +30,6 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(response.getId()).isEqualTo(1L);
         assertThat(response.getEmail()).isEqualTo(TEST_EMAIL);
         assertThat(response.getPassword()).contains("bcrypt");
-        assertThat(response.getMemberRole()).isEqualTo(MemberRole.USER);
     }
 
     @DisplayName("회원 탈퇴")

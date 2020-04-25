@@ -1,7 +1,6 @@
 package com.palmseung.members;
 
 import com.palmseung.members.domain.Member;
-import com.palmseung.members.domain.MemberRole;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +20,5 @@ public class MemberConstant {
             .email(TEST_EMAIL)
             .name(TEST_NAME)
             .password(TEST_PASSWORD)
-            .memberRole(MemberRole.USER)
             .build();
 }

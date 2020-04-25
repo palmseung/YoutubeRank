@@ -1,36 +1,39 @@
 package com.palmseung.members.dto;
 
 import com.palmseung.members.domain.Member;
-import com.palmseung.members.domain.MemberRole;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 @Getter
-@NoArgsConstructor
 public class MemberResponseView {
     private Long id;
     private String email;
     private String name;
     private String password;
-    private MemberRole memberRole;
+    private Collection<? extends GrantedAuthority> roles;
+
+    public MemberResponseView() {
+    }
 
     @Builder
-    public MemberResponseView(Long id, String email, String name, String password, MemberRole memberRole) {
+    public MemberResponseView(Long id, String email, String name, String password,
+                              Collection<? extends GrantedAuthority> roles) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
-        this.memberRole = memberRole;
+        this.roles = roles;
     }
 
-    public static MemberResponseView of(Member member){
+    public static MemberResponseView of(Member member) {
         return MemberResponseView.builder()
                 .id(member.getId())
                 .email(member.getEmail())
                 .name(member.getName())
                 .password(member.getPassword())
-                .memberRole(member.getMemberRole())
                 .build();
     }
 }
