@@ -137,6 +137,14 @@ public class MemberServiceTest {
         assertThat(member).isEqualTo(TEST_MEMBER);
     }
 
+    @DisplayName("회원 조회 by 아이디 - 존재 하지 않는 아이디")
+    @Test
+    void findByInvalidId(){
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.findById(TEST_ID);
+        });
+    }
+
     private CreateMemberRequestView createRequestView() {
         return CreateMemberRequestView.builder()
                 .email(TEST_EMAIL)
