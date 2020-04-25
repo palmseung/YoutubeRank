@@ -1,4 +1,4 @@
-package com.palmseung.members.atdd;
+package com.palmseung.members.acceptancetest;
 
 import com.palmseung.AbstractAcceptanceTest;
 import com.palmseung.members.domain.MemberRole;
@@ -30,5 +30,19 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(response.getEmail()).isEqualTo(TEST_EMAIL);
         assertThat(response.getPassword()).contains("bcrypt");
         assertThat(response.getMemberRole()).isEqualTo(MemberRole.USER);
+    }
+
+    @DisplayName("회원 탈퇴")
+    @Test
+    public void unsubscribe() {
+        //given
+        Long id = memberHttpTest
+                .createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD)
+                .getResponseBody().getId();
+
+        //when, then
+        webTestClient.delete().uri(BASE_URI_USER_API + "/" + id)
+                .exchange()
+                .expectStatus().isNoContent();
     }
 }
