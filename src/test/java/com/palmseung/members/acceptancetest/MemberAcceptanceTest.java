@@ -22,8 +22,7 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void signUp() {
         //when
-        MemberResponseView response
-                = memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD).getResponseBody();
+        MemberResponseView response = createMember();
 
         //then
         assertThat(response.getId()).isEqualTo(1L);
@@ -36,13 +35,15 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void unsubscribe() {
         //given
-        Long id = memberHttpTest
-                .createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD)
-                .getResponseBody().getId();
+        Long id = createMember().getId();
 
         //when, then
         webTestClient.delete().uri(BASE_URI_USER_API + "/" + id)
                 .exchange()
                 .expectStatus().isNoContent();
+    }
+
+    private MemberResponseView createMember() {
+        return memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD).getResponseBody();
     }
 }

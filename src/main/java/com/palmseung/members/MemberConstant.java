@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 public class MemberConstant {
     public static final String BASE_URI_USER_API = "/api/members";
     public static final String BASE_URI_USER = "/members";
+    public static final String BASE_URI_LOGIN_API = "/api/login";
+
     public static final Long TEST_ID = 1l;
     public static final String TEST_EMAIL = "user@email.com";
     public static final String TEST_NAME = "user";
