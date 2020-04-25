@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.palmseung.Messages.WARNING_MEMBER_EXISTING_EMAIL;
-import static com.palmseung.Messages.WARNING_MEMBER_INVALID_MEMBER;
+import static com.palmseung.support.Messages.WARNING_MEMBER_EXISTING_EMAIL;
+import static com.palmseung.support.Messages.WARNING_MEMBER_INVALID_MEMBER;
 
 @RequiredArgsConstructor
 @Service

@@ -1,6 +1,6 @@
 package com.palmseung.members.domain;
 
-import com.palmseung.BaseTimeEntity;
+import com.palmseung.support.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.palmseung;
+package com.palmseung.support;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
