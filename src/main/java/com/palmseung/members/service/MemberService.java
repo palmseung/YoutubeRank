@@ -36,6 +36,13 @@ public class MemberService {
         memberRepository.delete(savedMember);
     }
 
+    public Member findByEmail(String email) {
+        Member savedMember = findMemberByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException(WARNING_MEMBER_INVALID_MEMBER));
+
+        return savedMember;
+    }
+
     private void validateEmail(String email) {
         Optional<Member> member = findMemberByEmail(email);
 
@@ -46,9 +53,5 @@ public class MemberService {
 
     private Optional<Member> findMemberByEmail(String email) {
         return memberRepository.findByEmail(email);
-    }
-
-    public Member findByEmail(String testEmail) {
-        return null;
     }
 }
