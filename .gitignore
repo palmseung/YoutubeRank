@@ -3,7 +3,7 @@
 *.iml
 *.ipr
 out/
-applicationToken.yml
+application.properties
 
 *.DS_Store
 # Project exclude paths
