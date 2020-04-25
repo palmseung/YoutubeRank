@@ -18,7 +18,7 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
         this.memberHttpTest = new MemberHttpTest(webTestClient);
     }
 
-    @DisplayName("회원_가입하기")
+    @DisplayName("회원 가입")
     @Test
     public void signUp() {
         //when
