@@ -21,7 +21,7 @@ import java.net.URI;
 public class ApiMemberController {
     private final MemberService memberService;
 
-    @PostMapping("/sign-up")
+    @PostMapping()
     public ResponseEntity create(@RequestBody CreateMemberRequestView request) {
         Member createdMember = memberService.create(request);
         MemberResponseView response = MemberResponseView.of(createdMember);

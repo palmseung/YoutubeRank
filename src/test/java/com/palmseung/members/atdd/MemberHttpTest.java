@@ -24,7 +24,7 @@ public class MemberHttpTest {
                 .build();
 
         return webTestClient
-                .post().uri(BASE_URI_USER_API + "/sign-up")
+                .post().uri(BASE_URI_USER_API)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(requestView), CreateMemberRequestView.class)
