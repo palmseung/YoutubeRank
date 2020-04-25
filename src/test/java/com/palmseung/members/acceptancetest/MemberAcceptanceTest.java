@@ -2,10 +2,13 @@ package com.palmseung.members.acceptancetest;
 
 import com.palmseung.AbstractAcceptanceTest;
 import com.palmseung.members.domain.MemberRole;
+import com.palmseung.members.dto.LoginRequestView;
 import com.palmseung.members.dto.MemberResponseView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import reactor.core.publisher.Mono;
 
 import static com.palmseung.members.MemberConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,6 +44,31 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
         webTestClient.delete().uri(BASE_URI_USER_API + "/" + id)
                 .exchange()
                 .expectStatus().isNoContent();
+    }
+
+    @DisplayName("로그인")
+    @Test
+    public void login() {
+        //given
+        createMember();
+        LoginRequestView requestView = createLoginRequest();
+
+        //when, then
+        webTestClient.post().uri(BASE_URI_LOGIN_API)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(requestView), LoginRequestView.class)
+                .exchange()
+                .expectStatus().isCreated()
+                .expectBody()
+                .jsonPath("$.accessToken").isNotEmpty()
+                .jsonPath("$.tokenType").isNotEmpty();
+    }
+
+    private LoginRequestView createLoginRequest() {
+        return LoginRequestView.builder()
+                .email(TEST_EMAIL)
+                .password(TEST_PASSWORD)
+                .build();
     }
 
     private MemberResponseView createMember() {
