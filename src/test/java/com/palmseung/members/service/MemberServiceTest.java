@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 public class MemberServiceTest {
     @InjectMocks
-    private MemberService memberService;
+    MemberService memberService;
 
     @Mock
     private MemberRepository memberRepository;
@@ -34,7 +34,7 @@ public class MemberServiceTest {
 
     @DisplayName("회원 가입 - 정상")
     @Test
-    public void create(){
+    public void create() {
         //given
         CreateMemberRequestView requestView = createRequestView();
 
@@ -87,6 +87,10 @@ public class MemberServiceTest {
     @DisplayName("회원 탈퇴 - 정상")
     @Test
     void delete() {
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+
+        //when, then
         assertThatCode(() -> {
             memberService.delete(TEST_MEMBER);
         }).doesNotThrowAnyException();
@@ -94,7 +98,7 @@ public class MemberServiceTest {
 
     @DisplayName("회원 탈퇴 - 가입 되지 않은 이메일")
     @Test
-    void deleteInvalidEmail(){
+    void deleteInvalidEmail() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             memberService.delete(TEST_MEMBER);
         });
