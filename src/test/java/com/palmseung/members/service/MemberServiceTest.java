@@ -84,6 +84,14 @@ public class MemberServiceTest {
         });
     }
 
+    @DisplayName("회원 탈퇴 - 정상")
+    @Test
+    void delete() {
+        assertThatCode(() -> {
+            memberService.delete(TEST_MEMBER);
+        }).doesNotThrowAnyException();
+    }
+
     private CreateMemberRequestView createRequestView() {
         return CreateMemberRequestView.builder()
                 .email(TEST_EMAIL)
