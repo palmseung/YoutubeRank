@@ -116,6 +116,14 @@ public class MemberServiceTest {
         assertThat(member).isEqualTo(TEST_MEMBER);
     }
 
+    @DisplayName("회원 조회 - 가입 되지 않은 이메일")
+    @Test
+    void findByInvalidEmail(){
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.findByEmail(TEST_EMAIL);
+        });
+    }
+
     private CreateMemberRequestView createRequestView() {
         return CreateMemberRequestView.builder()
                 .email(TEST_EMAIL)
