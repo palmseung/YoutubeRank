@@ -208,19 +208,18 @@ public class MemberServiceTest {
     void updateMemberInfoWhenLoginUserIsNotSame(Long id) {
         //given
         given(memberRepository.findById(1L)).willReturn(Optional.of(TEST_MEMBER));
-        Member updatedMember = Member.builder()
+        Member loginUser = Member.builder()
                 .id(id)
                 .email("newEmail")
                 .name(TEST_NAME)
                 .password(TEST_PASSWORD)
                 .build();
 
-        //when
+        //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> memberService.updateInfo(TEST_MEMBER, updatedMember))
+                .isThrownBy(() -> memberService.updateInfo(loginUser, TEST_MEMBER))
                 .withMessageContaining("authorize");
     }
-
 
     private Member createUpdateMember() {
         return Member.builder()
