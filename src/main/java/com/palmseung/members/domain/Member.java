@@ -1,5 +1,6 @@
 package com.palmseung.members.domain;
 
+import com.palmseung.members.dto.UpdateMemberRequestView;
 import com.palmseung.support.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.palmseung.support.Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE;
 
 @Getter
 @Entity(name = "member")
@@ -45,6 +48,15 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.roles = roles;
     }
 
+    public static Member of(UpdateMemberRequestView requestView) {
+        return Member.builder()
+                .id(requestView.getId())
+                .email(requestView.getEmail())
+                .name(requestView.getName())
+                .password(requestView.getPassword())
+                .build();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
@@ -75,5 +87,30 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void updatePassword(String newEncodedPassword) {
+        this.password = newEncodedPassword;
+    }
+
+    public void update(Member loginUser, Member updatedMember) {
+        if (!matchEmailAndId(loginUser)) {
+            throw new IllegalArgumentException(WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE);
+        }
+
+        this.name = updatedMember.getName();
+        this.password = updatedMember.getPassword();
+    }
+
+    private boolean matchEmailAndId(Member loginUser) {
+        return matchId(loginUser.getId()) && matchEmail(loginUser.getEmail());
+    }
+
+    private boolean matchEmail(String email) {
+        return this.email.equals(email);
+    }
+
+    private boolean matchId(Long id) {
+        return this.id.equals(id);
     }
 }
