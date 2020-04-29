@@ -58,6 +58,23 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(response.getTokenType()).isEqualTo("Bearer ");
     }
 
+    @DisplayName("회원 정보 조회")
+    @Test
+    public void retrieveMyInfo() {
+        //given
+        Long id = createMember().getId();
+        LoginResponseView responseView = doLogin();
+
+        //when, then
+        MemberResponseView response
+                = memberHttpTest.retrieveMyInfo(id, responseView).getResponseBody();
+
+        //then
+        assertThat(response.getEmail()).isEqualTo(TEST_EMAIL);
+        assertThat(response.getName()).isEqualTo(TEST_NAME);
+        assertThat(response.getPassword()).contains("bcrypt");
+    }
+
     private MemberResponseView createMember() {
         return memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD).getResponseBody();
     }
