@@ -140,7 +140,7 @@ public class MemberServiceTest {
 
     @DisplayName("회원 조회 by 아이디 - 존재 하지 않는 아이디")
     @Test
-    void findByInvalidId(){
+    void findByInvalidId() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             memberService.findById(TEST_ID);
         });
@@ -148,7 +148,7 @@ public class MemberServiceTest {
 
     @DisplayName("로그인 - 정상")
     @Test
-    void login(){
+    void login() {
         //given
         given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
         given(passwordEncoder.matches(any(), any())).willReturn(true);
@@ -163,7 +163,7 @@ public class MemberServiceTest {
 
     @DisplayName("로그인 - 비밀 번호 불일치")
     @Test
-    void loginWhenInvalidPassword(){
+    void loginWhenInvalidPassword() {
         //given
         given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
         given(passwordEncoder.matches(any(), any())).willReturn(false);
@@ -176,7 +176,7 @@ public class MemberServiceTest {
 
     @DisplayName("로그인 - 가입 되지 않은 사용자")
     @Test
-    void loginWhenInvalidMember(){
+    void loginWhenInvalidMember() {
         //given
         given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
 
@@ -185,8 +185,6 @@ public class MemberServiceTest {
             memberService.login(TEST_EMAIL, TEST_PASSWORD);
         }).isInstanceOf(UsernameNotFoundException.class);
     }
-
-
 
     private CreateMemberRequestView createRequestView() {
         return CreateMemberRequestView.builder()

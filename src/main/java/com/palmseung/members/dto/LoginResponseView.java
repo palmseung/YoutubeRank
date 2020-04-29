@@ -16,7 +16,7 @@ public class LoginResponseView {
         this.tokenType = tokenType;
     }
 
-    public static LoginResponseView of(String accessToken){
+    public static LoginResponseView of(String accessToken) {
         return new LoginResponseView(accessToken, AUTH_TOKEN_TYPE);
     }
 }
