@@ -6,6 +6,7 @@ import com.palmseung.members.dto.MemberResponseView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
 
 import static com.palmseung.members.MemberConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,6 +57,25 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
         //then
         assertThat(response.getAccessToken()).isNotEmpty();
         assertThat(response.getTokenType()).isEqualTo("Bearer ");
+    }
+
+    @DisplayName("회원 정보 조회")
+    @Test
+    public void retrieveMyInfo() {
+        //given
+        Long id = createMember().getId();
+        LoginResponseView responseView = doLogin();
+
+        //when, then
+        webTestClient.get().uri(BASE_URI_MY_INFO_API + "/" + id)
+                .header("Authorization", responseView.getAccessToken())
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.email").exists()
+                .jsonPath("$.password").exists()
+                .jsonPath("$.name").exists();
     }
 
     private MemberResponseView createMember() {
