@@ -53,4 +53,13 @@ public class ApiMemberController {
                 .created(URI.create("/oauth/token"))
                 .body(LoginResponseView.of(token));
     }
+
+    @GetMapping("/my-info/{id}")
+    public ResponseEntity<MemberResponseView> retrieveMyInfo(@PathVariable Long id) {
+        Member member = memberService.findById(id);
+
+        return ResponseEntity
+                .ok()
+                .body(MemberResponseView.of(member));
+    }
 }

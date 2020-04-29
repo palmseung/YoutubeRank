@@ -6,7 +6,6 @@ import com.palmseung.members.dto.MemberResponseView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
 
 import static com.palmseung.members.MemberConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,15 +66,13 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
         LoginResponseView responseView = doLogin();
 
         //when, then
-        webTestClient.get().uri(BASE_URI_MY_INFO_API + "/" + id)
-                .header("Authorization", responseView.getAccessToken())
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody()
-                .jsonPath("$.email").exists()
-                .jsonPath("$.password").exists()
-                .jsonPath("$.name").exists();
+        MemberResponseView response
+                = memberHttpTest.retrieveMyInfo(id, responseView).getResponseBody();
+
+        //then
+        assertThat(response.getEmail()).isEqualTo(TEST_EMAIL);
+        assertThat(response.getName()).isEqualTo(TEST_NAME);
+        assertThat(response.getPassword()).contains("bcrypt");
     }
 
     private MemberResponseView createMember() {
