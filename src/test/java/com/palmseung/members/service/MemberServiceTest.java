@@ -174,6 +174,20 @@ public class MemberServiceTest {
         }).isInstanceOf(UsernameNotFoundException.class);
     }
 
+    @DisplayName("로그인 - 가입 되지 않은 사용자")
+    @Test
+    void loginWhenInvalidMember(){
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+
+        //when, then
+        assertThatThrownBy(() -> {
+            memberService.login(TEST_EMAIL, TEST_PASSWORD);
+        }).isInstanceOf(UsernameNotFoundException.class);
+    }
+
+
+
     private CreateMemberRequestView createRequestView() {
         return CreateMemberRequestView.builder()
                 .email(TEST_EMAIL)
