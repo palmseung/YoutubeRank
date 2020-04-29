@@ -9,7 +9,6 @@ import com.palmseung.members.dto.MemberResponseView;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.support.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,19 +46,11 @@ public class ApiMemberController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseView> login(@RequestBody LoginRequestView request) {
-        Member member = memberService.findByEmail(request.getEmail());
-        boolean isMatch = passwordEncoder.matches(request.getPassword(), member.getPassword());
-
-        if (!isMatch) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .build();
-        }
-
+        Member member = memberService.login(request.getEmail(), request.getPassword());
         String token = jwtTokenProvider.createToken(member.getEmail());
-        LoginResponseView response = new LoginResponseView(token, "Bearer ");
+
         return ResponseEntity
                 .created(URI.create("/oauth/token"))
-                .body(response);
+                .body(LoginResponseView.of(token));
     }
 }

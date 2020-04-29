@@ -45,16 +45,10 @@ public class MemberService implements UserDetailsService {
                 .orElseThrow(() -> new IllegalArgumentException(WARNING_MEMBER_INVALID_MEMBER));
     }
 
-    private void validateEmail(String email) {
-        Optional<Member> member = findMemberByEmail(email);
-
-        if (member.isPresent()) {
-            throw new IllegalArgumentException(WARNING_MEMBER_EXISTING_EMAIL);
-        }
-    }
-
-    private Optional<Member> findMemberByEmail(String email) {
-        return memberRepository.findByEmail(email);
+    public Member login(String email, String password) {
+        return findMemberByEmail(email)
+                .filter(m -> passwordEncoder.matches(password, m.getPassword()))
+                .orElseThrow(() -> new UsernameNotFoundException(email));
     }
 
     @Override
@@ -66,5 +60,17 @@ public class MemberService implements UserDetailsService {
                 .password(member.getPassword())
                 .roles(Arrays.asList("ROLE_USER"))
                 .build();
+    }
+
+    private void validateEmail(String email) {
+        Optional<Member> member = findMemberByEmail(email);
+
+        if (member.isPresent()) {
+            throw new IllegalArgumentException(WARNING_MEMBER_EXISTING_EMAIL);
+        }
+    }
+
+    private Optional<Member> findMemberByEmail(String email) {
+        return memberRepository.findByEmail(email);
     }
 }
