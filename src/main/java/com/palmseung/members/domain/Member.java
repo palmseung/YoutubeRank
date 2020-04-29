@@ -2,6 +2,7 @@ package com.palmseung.members.domain;
 
 import com.palmseung.support.BaseTimeEntity;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@EqualsAndHashCode(of = {"id", "email"})
 @Entity(name = "member")
 public class Member extends BaseTimeEntity implements UserDetails {
     @Id
@@ -75,5 +77,13 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void updateName(String newName) {
+
+    }
+
+    public void updatePassword(String newPassword) {
+
     }
 }

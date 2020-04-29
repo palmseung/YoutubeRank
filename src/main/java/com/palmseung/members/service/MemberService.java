@@ -73,4 +73,8 @@ public class MemberService implements UserDetailsService {
     private Optional<Member> findMemberByEmail(String email) {
         return memberRepository.findByEmail(email);
     }
+
+    public Member updateInfo(Member testMember) {
+        return null;
+    }
 }

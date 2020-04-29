@@ -186,6 +186,21 @@ public class MemberServiceTest {
         }).isInstanceOf(UsernameNotFoundException.class);
     }
 
+    @DisplayName("사용자 정보 수정 - 정상")
+    @Test
+    void updateMemberInfo() {
+        //given
+        given(memberRepository.findById(TEST_ID)).willReturn(Optional.of(TEST_MEMBER));
+        TEST_MEMBER.updateName("newName");
+        TEST_MEMBER.updatePassword("newPassword");
+
+        //when
+        memberService.updateInfo(TEST_MEMBER);
+
+        //then
+        verify(memberRepository, times(1)).save(TEST_MEMBER);
+    }
+
     private CreateMemberRequestView createRequestView() {
         return CreateMemberRequestView.builder()
                 .email(TEST_EMAIL)

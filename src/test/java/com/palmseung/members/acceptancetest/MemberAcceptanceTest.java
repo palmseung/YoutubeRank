@@ -90,6 +90,7 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
                 .getResponseBody();
 
         //then
+        assertThat(responseBody.getId()).isEqualTo(id);
         assertThat(responseBody.getEmail()).isEqualTo(newName);
         assertThat(responseBody.getName()).isEqualTo(newPassword);
     }
