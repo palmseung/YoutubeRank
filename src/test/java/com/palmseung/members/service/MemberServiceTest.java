@@ -145,6 +145,21 @@ public class MemberServiceTest {
         });
     }
 
+    @DisplayName("로그인 - 정상")
+    @Test
+    void login(){
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+        given(passwordEncoder.matches(any(), any())).willReturn(true);
+
+        //when
+        Member member = memberService.login(TEST_EMAIL, TEST_PASSWORD);
+
+        //then
+        assertThat(member.getEmail()).isEqualTo(TEST_EMAIL);
+        assertThat(member.getPassword()).isEqualTo(TEST_PASSWORD);
+    }
+
     private CreateMemberRequestView createRequestView() {
         return CreateMemberRequestView.builder()
                 .email(TEST_EMAIL)
