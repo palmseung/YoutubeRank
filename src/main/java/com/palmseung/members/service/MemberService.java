@@ -54,8 +54,8 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     public Member updateInfo(Member loginUser, Member updatedMember) {
-        Member oldMember = findById(updatedMember.getId());
         updatedMember.updatePassword(passwordEncoder.encode(updatedMember.getPassword()));
+        Member oldMember = findById(updatedMember.getId());
         oldMember.update(loginUser, updatedMember);
         return memberRepository.save(oldMember);
     }
@@ -64,6 +64,7 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = findByEmail(email);
         return Member.builder()
+                .id(member.getId())
                 .email(member.getEmail())
                 .name(member.getName())
                 .password(member.getPassword())

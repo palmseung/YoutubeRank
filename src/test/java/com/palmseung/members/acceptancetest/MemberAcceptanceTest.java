@@ -6,6 +6,7 @@ import com.palmseung.members.dto.MemberResponseView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static com.palmseung.members.MemberConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -76,6 +77,7 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
     }
 
     @DisplayName("회원 정보 수정")
+    @WithMockUser(roles = "USER")
     @Test
     void updateMyInfo() {
         //given
@@ -86,13 +88,13 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
 
         //when
         MemberResponseView responseBody
-                = memberHttpTest.updateMyInfo(id, responseView, newName, newPassword)
+                = memberHttpTest.updateMyInfo(TEST_MEMBER, responseView, newName, newPassword)
                 .getResponseBody();
 
         //then
         assertThat(responseBody.getId()).isEqualTo(id);
-        assertThat(responseBody.getEmail()).isEqualTo(newName);
-        assertThat(responseBody.getName()).isEqualTo(newPassword);
+        assertThat(responseBody.getEmail()).isEqualTo(TEST_EMAIL);
+        assertThat(responseBody.getName()).isEqualTo(newName);
     }
 
     private MemberResponseView createMember() {

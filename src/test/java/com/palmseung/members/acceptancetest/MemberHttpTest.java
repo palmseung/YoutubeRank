@@ -1,5 +1,6 @@
 package com.palmseung.members.acceptancetest;
 
+import com.palmseung.members.domain.Member;
 import com.palmseung.members.dto.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
@@ -60,17 +61,18 @@ public class MemberHttpTest {
                 .returnResult();
     }
 
-    public EntityExchangeResult<MemberResponseView> updateMyInfo(Long id,
+    public EntityExchangeResult<MemberResponseView> updateMyInfo(Member loginUser,
                                                                  LoginResponseView responseView,
                                                                  String newName,
                                                                  String newPassword) {
         UpdateMemberRequestView requestView = UpdateMemberRequestView.builder()
-                .id(id)
+                .id(loginUser.getId())
+                .email(loginUser.getEmail())
                 .name(newName)
                 .password(newPassword)
                 .build();
 
-        return webTestClient.put().uri(BASE_URI_MY_INFO_API + "/" + id)
+        return webTestClient.put().uri(BASE_URI_MY_INFO_API + "/" + loginUser.getId())
                 .header("Authorization", responseView.getAccessToken())
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(requestView), UpdateMemberRequestView.class)

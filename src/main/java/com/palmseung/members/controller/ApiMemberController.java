@@ -2,16 +2,13 @@ package com.palmseung.members.controller;
 
 import com.palmseung.members.MemberConstant;
 import com.palmseung.members.domain.Member;
-import com.palmseung.members.dto.CreateMemberRequestView;
-import com.palmseung.members.dto.LoginRequestView;
-import com.palmseung.members.dto.LoginResponseView;
-import com.palmseung.members.dto.MemberResponseView;
+import com.palmseung.members.dto.*;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.support.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -21,7 +18,6 @@ import java.net.URI;
 @RequestMapping(value = MemberConstant.BASE_URI_MEMBER_API)
 public class ApiMemberController {
     private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping()
@@ -61,5 +57,21 @@ public class ApiMemberController {
         return ResponseEntity
                 .ok()
                 .body(MemberResponseView.of(member));
+    }
+
+    @PutMapping("/my-info/{id}")
+    public ResponseEntity<MemberResponseView> updateMyInfo(@RequestBody UpdateMemberRequestView requestView) {
+        Member updatedMember
+                = memberService.updateInfo(getLoginUser(), Member.of(requestView));
+
+        return ResponseEntity
+                .ok()
+                .body(MemberResponseView.of(updatedMember));
+    }
+
+    private Member getLoginUser() {
+        return (Member) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
     }
 }

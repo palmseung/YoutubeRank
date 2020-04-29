@@ -40,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .mvcMatchers("/", "/login", "/sign-up",
                         "/api/login", "/api/logout",
-                        "/api/members/login", "/api/members/my-info").permitAll()
+                        "/api/members/login").permitAll()
+                .mvcMatchers("/api/members/my-info/**").hasRole("USER")
                 .mvcMatchers(HttpMethod.POST, "/api/members").permitAll()
                 .anyRequest().authenticated();
 

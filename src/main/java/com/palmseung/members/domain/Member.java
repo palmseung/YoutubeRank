@@ -1,9 +1,8 @@
 package com.palmseung.members.domain;
 
+import com.palmseung.members.dto.UpdateMemberRequestView;
 import com.palmseung.support.BaseTimeEntity;
-import com.palmseung.support.Messages;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,8 +14,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.palmseung.support.Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE;
+
 @Getter
-@EqualsAndHashCode(of = {"id", "email"})
 @Entity(name = "member")
 public class Member extends BaseTimeEntity implements UserDetails {
     @Id
@@ -46,6 +46,15 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.name = name;
         this.password = password;
         this.roles = roles;
+    }
+
+    public static Member of(UpdateMemberRequestView requestView) {
+        return Member.builder()
+                .id(requestView.getId())
+                .email(requestView.getEmail())
+                .name(requestView.getName())
+                .password(requestView.getPassword())
+                .build();
     }
 
     @Override
@@ -89,11 +98,23 @@ public class Member extends BaseTimeEntity implements UserDetails {
     }
 
     public void update(Member loginUser, Member updatedMember) {
-        if(!this.equals(loginUser)){
-            throw new IllegalArgumentException(Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE);
+        if (!matchEmailAndId(loginUser)) {
+            throw new IllegalArgumentException(WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE);
         }
 
         this.name = updatedMember.getName();
         this.password = updatedMember.getPassword();
+    }
+
+    private boolean matchEmailAndId(Member loginUser){
+        return matchId(loginUser.getId()) && matchEmail(loginUser.getEmail());
+    }
+
+    private boolean matchEmail(String email) {
+        return this.email.equals(email);
+    }
+
+    private boolean matchId(Long id) {
+        return this.id.equals(id);
     }
 }
