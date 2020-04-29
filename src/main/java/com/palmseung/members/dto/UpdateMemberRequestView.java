@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class UpdateMemberRequestView {
+    private Long id;
     private String name;
     private String password;
 
@@ -12,7 +13,8 @@ public class UpdateMemberRequestView {
     }
 
     @Builder
-    public UpdateMemberRequestView(String name, String password) {
+    public UpdateMemberRequestView(Long id, String name, String password) {
+        this.id = id;
         this.name = name;
         this.password = password;
     }

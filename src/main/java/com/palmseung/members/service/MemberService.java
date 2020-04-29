@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -51,6 +52,14 @@ public class MemberService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(email));
     }
 
+    @Transactional
+    public Member updateInfo(Member loginUser, Member updatedMember) {
+        Member oldMember = findById(updatedMember.getId());
+        updatedMember.updatePassword(passwordEncoder.encode(updatedMember.getPassword()));
+        oldMember.update(loginUser, updatedMember);
+        return memberRepository.save(oldMember);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = findByEmail(email);
@@ -72,9 +81,5 @@ public class MemberService implements UserDetailsService {
 
     private Optional<Member> findMemberByEmail(String email) {
         return memberRepository.findByEmail(email);
-    }
-
-    public Member updateInfo(Member testMember) {
-        return null;
     }
 }

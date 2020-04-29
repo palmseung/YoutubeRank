@@ -191,14 +191,22 @@ public class MemberServiceTest {
     void updateMemberInfo() {
         //given
         given(memberRepository.findById(TEST_ID)).willReturn(Optional.of(TEST_MEMBER));
-        TEST_MEMBER.updateName("newName");
-        TEST_MEMBER.updatePassword("newPassword");
+        Member updatedMember = createUpdateMember();
 
         //when
-        memberService.updateInfo(TEST_MEMBER);
+        memberService.updateInfo(TEST_MEMBER, updatedMember);
 
         //then
         verify(memberRepository, times(1)).save(TEST_MEMBER);
+    }
+
+    private Member createUpdateMember() {
+        return Member.builder()
+                .id(TEST_ID)
+                .email(TEST_EMAIL)
+                .name("newName")
+                .password("newPassword")
+                .build();
     }
 
     private CreateMemberRequestView createRequestView() {

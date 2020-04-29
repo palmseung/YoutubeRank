@@ -65,6 +65,7 @@ public class MemberHttpTest {
                                                                  String newName,
                                                                  String newPassword) {
         UpdateMemberRequestView requestView = UpdateMemberRequestView.builder()
+                .id(id)
                 .name(newName)
                 .password(newPassword)
                 .build();

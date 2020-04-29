@@ -1,6 +1,7 @@
 package com.palmseung.members.domain;
 
 import com.palmseung.support.BaseTimeEntity;
+import com.palmseung.support.Messages;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -80,10 +81,19 @@ public class Member extends BaseTimeEntity implements UserDetails {
     }
 
     public void updateName(String newName) {
-
+        this.name = newName;
     }
 
-    public void updatePassword(String newPassword) {
+    public void updatePassword(String newEncodedPassword) {
+        this.password = newEncodedPassword;
+    }
 
+    public void update(Member loginUser, Member updatedMember) {
+        if(!this.equals(loginUser)){
+            throw new IllegalArgumentException(Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE);
+        }
+
+        this.name = updatedMember.getName();
+        this.password = updatedMember.getPassword();
     }
 }
