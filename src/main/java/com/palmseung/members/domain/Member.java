@@ -89,10 +89,6 @@ public class Member extends BaseTimeEntity implements UserDetails {
         return true;
     }
 
-    public void updateName(String newName) {
-        this.name = newName;
-    }
-
     public void updatePassword(String newEncodedPassword) {
         this.password = newEncodedPassword;
     }
@@ -106,7 +102,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.password = updatedMember.getPassword();
     }
 
-    private boolean matchEmailAndId(Member loginUser){
+    private boolean matchEmailAndId(Member loginUser) {
         return matchId(loginUser.getId()) && matchEmail(loginUser.getEmail());
     }
 
