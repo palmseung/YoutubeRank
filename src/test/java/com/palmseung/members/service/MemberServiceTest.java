@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
@@ -158,6 +159,19 @@ public class MemberServiceTest {
         //then
         assertThat(member.getEmail()).isEqualTo(TEST_EMAIL);
         assertThat(member.getPassword()).isEqualTo(TEST_PASSWORD);
+    }
+
+    @DisplayName("로그인 - 비밀 번호 불일치")
+    @Test
+    void loginWhenInvalidPassword(){
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+        given(passwordEncoder.matches(any(), any())).willReturn(false);
+
+        //when, then
+        assertThatThrownBy(() -> {
+            memberService.login(TEST_EMAIL, TEST_PASSWORD);
+        }).isInstanceOf(UsernameNotFoundException.class);
     }
 
     private CreateMemberRequestView createRequestView() {
