@@ -6,6 +6,8 @@ import com.palmseung.members.dto.CreateMemberRequestView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -199,6 +201,26 @@ public class MemberServiceTest {
         //then
         verify(memberRepository, times(1)).save(TEST_MEMBER);
     }
+
+    @DisplayName("사용자 정보 수정 - 로그인 유저와 변경 대상 유저 불일치")
+    @ParameterizedTest
+    @ValueSource(longs = {1L, 2L})
+    void updateMemberInfoWhenLoginUserIsNotSame(Long id) {
+        //given
+        given(memberRepository.findById(1L)).willReturn(Optional.of(TEST_MEMBER));
+        Member updatedMember = Member.builder()
+                .id(id)
+                .email("newEmail")
+                .name(TEST_NAME)
+                .password(TEST_PASSWORD)
+                .build();
+
+        //when
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> memberService.updateInfo(TEST_MEMBER, updatedMember))
+                .withMessageContaining("authorize");
+    }
+
 
     private Member createUpdateMember() {
         return Member.builder()
