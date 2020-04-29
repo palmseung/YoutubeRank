@@ -1,43 +1,41 @@
 package com.palmseung.members.dto;
 
 import com.palmseung.members.domain.Member;
-import com.palmseung.members.domain.MemberRole;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
-@NoArgsConstructor
 public class CreateMemberRequestView {
     private String email;
     private String name;
     private String password;
-    private MemberRole memberRole;
+    private List<String> roles = new ArrayList<>();
+
+    public CreateMemberRequestView() {
+    }
 
     @Builder
-    public CreateMemberRequestView(String email, String name, String password, MemberRole memberRole) {
+    public CreateMemberRequestView(String email, String name, String password, List<String> roles) {
         this.email = email;
         this.name = name;
         this.password = password;
-        this.memberRole = memberRole;
+        this.roles = roles;
     }
 
-    public CreateMemberRequestView changePassword(String encodedPassword){
+    public CreateMemberRequestView changePassword(String encodedPassword) {
         this.password = encodedPassword;
         return this;
     }
 
-    public CreateMemberRequestView assginRole(MemberRole memberRole){
-        this.memberRole = memberRole;
-        return this;
-    }
-
-    public Member toEntity(){
+    public Member toEntity() {
         return Member.builder()
                 .email(email)
                 .name(name)
                 .password(password)
-                .memberRole(memberRole)
+                .roles(roles)
                 .build();
     }
 }

@@ -2,39 +2,55 @@ package com.palmseung.members.controller;
 
 import com.palmseung.members.MemberConstant;
 import com.palmseung.members.domain.Member;
+import com.palmseung.members.dto.CreateMemberRequestView;
+import com.palmseung.members.dto.LoginRequestView;
+import com.palmseung.members.dto.LoginResponseView;
 import com.palmseung.members.dto.MemberResponseView;
 import com.palmseung.members.service.MemberService;
-import com.palmseung.members.dto.CreateMemberRequestView;
+import com.palmseung.support.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = MemberConstant.BASE_URI_USER_API)
+@RequestMapping(value = MemberConstant.BASE_URI_MEMBER_API)
 public class ApiMemberController {
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping()
-    public ResponseEntity create(@RequestBody CreateMemberRequestView request) {
+    public ResponseEntity<MemberResponseView> create(@RequestBody CreateMemberRequestView request) {
         Member createdMember = memberService.create(request);
         MemberResponseView response = MemberResponseView.of(createdMember);
 
         return ResponseEntity
-                .created(URI.create(MemberConstant.BASE_URI_USER_API + "/" + createdMember.getId()))
+                .created(URI.create(MemberConstant.BASE_URI_MEMBER_API + "/" + createdMember.getId()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity deleteById(@PathVariable Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MemberResponseView> deleteById(@PathVariable Long id) {
         memberService.delete(memberService.findById(id));
 
         return ResponseEntity
                 .noContent()
                 .build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseView> login(@RequestBody LoginRequestView request) {
+        Member member = memberService.login(request.getEmail(), request.getPassword());
+        String token = jwtTokenProvider.createToken(member.getEmail());
+
+        return ResponseEntity
+                .created(URI.create("/oauth/token"))
+                .body(LoginResponseView.of(token));
     }
 }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
@@ -139,10 +140,50 @@ public class MemberServiceTest {
 
     @DisplayName("회원 조회 by 아이디 - 존재 하지 않는 아이디")
     @Test
-    void findByInvalidId(){
+    void findByInvalidId() {
         assertThatIllegalArgumentException().isThrownBy(() -> {
             memberService.findById(TEST_ID);
         });
+    }
+
+    @DisplayName("로그인 - 정상")
+    @Test
+    void login() {
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+        given(passwordEncoder.matches(any(), any())).willReturn(true);
+
+        //when
+        Member member = memberService.login(TEST_EMAIL, TEST_PASSWORD);
+
+        //then
+        assertThat(member.getEmail()).isEqualTo(TEST_EMAIL);
+        assertThat(member.getPassword()).isEqualTo(TEST_PASSWORD);
+    }
+
+    @DisplayName("로그인 - 비밀 번호 불일치")
+    @Test
+    void loginWhenInvalidPassword() {
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+        given(passwordEncoder.matches(any(), any())).willReturn(false);
+
+        //when, then
+        assertThatThrownBy(() -> {
+            memberService.login(TEST_EMAIL, TEST_PASSWORD);
+        }).isInstanceOf(UsernameNotFoundException.class);
+    }
+
+    @DisplayName("로그인 - 가입 되지 않은 사용자")
+    @Test
+    void loginWhenInvalidMember() {
+        //given
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+
+        //when, then
+        assertThatThrownBy(() -> {
+            memberService.login(TEST_EMAIL, TEST_PASSWORD);
+        }).isInstanceOf(UsernameNotFoundException.class);
     }
 
     private CreateMemberRequestView createRequestView() {

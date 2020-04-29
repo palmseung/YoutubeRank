@@ -1,7 +1,7 @@
 package com.palmseung.members.acceptancetest;
 
 import com.palmseung.AbstractAcceptanceTest;
-import com.palmseung.members.domain.MemberRole;
+import com.palmseung.members.dto.LoginResponseView;
 import com.palmseung.members.dto.MemberResponseView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,27 +22,47 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
     @Test
     public void signUp() {
         //when
-        MemberResponseView response
-                = memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD).getResponseBody();
+        MemberResponseView response = createMember();
 
         //then
         assertThat(response.getId()).isEqualTo(1L);
         assertThat(response.getEmail()).isEqualTo(TEST_EMAIL);
         assertThat(response.getPassword()).contains("bcrypt");
-        assertThat(response.getMemberRole()).isEqualTo(MemberRole.USER);
     }
 
     @DisplayName("회원 탈퇴")
     @Test
     public void unsubscribe() {
         //given
-        Long id = memberHttpTest
-                .createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD)
-                .getResponseBody().getId();
+        Long id = createMember().getId();
+        LoginResponseView responseBody = doLogin();
 
         //when, then
-        webTestClient.delete().uri(BASE_URI_USER_API + "/" + id)
+        webTestClient.delete().uri(BASE_URI_MEMBER_API + "/" + id)
+                .header("Authorization", responseBody.getAccessToken())
                 .exchange()
                 .expectStatus().isNoContent();
+    }
+
+    @DisplayName("로그인")
+    @Test
+    public void login() {
+        //given
+        createMember();
+
+        //when
+        LoginResponseView response = doLogin();
+
+        //then
+        assertThat(response.getAccessToken()).isNotEmpty();
+        assertThat(response.getTokenType()).isEqualTo("Bearer ");
+    }
+
+    private MemberResponseView createMember() {
+        return memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD).getResponseBody();
+    }
+
+    private LoginResponseView doLogin() {
+        return memberHttpTest.login(TEST_EMAIL, TEST_PASSWORD).getResponseBody();
     }
 }
