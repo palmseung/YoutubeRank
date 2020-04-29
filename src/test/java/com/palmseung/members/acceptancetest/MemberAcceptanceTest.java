@@ -1,13 +1,11 @@
 package com.palmseung.members.acceptancetest;
 
 import com.palmseung.AbstractAcceptanceTest;
-import com.palmseung.members.dto.LoginRequestView;
+import com.palmseung.members.dto.LoginResponseView;
 import com.palmseung.members.dto.MemberResponseView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import reactor.core.publisher.Mono;
 
 import static com.palmseung.members.MemberConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,9 +35,11 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
     public void unsubscribe() {
         //given
         Long id = createMember().getId();
+        LoginResponseView responseBody = doLogin();
 
         //when, then
         webTestClient.delete().uri(BASE_URI_MEMBER_API + "/" + id)
+                .header("Authorization", responseBody.getAccessToken())
                 .exchange()
                 .expectStatus().isNoContent();
     }
@@ -49,27 +49,20 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
     public void login() {
         //given
         createMember();
-        LoginRequestView requestView = createLoginRequest();
 
-        //when, then
-        webTestClient.post().uri(BASE_URI_LOGIN_API)
-                .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(requestView), LoginRequestView.class)
-                .exchange()
-                .expectStatus().isCreated()
-                .expectBody()
-                .jsonPath("$.accessToken").isNotEmpty()
-                .jsonPath("$.tokenType").isNotEmpty();
-    }
+        //when
+        LoginResponseView response = doLogin();
 
-    private LoginRequestView createLoginRequest() {
-        return LoginRequestView.builder()
-                .email(TEST_EMAIL)
-                .password(TEST_PASSWORD)
-                .build();
+        //then
+        assertThat(response.getAccessToken()).isNotEmpty();
+        assertThat(response.getTokenType()).isEqualTo("Bearer ");
     }
 
     private MemberResponseView createMember() {
         return memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD).getResponseBody();
+    }
+
+    private LoginResponseView doLogin() {
+        return memberHttpTest.login(TEST_EMAIL, TEST_PASSWORD).getResponseBody();
     }
 }
