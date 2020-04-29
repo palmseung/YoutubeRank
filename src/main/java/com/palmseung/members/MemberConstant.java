@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MemberConstant {
-    public static final String BASE_URI_USER_API = "/api/members";
-    public static final String BASE_URI_USER = "/members";
+    public static final String BASE_URI_MEMBER_API = "/api/members";
+    public static final String BASE_URI_MEMBER = "/members";
     public static final String BASE_URI_LOGIN_API = "/api/login";
 
     public static final Long TEST_ID = 1l;

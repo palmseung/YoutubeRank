@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static com.palmseung.support.Messages.WARNING_MEMBER_EXISTING_EMAIL;
@@ -58,6 +59,12 @@ public class MemberService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return findByEmail(email);
+        Member member = findByEmail(email);
+        return Member.builder()
+                .email(member.getEmail())
+                .name(member.getName())
+                .password(member.getPassword())
+                .roles(Arrays.asList("ROLE_USER"))
+                .build();
     }
 }

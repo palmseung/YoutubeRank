@@ -39,7 +39,7 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
         Long id = createMember().getId();
 
         //when, then
-        webTestClient.delete().uri(BASE_URI_USER_API + "/" + id)
+        webTestClient.delete().uri(BASE_URI_MEMBER_API + "/" + id)
                 .exchange()
                 .expectStatus().isNoContent();
     }

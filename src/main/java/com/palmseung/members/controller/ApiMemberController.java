@@ -14,23 +14,23 @@ import java.net.URI;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = MemberConstant.BASE_URI_USER_API)
+@RequestMapping(value = MemberConstant.BASE_URI_MEMBER_API)
 public class ApiMemberController {
     private final MemberService memberService;
 
     @PostMapping()
-    public ResponseEntity create(@RequestBody CreateMemberRequestView request) {
+    public ResponseEntity<MemberResponseView> create(@RequestBody CreateMemberRequestView request) {
         Member createdMember = memberService.create(request);
         MemberResponseView response = MemberResponseView.of(createdMember);
 
         return ResponseEntity
-                .created(URI.create(MemberConstant.BASE_URI_USER_API + "/" + createdMember.getId()))
+                .created(URI.create(MemberConstant.BASE_URI_MEMBER_API + "/" + createdMember.getId()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity deleteById(@PathVariable Long id){
+    public ResponseEntity<MemberResponseView> deleteById(@PathVariable Long id){
         memberService.delete(memberService.findById(id));
 
         return ResponseEntity

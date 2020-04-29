@@ -54,12 +54,9 @@ public class JwtTokenProviderTest {
     @DisplayName("Jwt - 유효성 검증 (유효하지 않은 토큰)")
     @Test
     public void validateTokenValidityWhenInvalid() {
-        //given
-        String token = TEST_EMAIL;
-
         //when
-        assertThatIllegalArgumentException().isThrownBy(() -> {
-            jwtTokenProvider.isValidToken(token);
-        }).withMessageContaining("invalid");
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> jwtTokenProvider.isValidToken(TEST_EMAIL))
+                .withMessageContaining("token");
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static com.palmseung.members.MemberConstant.BASE_URI_USER_API;
+import static com.palmseung.members.MemberConstant.BASE_URI_MEMBER_API;
 
 public class MemberHttpTest {
     private WebTestClient webTestClient;
@@ -24,7 +24,7 @@ public class MemberHttpTest {
                 .build();
 
         return webTestClient
-                .post().uri(BASE_URI_USER_API)
+                .post().uri(BASE_URI_MEMBER_API)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(requestView), CreateMemberRequestView.class)
