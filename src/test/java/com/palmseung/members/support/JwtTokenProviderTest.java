@@ -1,22 +1,34 @@
 package com.palmseung.members.support;
 
 import com.palmseung.members.domain.Member;
+import com.palmseung.members.domain.MemberRepository;
 import com.palmseung.support.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Optional;
 
 import static com.palmseung.members.MemberConstant.TEST_EMAIL;
 import static com.palmseung.members.MemberConstant.TEST_MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.mockito.BDDMockito.given;
 
-@SpringBootTest(classes = JwtTokenProvider.class)
+@SpringBootTest
 public class JwtTokenProviderTest {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @MockBean
+    MemberRepository memberRepository;
 
     @DisplayName("Jwt - Access 토큰 생성")
     @Test
@@ -65,12 +77,13 @@ public class JwtTokenProviderTest {
 
     @DisplayName("Jwt - 토큰에서 Authentication 추출")
     @Test
-    public void extractAuthentication(){
+    public void extractAuthentication() {
         //given
         String token = jwtTokenProvider.createToken(TEST_EMAIL);
+        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
 
         //when
-        Authentication authentication = jwtTokenProvider.extractAuthentication(token);
+        Authentication authentication = jwtTokenProvider.getAuthentication(token);
 
         //then
         Member memberInToken = (Member) authentication.getPrincipal();

@@ -8,7 +8,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -24,10 +27,12 @@ import static com.palmseung.support.Messages.WARNING_JWT_INVALID_TOKEN;
 public class JwtTokenProvider {
     private String secretKey;
     private Long expireLength;
+    private UserDetailsService userDetailsService;
 
-    public JwtTokenProvider(ReadProperties readProperties) {
+    public JwtTokenProvider(ReadProperties readProperties, UserDetailsService userDetailsService) {
         this.secretKey = readProperties.getSecretKey();
         this.expireLength = readProperties.getExpireLength();
+        this.userDetailsService = userDetailsService;
     }
 
     @PostConstruct
@@ -67,12 +72,14 @@ public class JwtTokenProvider {
         return false;
     }
 
+    public Authentication getAuthentication(String token) {
+        String emailInToken = extractEmail(token);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(emailInToken);
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
+
     private Date getExpirationFromToken(String token) {
         Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
         return claims.getBody().getExpiration();
-    }
-
-    public Authentication extractAuthentication(String token) {
-        return null;
     }
 }
