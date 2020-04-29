@@ -1,9 +1,6 @@
 package com.palmseung.members.acceptancetest;
 
-import com.palmseung.members.dto.CreateMemberRequestView;
-import com.palmseung.members.dto.LoginRequestView;
-import com.palmseung.members.dto.LoginResponseView;
-import com.palmseung.members.dto.MemberResponseView;
+import com.palmseung.members.dto.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -53,10 +50,29 @@ public class MemberHttpTest {
                 .returnResult();
     }
 
-    public EntityExchangeResult<MemberResponseView> retrieveMyInfo(Long id, LoginResponseView responseView){
+    public EntityExchangeResult<MemberResponseView> retrieveMyInfo(Long id, LoginResponseView responseView) {
         return webTestClient.get().uri(BASE_URI_MY_INFO_API + "/" + id)
                 .header("Authorization", responseView.getAccessToken())
                 .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(MemberResponseView.class)
+                .returnResult();
+    }
+
+    public EntityExchangeResult<MemberResponseView> updateMyInfo(Long id,
+                                                                 LoginResponseView responseView,
+                                                                 String newName,
+                                                                 String newPassword) {
+        UpdateMemberRequestView requestView = UpdateMemberRequestView.builder()
+                .name(newName)
+                .password(newPassword)
+                .build();
+
+        return webTestClient.put().uri(BASE_URI_MY_INFO_API + "/" + id)
+                .header("Authorization", responseView.getAccessToken())
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(requestView), UpdateMemberRequestView.class)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(MemberResponseView.class)

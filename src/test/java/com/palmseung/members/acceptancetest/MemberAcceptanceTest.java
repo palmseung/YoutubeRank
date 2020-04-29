@@ -75,6 +75,25 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(response.getPassword()).contains("bcrypt");
     }
 
+    @DisplayName("회원 정보 수정")
+    @Test
+    void updateMyInfo() {
+        //given
+        Long id = createMember().getId();
+        LoginResponseView responseView = doLogin();
+        String newName = "newName";
+        String newPassword = "newPassword";
+
+        //when
+        MemberResponseView responseBody
+                = memberHttpTest.updateMyInfo(id, responseView, newName, newPassword)
+                .getResponseBody();
+
+        //then
+        assertThat(responseBody.getEmail()).isEqualTo(newName);
+        assertThat(responseBody.getName()).isEqualTo(newPassword);
+    }
+
     private MemberResponseView createMember() {
         return memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD).getResponseBody();
     }
