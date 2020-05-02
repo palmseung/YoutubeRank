@@ -4,13 +4,10 @@ import com.palmseung.keyword.domain.Keyword;
 import com.palmseung.keyword.domain.KeywordRepository;
 import com.palmseung.keyword.domain.MyKeyword;
 import com.palmseung.keyword.domain.MyKeywordRepository;
-import com.palmseung.keyword.service.KeywordService;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.member.dto.CreateMemberRequestView;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,9 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.palmseung.support.Messages.WARNING_MEMBER_EXISTING_EMAIL;
 import static com.palmseung.support.Messages.WARNING_MEMBER_INVALID_MEMBER;
@@ -77,14 +72,6 @@ public class MemberService implements UserDetailsService {
         Keyword savedKeyword = keywordRepository.save(keyword);
         myKeywordRepository.save(MyKeyword.builder().member(member).keyword(savedKeyword).build());
         savedMember.addKeyword(savedKeyword);
-    }
-
-    @Transactional
-    public List<Keyword> findAllKeywords(Member member) {
-        List<MyKeyword> allMyKeywords = myKeywordRepository.findAllByMember(member);
-        return allMyKeywords.stream()
-                .map(MyKeyword::getKeyword)
-                .collect(Collectors.toList());
     }
 
     @Override

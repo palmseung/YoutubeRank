@@ -4,7 +4,6 @@ import com.palmseung.keyword.domain.Keyword;
 import com.palmseung.keyword.domain.KeywordRepository;
 import com.palmseung.keyword.domain.MyKeyword;
 import com.palmseung.keyword.domain.MyKeywordRepository;
-import com.palmseung.keyword.service.KeywordService;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.member.dto.CreateMemberRequestView;
@@ -21,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static com.palmseung.member.MemberConstant.*;
@@ -36,9 +34,6 @@ import static org.mockito.Mockito.verify;
 public class MemberServiceTest {
     @InjectMocks
     MemberService memberService;
-
-    @Mock
-    KeywordService keywordService;
 
     @Mock
     MyKeywordRepository myKeywordRepository;
@@ -255,24 +250,6 @@ public class MemberServiceTest {
         assertThat(member.getKeywords()).contains(keyword);
         verify(keywordRepository, times(1)).save(any());
         verify(myKeywordRepository, times(1)).save(any(MyKeyword.class));
-    }
-
-    @DisplayName("회원 - 키워드 목록 조회")
-    @Test
-    void retrieveKeywords() {
-        //given
-        Keyword keyword1 = new Keyword(1l, "queendom");
-        Keyword keyword2 = new Keyword(2l, "(g)idle");
-        Member member = createMember();
-        member.addKeyword(keyword1);
-        member.addKeyword(keyword2);
-        given(memberRepository.findByEmail(member.getEmail())).willReturn(Optional.of(member));
-
-        //when
-        List<Keyword> allKeywords = memberService.findAllKeywords(member);
-
-        //then
-        assertThat(allKeywords).hasSize(2);
     }
 
     private Member createMember() {
