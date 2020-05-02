@@ -19,6 +19,7 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.palmseung.support.Messages.WARNING_MEMBER_EXISTING_EMAIL;
 import static com.palmseung.support.Messages.WARNING_MEMBER_INVALID_MEMBER;
@@ -113,6 +114,9 @@ public class MemberService implements UserDetailsService {
     }
 
     public List<Keyword> findAllKeywords(Member member) {
-        return null;
+        List<MyKeyword> allMyKeywords= myKeywordRepository.findAllByMemberId(member.getId());
+        return allMyKeywords.stream()
+                .map(MyKeyword::getKeyword)
+                .collect(Collectors.toList());
     }
 }

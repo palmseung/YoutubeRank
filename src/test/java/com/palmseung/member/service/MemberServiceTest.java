@@ -262,7 +262,8 @@ public class MemberServiceTest {
         Keyword keyword2 = new Keyword(2l, "(g)idle");
         MyKeyword myKeyword1 = new MyKeyword(1l, member, keyword1);
         MyKeyword myKeyword2 = new MyKeyword(2l, member, keyword2);
-        given(myKeywordRepository.findAllByMember(member)).willReturn(Arrays.asList(myKeyword1, myKeyword2));
+        given(myKeywordRepository.findAllByMemberId(member.getId()))
+                .willReturn(Arrays.asList(myKeyword1, myKeyword2));
 
         //when
         List<Keyword> allKeywords = memberService.findAllKeywords(member);
