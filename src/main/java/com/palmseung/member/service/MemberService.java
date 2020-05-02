@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.security.Key;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static com.palmseung.support.Messages.WARNING_MEMBER_EXISTING_EMAIL;
@@ -109,5 +110,9 @@ public class MemberService implements UserDetailsService {
 
     private Optional<Member> findMemberByEmail(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    public List<Keyword> findAllKeywords(Member member) {
+        return null;
     }
 }

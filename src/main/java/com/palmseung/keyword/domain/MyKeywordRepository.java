@@ -8,6 +8,5 @@ import java.util.List;
 
 @Transactional
 public interface MyKeywordRepository extends JpaRepository<MyKeyword, Long> {
-
     List<MyKeyword> findAllByMember(Member member);
 }
