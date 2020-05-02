@@ -7,7 +7,6 @@ import com.palmseung.keyword.domain.MyKeywordRepository;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.member.dto.CreateMemberRequestView;
-import com.palmseung.support.Messages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,7 +18,6 @@ import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.palmseung.support.Messages.*;
 
@@ -78,22 +76,23 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public List<Keyword> findAllKeywords(Member member) {
-        List<MyKeyword> allMyKeywords = myKeywordRepository.findAllByMemberId(member.getId());
-        return allMyKeywords.stream()
-                .map(MyKeyword::getKeyword)
-                .collect(Collectors.toList());
+    public List<MyKeyword> findAllKeywords(Member member) {
+        return myKeywordRepository.findAllByMemberId(member.getId());
     }
 
     public void deleteMyKeywordById(Member loginUser, Long id) {
         MyKeyword myKeyword = myKeywordRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(WARNING_MYKEYWORD_INVALID_MYKEYWORD));
 
-        if(!loginUser.equals(myKeyword.getMember())){
+        if (!loginUser.equals(myKeyword.getMember())) {
             throw new IllegalArgumentException(WARNING_MYKEYWORD_UNAUTHORIZED_TO_DELETE);
         }
 
         myKeywordRepository.deleteById(id);
+    }
+
+    public Optional<MyKeyword> findMyKeywordById(Long id) {
+        return myKeywordRepository.findById(id);
     }
 
     @Override

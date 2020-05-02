@@ -4,12 +4,14 @@ import com.palmseung.keyword.domain.Keyword;
 import com.palmseung.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@NoArgsConstructor
 @Getter
 public class MemberResponseView {
     private Long id;
@@ -18,9 +20,6 @@ public class MemberResponseView {
     private String password;
     private Collection<? extends GrantedAuthority> roles;
     private List<Keyword> keywords = new ArrayList<>();
-
-    public MemberResponseView() {
-    }
 
     @Builder
     public MemberResponseView(Long id, String email, String name, String password,

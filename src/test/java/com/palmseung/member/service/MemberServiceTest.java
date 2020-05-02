@@ -266,7 +266,7 @@ public class MemberServiceTest {
                 .willReturn(Arrays.asList(myKeyword1, myKeyword2));
 
         //when
-        List<Keyword> allKeywords = memberService.findAllKeywords(member);
+        List<MyKeyword> allKeywords = memberService.findAllKeywords(member);
 
         //then
         assertThat(allKeywords).hasSize(2);

@@ -2,16 +2,15 @@ package com.palmseung.member.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class UpdateMemberRequestView {
     private Long id;
     private String email;
     private String name;
     private String password;
-
-    public UpdateMemberRequestView() {
-    }
 
     @Builder
     public UpdateMemberRequestView(Long id, String email, String name, String password) {

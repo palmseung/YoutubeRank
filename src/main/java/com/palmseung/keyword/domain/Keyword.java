@@ -2,12 +2,14 @@ package com.palmseung.keyword.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@NoArgsConstructor
 @Getter
 @Entity
 public class Keyword {
@@ -21,9 +23,6 @@ public class Keyword {
 
     @OneToMany(mappedBy = "keyword")
     private List<MyKeyword> myKeywords = new ArrayList<>();
-
-    public Keyword() {
-    }
 
     @Builder
     public Keyword(Long id, String keyword) {

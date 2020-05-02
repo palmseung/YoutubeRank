@@ -36,11 +36,11 @@ public class KeywordAcceptanceTest extends AbstractAcceptanceTest {
         String keyword = "queendom";
 
         //when
-        MyKeywordResponseView responseViews = keywordHttpTest.addMyKeyword(keyword, accessToken);
+        MyKeywordResponseView responseView = keywordHttpTest.addMyKeyword(keyword, accessToken);
 
         //then
-        assertThat(responseViews.getId()).isEqualTo(1l);
-        assertThat(responseViews.getKeyword()).isEqualTo("queendom");
+        assertThat(responseView.getId()).isNotNull();
+        assertThat(responseView.getKeyword()).isEqualTo("queendom");
     }
 
     @DisplayName("My Keyword 목록 조회")
@@ -70,14 +70,13 @@ public class KeywordAcceptanceTest extends AbstractAcceptanceTest {
         MyKeywordResponseView responseView = keywordHttpTest.addMyKeyword("queendom", accessToken);
 
         //when
-        webTestClient.delete().uri(BASE_URI_KEYWORD_API + "/" + responseView.getKeyword())
+        webTestClient.delete().uri(BASE_URI_KEYWORD_API + "/" + responseView.getId())
                 .header("Authorization", accessToken)
-                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk();
 
         //then
-        webTestClient.delete().uri(BASE_URI_KEYWORD_API + "/" + responseView.getKeyword())
+        webTestClient.delete().uri(BASE_URI_KEYWORD_API + "/" + responseView.getId())
                 .header("Authorization", accessToken)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()

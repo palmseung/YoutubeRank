@@ -27,18 +27,31 @@ public class ApiKeywordController {
 
         return ResponseEntity
                 .ok()
-                .body(MyKeywordResponseView.builder()
-                        .myKeywordId(myKeyword.getId())
-                        .keyword(myKeyword.getKeyword().getKeyword()));
+                .body(MyKeywordResponseView.of(myKeyword));
     }
 
     @GetMapping
     public ResponseEntity findAllMyKeywords() {
-        List<Keyword> allKeywords = memberService.findAllKeywords(getLoginUser());
+        List<MyKeyword> allKeywords = memberService.findAllKeywords(getLoginUser());
 
         return ResponseEntity
                 .ok()
                 .body(MyKeywordResponseView.listOf(allKeywords));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity removeMyKeyword(@PathVariable Long id) {
+        if (memberService.findMyKeywordById(id).isPresent()) {
+            memberService.deleteMyKeywordById(getLoginUser(), id);
+
+            return ResponseEntity
+                    .ok()
+                    .build();
+        }
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 
     private Member getLoginUser() {

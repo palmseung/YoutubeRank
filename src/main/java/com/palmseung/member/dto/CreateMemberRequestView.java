@@ -25,7 +25,7 @@ public class CreateMemberRequestView {
         this.roles = roles;
     }
 
-    public static CreateMemberRequestView of(Member member){
+    public static CreateMemberRequestView of(Member member) {
         return CreateMemberRequestView.builder()
                 .email(member.getEmail())
                 .name(member.getName())
