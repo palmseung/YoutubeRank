@@ -11,6 +11,7 @@ public class KeywordService {
     private final KeywordRepository keywordRepository;
 
     public Keyword create(Keyword keyword) {
-        return keywordRepository.save(keyword);
+        return keywordRepository.findByKeyword(keyword.getKeyword())
+                .orElseGet(() -> keywordRepository.save(keyword));
     }
 }
