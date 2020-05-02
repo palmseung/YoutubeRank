@@ -271,6 +271,22 @@ public class MemberServiceTest {
         assertThat(myKeywordByMyKeywordId.getMember()).isEqualTo(member);
     }
 
+    @DisplayName("회원 - 나의 키워드 조회 (등록 유저와 로그인 유저 불일치)")
+    @Test
+    void findMyKeywordWhenLoginUserIsNotRegisterUser() {
+        //given
+        Member member = createMember();
+        Member anotherMember = createAnotherMember();
+        Keyword keyword = new Keyword(1l, "queendom");
+        MyKeyword myKeyword = new MyKeyword(1l, member, keyword);
+        given(myKeywordRepository.findById(myKeyword.getId())).willReturn(Optional.of(myKeyword));
+
+        //when, then
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.findMyKeywordByMyKeywordId(anotherMember, myKeyword.getId());
+        }).withMessageContaining("authorize");
+    }
+
     @DisplayName("회원 - 나의 키워드 목록 조회")
     @Test
     void findAllMyKeywords() {
