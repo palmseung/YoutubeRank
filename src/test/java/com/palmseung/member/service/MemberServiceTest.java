@@ -266,10 +266,46 @@ public class MemberServiceTest {
                 .willReturn(Arrays.asList(myKeyword1, myKeyword2));
 
         //when
-        List<Keyword> allKeywords = memberService.findAllKeywords(member);
+        List<MyKeyword> allKeywords = memberService.findAllKeywords(member);
 
         //then
         assertThat(allKeywords).hasSize(2);
+    }
+
+    @DisplayName("회원 - 나의 키워드 삭제")
+    @Test
+    void deleteMyKeyword() {
+        //given
+        Member member = createMember();
+        Keyword keyword = new Keyword(1l, "queendom");
+        MyKeyword myKeyword = new MyKeyword(1l, member, keyword);
+        given(myKeywordRepository.findById(1l)).willReturn(Optional.of(myKeyword));
+
+        //when
+        memberService.deleteMyKeywordById(member, myKeyword.getId());
+
+        //then
+        verify(myKeywordRepository, times(1)).deleteById(myKeyword.getId());
+    }
+
+    @DisplayName("회원 - 나의 키워드 삭제 (로그인 유저와 등록 유저 불일치)")
+    @Test
+    void deleteMyKeywordWhenRegisterUserIsNotLoginUser() {
+        //given
+        Member member = createMember();
+        Member anotherMember = createAnotherMember();
+        Keyword keyword = new Keyword(1l, "queendom");
+        MyKeyword myKeyword = new MyKeyword(1l, member, keyword);
+        given(myKeywordRepository.findById(1l)).willReturn(Optional.of(myKeyword));
+
+        //when, then
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.deleteMyKeywordById(anotherMember, myKeyword.getId());
+        }).withMessageContaining("authorize");
+    }
+
+    private Member createAnotherMember() {
+        return new Member(2L, "shu@email.com", "shu", "password", Arrays.asList("ROLE_USER"));
     }
 
     private Member createMember() {

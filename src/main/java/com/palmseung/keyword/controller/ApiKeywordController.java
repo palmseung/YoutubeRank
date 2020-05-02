@@ -1,7 +1,8 @@
 package com.palmseung.keyword.controller;
 
 import com.palmseung.keyword.domain.Keyword;
-import com.palmseung.keyword.dto.KeywordResponseView;
+import com.palmseung.keyword.domain.MyKeyword;
+import com.palmseung.keyword.dto.MyKeywordResponseView;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -21,21 +22,36 @@ public class ApiKeywordController {
 
     @PostMapping
     public ResponseEntity addKeyword(@RequestBody String keyword) {
-        memberService.addKeyword(getLoginUser(), Keyword.builder().keyword(keyword).build());
-        Member member = memberService.findByEmail(getLoginUser().getEmail());
+        MyKeyword myKeyword
+                = memberService.addKeyword(getLoginUser(), Keyword.builder().keyword(keyword).build());
 
         return ResponseEntity
                 .ok()
-                .body(KeywordResponseView.listOf(member.getKeywords()));
+                .body(MyKeywordResponseView.of(myKeyword));
     }
 
     @GetMapping
     public ResponseEntity findAllMyKeywords() {
-        List<Keyword> allKeywords = memberService.findAllKeywords(getLoginUser());
+        List<MyKeyword> allKeywords = memberService.findAllKeywords(getLoginUser());
 
         return ResponseEntity
                 .ok()
-                .body(KeywordResponseView.listOf(allKeywords));
+                .body(MyKeywordResponseView.listOf(allKeywords));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity removeMyKeyword(@PathVariable Long id) {
+        if (memberService.findMyKeywordById(id).isPresent()) {
+            memberService.deleteMyKeywordById(getLoginUser(), id);
+
+            return ResponseEntity
+                    .ok()
+                    .build();
+        }
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 
     private Member getLoginUser() {
