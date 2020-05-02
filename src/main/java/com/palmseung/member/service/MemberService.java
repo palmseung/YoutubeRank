@@ -64,15 +64,16 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public void addKeyword(Member member, Keyword keyword) {
+    public Keyword addKeyword(Member member, Keyword keyword) {
         Keyword savedKeyword = keywordService.create(keyword);
         Member savedMember = memberRepository.findByEmail(member.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
         savedMember.addKeyword(savedKeyword);
+        return savedKeyword;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         Member member = findByEmail(email);
         return Member.builder()
                 .id(member.getId())

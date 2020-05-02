@@ -39,7 +39,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "mykeyword_id")
+    @OneToMany(mappedBy = "member")
     private List<MyKeyword> myKeywords = new ArrayList<>();
 
     public Member() {

@@ -1,11 +1,14 @@
 package com.palmseung.member.dto;
 
+import com.palmseung.keyword.domain.Keyword;
 import com.palmseung.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 public class MemberResponseView {
@@ -14,18 +17,20 @@ public class MemberResponseView {
     private String name;
     private String password;
     private Collection<? extends GrantedAuthority> roles;
+    private List<Keyword> keywords = new ArrayList<>();
 
     public MemberResponseView() {
     }
 
     @Builder
     public MemberResponseView(Long id, String email, String name, String password,
-                              Collection<? extends GrantedAuthority> roles) {
+                              Collection<? extends GrantedAuthority> roles, List<Keyword> keywords) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.roles = roles;
+        this.keywords = keywords;
     }
 
     public static MemberResponseView of(Member member) {

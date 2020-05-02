@@ -20,7 +20,7 @@ public class Keyword implements Serializable {
     @Column(nullable = false)
     private String keyword;
 
-    @OneToMany(mappedBy = "mykeyword_id")
+    @OneToMany(mappedBy = "keyword")
     private List<MyKeyword> myKeywords = new ArrayList<>();
 
     @Builder
