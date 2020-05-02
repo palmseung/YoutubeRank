@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.security.Key;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -69,8 +70,8 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public void addKeyword(Member member, Keyword keyword) {
         Member savedMember = memberRepository.findByEmail(member.getEmail()).orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
-        Keyword savedKeyword = keywordRepository.save(keyword);
-        myKeywordRepository.save(MyKeyword.builder().member(member).keyword(savedKeyword).build());
+        Keyword savedKeyword = saveKeyword(keyword);
+        myKeywordRepository.save(buildMyKeyword(member, savedKeyword));
         savedMember.addKeyword(savedKeyword);
     }
 
@@ -84,7 +85,18 @@ public class MemberService implements UserDetailsService {
                 .password(member.getPassword())
                 .roles(Arrays.asList("ROLE_USER"))
                 .build();
+    }
 
+    private MyKeyword buildMyKeyword(Member member, Keyword keyword){
+        return MyKeyword.builder()
+                .member(member)
+                .keyword(keyword)
+                .build();
+    }
+
+    private Keyword saveKeyword(Keyword keyword){
+        return keywordRepository.findByKeyword(keyword.getKeyword())
+                .orElseGet(() -> keywordRepository.save(keyword));
     }
 
     private void validateEmail(String email) {
