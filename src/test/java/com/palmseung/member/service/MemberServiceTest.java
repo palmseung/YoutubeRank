@@ -288,6 +288,27 @@ public class MemberServiceTest {
         verify(myKeywordRepository, times(1)).deleteById(myKeyword.getId());
     }
 
+    @DisplayName("회원 - 나의 키워드 삭제 (로그인 유저와 등록 유저 불일치)")
+    @Test
+    void deleteMyKeywordWhenRegisterUserIsNotLoginUser() {
+        //given
+        Member member = createMember();
+        Member anotherMember = createAnotherMember();
+        Keyword keyword = new Keyword(1l, "queendom");
+        MyKeyword myKeyword = new MyKeyword(1l, member, keyword);
+        given(myKeywordRepository.findById(1l)).willReturn(Optional.of(myKeyword));
+
+        //when, then
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.deleteMyKeywordById(anotherMember, myKeyword.getId());
+        }).withMessageContaining("unauthorized");
+    }
+
+
+    private Member createAnotherMember() {
+        return new Member(2L, "shu@email.com", "shu", "password", Arrays.asList("ROLE_USER"));
+    }
+
     private Member createMember() {
         return new Member(1L, "sjsj@email.com", "soojin", "password", Arrays.asList("ROLE_USER"));
     }
