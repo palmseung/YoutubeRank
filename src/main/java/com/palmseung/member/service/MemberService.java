@@ -80,6 +80,7 @@ public class MemberService implements UserDetailsService {
         return myKeywordRepository.findAllByMemberId(member.getId());
     }
 
+    @Transactional
     public void deleteMyKeywordById(Member loginUser, Long id) {
         MyKeyword myKeyword = myKeywordRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(WARNING_MYKEYWORD_INVALID_MYKEYWORD));
@@ -93,6 +94,18 @@ public class MemberService implements UserDetailsService {
 
     public Optional<MyKeyword> findMyKeywordById(Long id) {
         return myKeywordRepository.findById(id);
+    }
+
+    @Transactional
+    public MyKeyword findMyKeywordByMyKeywordId(Member loginUser, Long id) {
+        MyKeyword myKeyword = findMyKeywordById(id)
+                .orElseThrow(() -> new IllegalArgumentException(WARNING_MYKEYWORD_INVALID_MYKEYWORD));
+
+        if (!loginUser.equals(myKeyword.getMember())) {
+            throw new IllegalArgumentException(WARNING_MYKEYWORD_UNAUTHORIZED_TO_READ);
+        }
+
+        return myKeyword;
     }
 
     @Override

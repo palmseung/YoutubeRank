@@ -43,6 +43,20 @@ public class KeywordAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(responseView.getKeyword()).isEqualTo("queendom");
     }
 
+    @DisplayName("My keyword 조회")
+    @Test
+    public void retrieveMyKeyword() {
+        //given
+        MyKeywordResponseView responseView = keywordHttpTest.addMyKeyword("queendom", accessToken);
+
+        //when
+        MyKeywordResponseView response = keywordHttpTest.findMyKeyword(responseView.getId(), accessToken);
+
+        //then
+        assertThat(response.getId()).isEqualTo(responseView.getId());
+        assertThat(response.getKeyword()).isEqualTo(responseView.getKeyword());
+    }
+
     @DisplayName("My Keyword 목록 조회")
     @Test
     public void retrieveAllMyKeywords() {
@@ -51,13 +65,7 @@ public class KeywordAcceptanceTest extends AbstractAcceptanceTest {
         keywordHttpTest.addMyKeyword("(g)idle", accessToken);
 
         //when
-        List<MyKeywordResponseView> responseViews = webTestClient.get().uri(BASE_URI_KEYWORD_API)
-                .header("Authorization", accessToken)
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectBodyList(MyKeywordResponseView.class)
-                .returnResult().getResponseBody();
+        List<MyKeywordResponseView> responseViews = keywordHttpTest.findAllMyKeyword(accessToken);
 
         //then
         assertThat(responseViews).hasSize(2);

@@ -30,6 +30,15 @@ public class ApiKeywordController {
                 .body(MyKeywordResponseView.of(myKeyword));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity findMyKeyword(@PathVariable Long id) {
+        MyKeyword myKeywordByMyKeywordId = memberService.findMyKeywordByMyKeywordId(getLoginUser(), id);
+
+        return ResponseEntity
+                .ok()
+                .body(MyKeywordResponseView.of(myKeywordByMyKeywordId));
+    }
+
     @GetMapping
     public ResponseEntity findAllMyKeywords() {
         List<MyKeyword> allKeywords = memberService.findAllKeywords(getLoginUser());
