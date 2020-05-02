@@ -80,6 +80,7 @@ public class MemberService implements UserDetailsService {
         return myKeywordRepository.findAllByMemberId(member.getId());
     }
 
+    @Transactional
     public void deleteMyKeywordById(Member loginUser, Long id) {
         MyKeyword myKeyword = myKeywordRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(WARNING_MYKEYWORD_INVALID_MYKEYWORD));
@@ -129,5 +130,9 @@ public class MemberService implements UserDetailsService {
 
     private Optional<Member> findMemberByEmail(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    public MyKeyword findMyKeywordByMyKeywordId(Member member, Long id) {
+        return null;
     }
 }
