@@ -1,6 +1,7 @@
 package com.palmseung.member.service;
 
 import com.palmseung.keyword.domain.Keyword;
+import com.palmseung.keyword.service.KeywordService;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.member.dto.CreateMemberRequestView;
@@ -23,6 +24,7 @@ import static com.palmseung.support.Messages.WARNING_MEMBER_INVALID_MEMBER;
 public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final KeywordService keywordService;
 
     public Member create(CreateMemberRequestView requestView) {
         validateEmail(requestView.getEmail());
@@ -61,6 +63,14 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(oldMember);
     }
 
+    @Transactional
+    public void addKeyword(Member member, Keyword keyword) {
+        Keyword savedKeyword = keywordService.create(keyword);
+        Member savedMember = memberRepository.findByEmail(member.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
+        savedMember.addKeyword(savedKeyword);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = findByEmail(email);
@@ -83,9 +93,5 @@ public class MemberService implements UserDetailsService {
 
     private Optional<Member> findMemberByEmail(String email) {
         return memberRepository.findByEmail(email);
-    }
-
-    public Keyword addKeyword(Keyword keyword) {
-        return null;
     }
 }

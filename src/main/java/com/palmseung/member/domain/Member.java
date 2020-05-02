@@ -1,5 +1,7 @@
 package com.palmseung.member.domain;
 
+import com.palmseung.keyword.domain.Keyword;
+import com.palmseung.keyword.domain.MyKeyword;
 import com.palmseung.member.dto.UpdateMemberRequestView;
 import com.palmseung.support.BaseTimeEntity;
 import lombok.Builder;
@@ -12,6 +14,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.palmseung.support.Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE;
@@ -35,6 +38,9 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "mykeyword_id")
+    private List<MyKeyword> myKeywords = new ArrayList<>();
 
     public Member() {
     }
@@ -112,5 +118,33 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     private boolean matchId(Long id) {
         return this.id.equals(id);
+    }
+
+    public List<Keyword> addKeyword(Keyword keyword) {
+        myKeywords.add(MyKeyword.builder()
+                .member(this)
+                .keyword(keyword)
+                .build());
+        return getKeywords();
+    }
+
+    public List<Keyword> getKeywords() {
+        return myKeywords.stream()
+                .map(MyKeyword::getKeyword)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(id, member.id) &&
+                Objects.equals(email, member.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email);
     }
 }

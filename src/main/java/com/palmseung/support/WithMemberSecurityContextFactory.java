@@ -17,7 +17,7 @@ public class WithMemberSecurityContextFactory implements WithSecurityContextFact
 
     @Override
     public SecurityContext createSecurityContext(WithMember withMember) {
-        Member member = createMemberForAnnotation(withMember.getName());
+        Member member = createMemberForAnnotation(withMember.name());
 
         UserDetails userDetails = memberService.loadUserByUsername(member.getEmail());
         Authentication authentication

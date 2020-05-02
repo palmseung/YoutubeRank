@@ -6,7 +6,6 @@ import com.palmseung.keyword.service.KeywordService;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.member.dto.CreateMemberRequestView;
-import com.palmseung.support.WithMember;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,22 +16,27 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static com.palmseung.member.MemberConstant.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
+@Commit
 public class MemberServiceTest {
     @InjectMocks
     MemberService memberService;
 
-    @InjectMocks
+    @Mock
     KeywordService keywordService;
 
     @Mock
@@ -231,26 +235,28 @@ public class MemberServiceTest {
                 .withMessageContaining("authorize");
     }
 
-    @WithMember(name = "soojin")
     @DisplayName("회원 - 키워드 추가")
     @Test
     void addKeyword() {
         //given
         Keyword keyword = createKeyword();
-        given(keywordRepository.save(keyword)).willReturn(keyword);
+        Member member = createMember();
+        given(keywordService.create(keyword)).willReturn(keyword);
+        given(memberRepository.findByEmail(member.getEmail())).willReturn(Optional.of(member));
 
         //when
-        Keyword myKeyword = memberService.addKeyword(keyword);
+        memberService.addKeyword(member, keyword);
 
         //when
-        assertThat(myKeyword.getKeyword()).isEqualTo(keyword.getKeyword());
+        assertThat(member.getKeywords()).contains(keyword);
     }
 
-    private Keyword createKeyword(){
-        return Keyword.builder()
-                .id(1L)
-                .keyword("queendom")
-                .build();
+    private Member createMember() {
+        return new Member(1L, "sjsj@email.com", "soojin", "password", Arrays.asList("ROLE_USER"));
+    }
+
+    private Keyword createKeyword() {
+        return new Keyword(1l, "queendom");
     }
 
     private Member createUpdateMember() {
