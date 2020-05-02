@@ -272,6 +272,21 @@ public class MemberServiceTest {
         assertThat(allKeywords).hasSize(2);
     }
 
+    @DisplayName("회원 - 나의 키워드 삭제")
+    @Test
+    void deleteMyKeyword() {
+        //given
+        Member member = createMember();
+        Keyword keyword = new Keyword(1l, "queendom");
+        MyKeyword myKeyword = new MyKeyword(1l, member, keyword);
+
+        //when
+        memberService.deleteMyKeywordById(myKeyword.getId());
+
+        //then
+        verify(myKeywordRepository, times(1)).deleteById(myKeyword.getId());
+    }
+
     private Member createMember() {
         return new Member(1L, "sjsj@email.com", "soojin", "password", Arrays.asList("ROLE_USER"));
     }

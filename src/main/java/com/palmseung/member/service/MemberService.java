@@ -85,6 +85,10 @@ public class MemberService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteMyKeywordById(Long id) {
+
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) {
         Member member = findByEmail(email);
