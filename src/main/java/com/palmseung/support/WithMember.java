@@ -8,5 +8,5 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 @WithSecurityContext(factory = WithMemberSecurityContextFactory.class)
 public @interface WithMember {
-    String getName();
+    String name();
 }

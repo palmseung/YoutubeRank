@@ -1,5 +1,6 @@
 package com.palmseung.member.service;
 
+import com.palmseung.keyword.domain.Keyword;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.member.dto.CreateMemberRequestView;
@@ -82,5 +83,9 @@ public class MemberService implements UserDetailsService {
 
     private Optional<Member> findMemberByEmail(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    public Keyword addKeyword(Keyword keyword) {
+        return null;
     }
 }

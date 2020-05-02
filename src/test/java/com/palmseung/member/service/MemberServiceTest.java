@@ -1,8 +1,12 @@
 package com.palmseung.member.service;
 
+import com.palmseung.keyword.domain.Keyword;
+import com.palmseung.keyword.domain.KeywordRepository;
+import com.palmseung.keyword.service.KeywordService;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.member.dto.CreateMemberRequestView;
+import com.palmseung.support.WithMember;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +31,12 @@ import static org.mockito.Mockito.verify;
 public class MemberServiceTest {
     @InjectMocks
     MemberService memberService;
+
+    @InjectMocks
+    KeywordService keywordService;
+
+    @Mock
+    private KeywordRepository keywordRepository;
 
     @Mock
     private MemberRepository memberRepository;
@@ -219,6 +229,28 @@ public class MemberServiceTest {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> memberService.updateInfo(loginUser, TEST_MEMBER))
                 .withMessageContaining("authorize");
+    }
+
+    @WithMember(name = "soojin")
+    @DisplayName("회원 - 키워드 추가")
+    @Test
+    void addKeyword() {
+        //given
+        Keyword keyword = createKeyword();
+        given(keywordRepository.save(keyword)).willReturn(keyword);
+
+        //when
+        Keyword myKeyword = memberService.addKeyword(keyword);
+
+        //when
+        assertThat(myKeyword.getKeyword()).isEqualTo(keyword.getKeyword());
+    }
+
+    private Keyword createKeyword(){
+        return Keyword.builder()
+                .id(1L)
+                .keyword("queendom")
+                .build();
     }
 
     private Member createUpdateMember() {
