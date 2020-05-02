@@ -301,9 +301,8 @@ public class MemberServiceTest {
         //when, then
         assertThatIllegalArgumentException().isThrownBy(() -> {
             memberService.deleteMyKeywordById(anotherMember, myKeyword.getId());
-        }).withMessageContaining("unauthorized");
+        }).withMessageContaining("authorize");
     }
-
 
     private Member createAnotherMember() {
         return new Member(2L, "shu@email.com", "shu", "password", Arrays.asList("ROLE_USER"));

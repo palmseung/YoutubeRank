@@ -7,6 +7,7 @@ import com.palmseung.keyword.domain.MyKeywordRepository;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.member.dto.CreateMemberRequestView;
+import com.palmseung.support.Messages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -87,6 +88,10 @@ public class MemberService implements UserDetailsService {
     public void deleteMyKeywordById(Member loginUser, Long id) {
         MyKeyword myKeyword = myKeywordRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(WARNING_MYKEYWORD_INVALID_MYKEYWORD));
+
+        if(!loginUser.equals(myKeyword.getMember())){
+            throw new IllegalArgumentException(WARNING_MYKEYWORD_UNAUTHORIZED_TO_DELETE);
+        }
 
         myKeywordRepository.deleteById(id);
     }
