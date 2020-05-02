@@ -7,10 +7,9 @@ import com.palmseung.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.palmseung.keyword.KeywordConstant.BASE_URI_KEYWORD_API;
 
@@ -28,6 +27,15 @@ public class ApiKeywordController {
         return ResponseEntity
                 .ok()
                 .body(KeywordResponseView.listOf(member.getKeywords()));
+    }
+
+    @GetMapping
+    public ResponseEntity findAllMyKeywords() {
+        List<Keyword> allKeywords = memberService.findAllKeywords(getLoginUser());
+
+        return ResponseEntity
+                .ok()
+                .body(KeywordResponseView.listOf(allKeywords));
     }
 
     private Member getLoginUser() {

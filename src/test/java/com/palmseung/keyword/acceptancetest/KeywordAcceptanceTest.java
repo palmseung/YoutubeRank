@@ -43,7 +43,7 @@ public class KeywordAcceptanceTest extends AbstractAcceptanceTest {
         assertThat(responseViews.get(0).getKeyword()).isEqualTo("queendom");
     }
 
-    @DisplayName("My Keword 조회")
+    @DisplayName("My Keyword 목록 조회")
     @Test
     public void retrieveAllMyKeywords() {
         //given
@@ -59,6 +59,7 @@ public class KeywordAcceptanceTest extends AbstractAcceptanceTest {
                 .expectBodyList(KeywordResponseView.class)
                 .returnResult().getResponseBody();
 
+        //then
         assertThat(responseViews).hasSize(2);
     }
 }

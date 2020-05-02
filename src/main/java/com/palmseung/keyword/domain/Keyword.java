@@ -4,14 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Entity
-public class Keyword implements Serializable {
+public class Keyword {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "keyword_id")
@@ -22,6 +21,9 @@ public class Keyword implements Serializable {
 
     @OneToMany(mappedBy = "keyword")
     private List<MyKeyword> myKeywords = new ArrayList<>();
+
+    public Keyword() {
+    }
 
     @Builder
     public Keyword(Long id, String keyword) {
