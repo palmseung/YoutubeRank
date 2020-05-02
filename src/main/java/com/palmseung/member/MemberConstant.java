@@ -1,6 +1,6 @@
-package com.palmseung.members;
+package com.palmseung.member;
 
-import com.palmseung.members.domain.Member;
+import com.palmseung.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

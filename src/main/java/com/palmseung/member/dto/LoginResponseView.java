@@ -1,4 +1,4 @@
-package com.palmseung.members.dto;
+package com.palmseung.member.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

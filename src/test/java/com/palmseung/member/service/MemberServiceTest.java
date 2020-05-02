@@ -1,8 +1,8 @@
-package com.palmseung.members.service;
+package com.palmseung.member.service;
 
-import com.palmseung.members.domain.Member;
-import com.palmseung.members.domain.MemberRepository;
-import com.palmseung.members.dto.CreateMemberRequestView;
+import com.palmseung.member.domain.Member;
+import com.palmseung.member.domain.MemberRepository;
+import com.palmseung.member.dto.CreateMemberRequestView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static com.palmseung.members.MemberConstant.*;
+import static com.palmseung.member.MemberConstant.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;

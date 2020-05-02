@@ -1,14 +1,14 @@
-package com.palmseung.members.acceptancetest;
+package com.palmseung.member.acceptancetest;
 
 import com.palmseung.AbstractAcceptanceTest;
-import com.palmseung.members.dto.LoginResponseView;
-import com.palmseung.members.dto.MemberResponseView;
+import com.palmseung.member.dto.LoginResponseView;
+import com.palmseung.member.dto.MemberResponseView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import static com.palmseung.members.MemberConstant.*;
+import static com.palmseung.member.MemberConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MemberAcceptanceTest extends AbstractAcceptanceTest {

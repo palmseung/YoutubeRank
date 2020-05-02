@@ -1,4 +1,4 @@
-package com.palmseung.members.support;
+package com.palmseung.member.support;
 
 import com.palmseung.support.jwt.ReadProperties;
 import org.junit.jupiter.api.DisplayName;

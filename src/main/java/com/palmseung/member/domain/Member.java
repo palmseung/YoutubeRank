@@ -1,6 +1,6 @@
-package com.palmseung.members.domain;
+package com.palmseung.member.domain;
 
-import com.palmseung.members.dto.UpdateMemberRequestView;
+import com.palmseung.member.dto.UpdateMemberRequestView;
 import com.palmseung.support.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package com.palmseung.members.support;
+package com.palmseung.member.support;
 
-import com.palmseung.members.domain.Member;
-import com.palmseung.members.domain.MemberRepository;
+import com.palmseung.member.domain.Member;
+import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.support.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static com.palmseung.members.MemberConstant.TEST_EMAIL;
-import static com.palmseung.members.MemberConstant.TEST_MEMBER;
+import static com.palmseung.member.MemberConstant.TEST_EMAIL;
+import static com.palmseung.member.MemberConstant.TEST_MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.mockito.BDDMockito.given;

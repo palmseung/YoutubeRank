@@ -1,6 +1,6 @@
-package com.palmseung.members.dto;
+package com.palmseung.member.dto;
 
-import com.palmseung.members.domain.Member;
+import com.palmseung.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -23,6 +23,14 @@ public class CreateMemberRequestView {
         this.name = name;
         this.password = password;
         this.roles = roles;
+    }
+
+    public static CreateMemberRequestView of(Member member){
+        return CreateMemberRequestView.builder()
+                .email(member.getEmail())
+                .name(member.getName())
+                .password(member.getPassword())
+                .build();
     }
 
     public CreateMemberRequestView changePassword(String encodedPassword) {

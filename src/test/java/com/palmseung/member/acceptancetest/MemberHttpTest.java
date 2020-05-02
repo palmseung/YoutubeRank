@@ -1,13 +1,13 @@
-package com.palmseung.members.acceptancetest;
+package com.palmseung.member.acceptancetest;
 
-import com.palmseung.members.domain.Member;
-import com.palmseung.members.dto.*;
+import com.palmseung.member.domain.Member;
+import com.palmseung.member.dto.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static com.palmseung.members.MemberConstant.*;
+import static com.palmseung.member.MemberConstant.*;
 
 public class MemberHttpTest {
     private WebTestClient webTestClient;

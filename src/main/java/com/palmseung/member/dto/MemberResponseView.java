@@ -1,6 +1,6 @@
-package com.palmseung.members.dto;
+package com.palmseung.member.dto;
 
-import com.palmseung.members.domain.Member;
+import com.palmseung.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

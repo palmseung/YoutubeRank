@@ -1,4 +1,4 @@
-package com.palmseung.members.domain;
+package com.palmseung.member.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

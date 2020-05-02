@@ -1,8 +1,8 @@
-package com.palmseung.members.service;
+package com.palmseung.member.service;
 
-import com.palmseung.members.domain.Member;
-import com.palmseung.members.domain.MemberRepository;
-import com.palmseung.members.dto.CreateMemberRequestView;
+import com.palmseung.member.domain.Member;
+import com.palmseung.member.domain.MemberRepository;
+import com.palmseung.member.dto.CreateMemberRequestView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

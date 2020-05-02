@@ -1,9 +1,9 @@
-package com.palmseung.members.controller;
+package com.palmseung.member.controller;
 
-import com.palmseung.members.MemberConstant;
-import com.palmseung.members.domain.Member;
-import com.palmseung.members.dto.*;
-import com.palmseung.members.service.MemberService;
+import com.palmseung.member.MemberConstant;
+import com.palmseung.member.domain.Member;
+import com.palmseung.member.dto.*;
+import com.palmseung.member.service.MemberService;
 import com.palmseung.support.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
