@@ -4,9 +4,8 @@ import com.palmseung.AbstractAcceptanceTest;
 import com.palmseung.keyword.dto.KeywordResponseView;
 import com.palmseung.member.acceptancetest.MemberHttpTest;
 import com.palmseung.member.dto.LoginResponseView;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.springframework.http.MediaType;
 
 import java.util.List;
 
@@ -33,9 +32,32 @@ public class KeywordAcceptanceTest extends AbstractAcceptanceTest {
         //given
         String keyword = "queendom";
 
+        //when
         List<KeywordResponseView> responseViews = keywordHttpTest.addMyKeyword(keyword, accessToken);
 
+        //then
         assertThat(responseViews.get(0).getId()).isEqualTo(1l);
         assertThat(responseViews.get(0).getKeyword()).isEqualTo("queendom");
+    }
+
+    @DisplayName("My Keywords 목록 조회")
+    @Test
+    void retrieveMyKeywords(){
+        //given
+        String keyword1 = "queendom";
+        String keyword2 = "(g)idle";
+        keywordHttpTest.addMyKeyword(keyword1, accessToken);
+        keywordHttpTest.addMyKeyword(keyword2, accessToken);
+
+        //when
+        List<KeywordResponseView> responseBody = webTestClient.get().uri(BASE_URI_MEMBER_API)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(KeywordResponseView.class)
+                .returnResult().getResponseBody();
+
+        //then
+        assertThat(responseBody).hasSize(2);
     }
 }
