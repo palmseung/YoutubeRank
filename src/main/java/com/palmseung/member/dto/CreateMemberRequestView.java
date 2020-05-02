@@ -43,7 +43,6 @@ public class CreateMemberRequestView {
                 .email(email)
                 .name(name)
                 .password(password)
-                .roles(roles)
                 .build();
     }
 }

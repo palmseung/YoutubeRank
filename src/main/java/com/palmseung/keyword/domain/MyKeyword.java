@@ -3,10 +3,12 @@ package com.palmseung.keyword.domain;
 import com.palmseung.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+@NoArgsConstructor
 @Getter
 @Entity
 public class MyKeyword implements Serializable {

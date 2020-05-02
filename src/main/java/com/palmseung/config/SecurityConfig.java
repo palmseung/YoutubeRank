@@ -2,6 +2,7 @@ package com.palmseung.config;
 
 import com.palmseung.support.jwt.JwtAuthenticationFilter;
 import com.palmseung.support.jwt.JwtTokenProvider;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
+@Component
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -43,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/members/login").permitAll()
                 .mvcMatchers("/api/members/my-info/**").hasRole("USER")
                 .mvcMatchers(HttpMethod.POST, "/api/members").permitAll()
+                .mvcMatchers(HttpMethod.GET, "/api/members").hasRole("USER")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),

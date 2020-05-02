@@ -51,6 +51,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.email = email;
         this.name = name;
         this.password = password;
+        this.roles = roles;
     }
 
     public static Member of(UpdateMemberRequestView requestView) {

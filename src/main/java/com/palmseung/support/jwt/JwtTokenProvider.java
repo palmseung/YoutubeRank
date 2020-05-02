@@ -10,11 +10,13 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
@@ -75,7 +77,7 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         String emailInToken = extractEmail(token);
         UserDetails userDetails = userDetailsService.loadUserByUsername(emailInToken);
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, "", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
     }
 
     private Date getExpirationFromToken(String token) {

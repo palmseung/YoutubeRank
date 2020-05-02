@@ -1,11 +1,15 @@
 package com.palmseung.member.service;
 
 import com.palmseung.keyword.domain.Keyword;
+import com.palmseung.keyword.domain.KeywordRepository;
+import com.palmseung.keyword.domain.MyKeyword;
+import com.palmseung.keyword.domain.MyKeywordRepository;
 import com.palmseung.keyword.service.KeywordService;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.member.dto.CreateMemberRequestView;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +21,7 @@ import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.palmseung.support.Messages.WARNING_MEMBER_EXISTING_EMAIL;
 import static com.palmseung.support.Messages.WARNING_MEMBER_INVALID_MEMBER;
@@ -26,7 +31,8 @@ import static com.palmseung.support.Messages.WARNING_MEMBER_INVALID_MEMBER;
 public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final KeywordService keywordService;
+    private final MyKeywordRepository myKeywordRepository;
+    private final KeywordRepository keywordRepository;
 
     public Member create(CreateMemberRequestView requestView) {
         validateEmail(requestView.getEmail());
@@ -66,19 +72,19 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public Keyword addKeyword(Member member, Keyword keyword) {
-        Keyword savedKeyword = keywordService.create(keyword);
-        Member savedMember = memberRepository.findByEmail(member.getEmail())
-                .orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
+    public void addKeyword(Member member, Keyword keyword) {
+        Member savedMember = memberRepository.findByEmail(member.getEmail()).orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
+        Keyword savedKeyword = keywordRepository.save(keyword);
+        myKeywordRepository.save(MyKeyword.builder().member(member).keyword(savedKeyword).build());
         savedMember.addKeyword(savedKeyword);
-        return savedKeyword;
     }
 
     @Transactional
     public List<Keyword> findAllKeywords(Member member) {
-        Member savedMember = memberRepository.findByEmail(member.getEmail())
-                        .orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
-        return savedMember.getKeywords();
+        List<MyKeyword> allMyKeywords = myKeywordRepository.findAllByMember(member);
+        return allMyKeywords.stream()
+                .map(MyKeyword::getKeyword)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -86,11 +92,12 @@ public class MemberService implements UserDetailsService {
         Member member = findByEmail(email);
         return Member.builder()
                 .id(member.getId())
-                .email(member.getEmail())
                 .name(member.getName())
+                .email(email)
                 .password(member.getPassword())
                 .roles(Arrays.asList("ROLE_USER"))
                 .build();
+
     }
 
     private void validateEmail(String email) {

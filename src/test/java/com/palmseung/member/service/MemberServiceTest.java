@@ -2,6 +2,8 @@ package com.palmseung.member.service;
 
 import com.palmseung.keyword.domain.Keyword;
 import com.palmseung.keyword.domain.KeywordRepository;
+import com.palmseung.keyword.domain.MyKeyword;
+import com.palmseung.keyword.domain.MyKeywordRepository;
 import com.palmseung.keyword.service.KeywordService;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
@@ -37,6 +39,9 @@ public class MemberServiceTest {
 
     @Mock
     KeywordService keywordService;
+
+    @Mock
+    MyKeywordRepository myKeywordRepository;
 
     @Mock
     private KeywordRepository keywordRepository;
@@ -240,7 +245,7 @@ public class MemberServiceTest {
         //given
         Keyword keyword = createKeyword("queendom");
         Member member = createMember();
-        given(keywordService.create(keyword)).willReturn(keyword);
+        given(keywordRepository.save(any())).willReturn(keyword);
         given(memberRepository.findByEmail(member.getEmail())).willReturn(Optional.of(member));
 
         //when
@@ -248,6 +253,8 @@ public class MemberServiceTest {
 
         //when
         assertThat(member.getKeywords()).contains(keyword);
+        verify(keywordRepository, times(1)).save(any());
+        verify(myKeywordRepository, times(1)).save(any(MyKeyword.class));
     }
 
     @DisplayName("회원 - 키워드 목록 조회")
