@@ -31,7 +31,7 @@ public class ApiKeywordController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity findMyKeyword(@PathVariable Long id){
+    public ResponseEntity findMyKeyword(@PathVariable Long id) {
         MyKeyword myKeywordByMyKeywordId = memberService.findMyKeywordByMyKeywordId(getLoginUser(), id);
 
         return ResponseEntity
