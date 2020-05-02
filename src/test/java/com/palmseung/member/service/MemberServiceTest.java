@@ -267,7 +267,7 @@ public class MemberServiceTest {
                 = memberService.findMyKeywordByMyKeywordId(member, myKeyword.getId());
 
         //then
-        assertThat(myKeywordByMyKeywordId.getId()).isEqualTo(myKeyword);
+        assertThat(myKeywordByMyKeywordId.getId()).isEqualTo(myKeyword.getId());
         assertThat(myKeywordByMyKeywordId.getMember()).isEqualTo(member);
     }
 

@@ -96,6 +96,13 @@ public class MemberService implements UserDetailsService {
         return myKeywordRepository.findById(id);
     }
 
+    public MyKeyword findMyKeywordByMyKeywordId(Member member, Long id) {
+        MyKeyword myKeyword = findMyKeywordById(id)
+                .orElseThrow(() -> new IllegalArgumentException(WARNING_MYKEYWORD_INVALID_MYKEYWORD));
+
+        return myKeyword;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) {
         Member member = findByEmail(email);
@@ -130,9 +137,5 @@ public class MemberService implements UserDetailsService {
 
     private Optional<Member> findMemberByEmail(String email) {
         return memberRepository.findByEmail(email);
-    }
-
-    public MyKeyword findMyKeywordByMyKeywordId(Member member, Long id) {
-        return null;
     }
 }
