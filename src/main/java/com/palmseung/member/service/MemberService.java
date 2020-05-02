@@ -6,6 +6,7 @@ import com.palmseung.member.domain.Member;
 import com.palmseung.member.domain.MemberRepository;
 import com.palmseung.member.dto.CreateMemberRequestView;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -73,6 +74,13 @@ public class MemberService implements UserDetailsService {
         return savedKeyword;
     }
 
+    @Transactional
+    public List<Keyword> findAllKeywords(Member member) {
+        Member savedMember = memberRepository.findByEmail(member.getEmail())
+                        .orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
+        return savedMember.getKeywords();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) {
         Member member = findByEmail(email);
@@ -95,9 +103,5 @@ public class MemberService implements UserDetailsService {
 
     private Optional<Member> findMemberByEmail(String email) {
         return memberRepository.findByEmail(email);
-    }
-
-    public List<Keyword> findAllKeywords(Member member) {
-        return null;
     }
 }

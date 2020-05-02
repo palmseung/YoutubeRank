@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +25,6 @@ import java.util.Optional;
 import static com.palmseung.member.MemberConstant.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -261,9 +259,6 @@ public class MemberServiceTest {
         Member member = createMember();
         member.addKeyword(keyword1);
         member.addKeyword(keyword2);
-
-        given(keywordService.create(keyword1)).willReturn(keyword1);
-        given(keywordService.create(keyword2)).willReturn(keyword2);
         given(memberRepository.findByEmail(member.getEmail())).willReturn(Optional.of(member));
 
         //when
