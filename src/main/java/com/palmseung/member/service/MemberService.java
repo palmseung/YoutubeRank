@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.palmseung.support.Messages.WARNING_MEMBER_EXISTING_EMAIL;
-import static com.palmseung.support.Messages.WARNING_MEMBER_INVALID_MEMBER;
+import static com.palmseung.support.Messages.*;
 
 @RequiredArgsConstructor
 @Service
@@ -85,8 +84,11 @@ public class MemberService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteMyKeywordById(Long id) {
+    public void deleteMyKeywordById(Member loginUser, Long id) {
+        MyKeyword myKeyword = myKeywordRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(WARNING_MYKEYWORD_INVALID_MYKEYWORD));
 
+        myKeywordRepository.deleteById(id);
     }
 
     @Override

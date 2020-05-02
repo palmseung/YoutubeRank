@@ -279,9 +279,10 @@ public class MemberServiceTest {
         Member member = createMember();
         Keyword keyword = new Keyword(1l, "queendom");
         MyKeyword myKeyword = new MyKeyword(1l, member, keyword);
+        given(myKeywordRepository.findById(1l)).willReturn(Optional.of(myKeyword));
 
         //when
-        memberService.deleteMyKeywordById(myKeyword.getId());
+        memberService.deleteMyKeywordById(member, myKeyword.getId());
 
         //then
         verify(myKeywordRepository, times(1)).deleteById(myKeyword.getId());
