@@ -20,6 +20,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static com.palmseung.member.MemberConstant.*;
@@ -239,7 +240,7 @@ public class MemberServiceTest {
     @Test
     void addKeyword() {
         //given
-        Keyword keyword = createKeyword();
+        Keyword keyword = createKeyword("queendom");
         Member member = createMember();
         given(keywordService.create(keyword)).willReturn(keyword);
         given(memberRepository.findByEmail(member.getEmail())).willReturn(Optional.of(member));
@@ -251,12 +252,33 @@ public class MemberServiceTest {
         assertThat(member.getKeywords()).contains(keyword);
     }
 
+    @DisplayName("회원 - 키워드 목록 조회")
+    @Test
+    void retrieveKeywords() {
+        //given
+        Keyword keyword1 = new Keyword(1l, "queendom");
+        Keyword keyword2 = new Keyword(2l, "(g)idle");
+        Member member = createMember();
+        member.addKeyword(keyword1);
+        member.addKeyword(keyword2);
+
+        given(keywordService.create(keyword1)).willReturn(keyword1);
+        given(keywordService.create(keyword2)).willReturn(keyword2);
+        given(memberRepository.findByEmail(member.getEmail())).willReturn(Optional.of(member));
+
+        //when
+        List<Keyword> allKeywords = memberService.findAllKeywords(member);
+
+        //then
+        assertThat(allKeywords).hasSize(2);
+    }
+
     private Member createMember() {
         return new Member(1L, "sjsj@email.com", "soojin", "password", Arrays.asList("ROLE_USER"));
     }
 
-    private Keyword createKeyword() {
-        return new Keyword(1l, "queendom");
+    private Keyword createKeyword(String keyword) {
+        return new Keyword(1l, keyword);
     }
 
     private Member createUpdateMember() {
