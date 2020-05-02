@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static com.palmseung.member.MemberConstant.*;
@@ -250,6 +251,25 @@ public class MemberServiceTest {
         assertThat(member.getKeywords()).contains(keyword);
         verify(keywordRepository, times(1)).save(any());
         verify(myKeywordRepository, times(1)).save(any(MyKeyword.class));
+    }
+
+    @DisplayName("회원 - 나의 키워드 조회")
+    @Test
+    void findAllMyKeywords() {
+        //given
+        Member member = createMember();
+        Keyword keyword1 = new Keyword(1l, "queendom");
+        Keyword keyword2 = new Keyword(2l, "(g)idle");
+        MyKeyword myKeyword1 = new MyKeyword(1l, member, keyword1);
+        MyKeyword myKeyword2 = new MyKeyword(2l, member, keyword2);
+        given(myKeywordRepository.findAllByMemberId(member.getId()))
+                .willReturn(Arrays.asList(myKeyword1, myKeyword2));
+
+        //when
+        List<Keyword> allKeywords = memberService.findAllKeywords(member);
+
+        //then
+        assertThat(allKeywords).hasSize(2);
     }
 
     private Member createMember() {
