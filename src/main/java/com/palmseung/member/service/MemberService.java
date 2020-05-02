@@ -96,9 +96,14 @@ public class MemberService implements UserDetailsService {
         return myKeywordRepository.findById(id);
     }
 
-    public MyKeyword findMyKeywordByMyKeywordId(Member member, Long id) {
+    @Transactional
+    public MyKeyword findMyKeywordByMyKeywordId(Member loginUser, Long id) {
         MyKeyword myKeyword = findMyKeywordById(id)
                 .orElseThrow(() -> new IllegalArgumentException(WARNING_MYKEYWORD_INVALID_MYKEYWORD));
+
+        if (!loginUser.equals(myKeyword.getMember())) {
+            throw new IllegalArgumentException(WARNING_MYKEYWORD_UNAUTHORIZED_TO_READ);
+        }
 
         return myKeyword;
     }
