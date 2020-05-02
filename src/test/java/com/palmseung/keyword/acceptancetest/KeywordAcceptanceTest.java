@@ -1,7 +1,7 @@
 package com.palmseung.keyword.acceptancetest;
 
 import com.palmseung.AbstractAcceptanceTest;
-import com.palmseung.keyword.dto.KeywordResponseView;
+import com.palmseung.keyword.dto.MyKeywordResponseView;
 import com.palmseung.member.acceptancetest.MemberHttpTest;
 import com.palmseung.member.dto.LoginResponseView;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,11 +36,11 @@ public class KeywordAcceptanceTest extends AbstractAcceptanceTest {
         String keyword = "queendom";
 
         //when
-        List<KeywordResponseView> responseViews = keywordHttpTest.addMyKeyword(keyword, accessToken);
+        MyKeywordResponseView responseViews = keywordHttpTest.addMyKeyword(keyword, accessToken);
 
         //then
-        assertThat(responseViews.get(0).getId()).isEqualTo(1l);
-        assertThat(responseViews.get(0).getKeyword()).isEqualTo("queendom");
+        assertThat(responseViews.getId()).isEqualTo(1l);
+        assertThat(responseViews.getKeyword()).isEqualTo("queendom");
     }
 
     @DisplayName("My Keyword 목록 조회")
@@ -51,15 +51,36 @@ public class KeywordAcceptanceTest extends AbstractAcceptanceTest {
         keywordHttpTest.addMyKeyword("(g)idle", accessToken);
 
         //when
-        List<KeywordResponseView> responseViews = webTestClient.get().uri(BASE_URI_KEYWORD_API)
+        List<MyKeywordResponseView> responseViews = webTestClient.get().uri(BASE_URI_KEYWORD_API)
                 .header("Authorization", accessToken)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBodyList(KeywordResponseView.class)
+                .expectBodyList(MyKeywordResponseView.class)
                 .returnResult().getResponseBody();
 
         //then
         assertThat(responseViews).hasSize(2);
+    }
+
+    @DisplayName("My Keyword 삭제")
+    @Test
+    public void removeMyKeyword() {
+        //given
+        MyKeywordResponseView responseView = keywordHttpTest.addMyKeyword("queendom", accessToken);
+
+        //when
+        webTestClient.delete().uri(BASE_URI_KEYWORD_API + "/" + responseView.getKeyword())
+                .header("Authorization", accessToken)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk();
+
+        //then
+        webTestClient.delete().uri(BASE_URI_KEYWORD_API + "/" + responseView.getKeyword())
+                .header("Authorization", accessToken)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isNoContent();
     }
 }

@@ -11,20 +11,20 @@ import static java.util.stream.Collectors.toList;
 
 @NoArgsConstructor
 @Getter
-public class KeywordResponseView {
+public class MyKeywordResponseView {
     private Long id;
     private String keyword;
 
     @Builder
-    public KeywordResponseView(Long id, String keyword) {
-        this.id = id;
+    public MyKeywordResponseView(Long myKeywordId, String keyword) {
+        this.id = myKeywordId;
         this.keyword = keyword;
     }
 
-    public static List<KeywordResponseView> listOf(List<Keyword> keywords) {
+    public static List<MyKeywordResponseView> listOf(List<Keyword> keywords) {
         return keywords.stream()
-                .map(k -> KeywordResponseView.builder()
-                        .id(k.getId())
+                .map(k -> MyKeywordResponseView.builder()
+                        .myKeywordId(k.getId())
                         .keyword(k.getKeyword())
                         .build())
                 .collect(toList());

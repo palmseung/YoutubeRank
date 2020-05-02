@@ -69,11 +69,12 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public void addKeyword(Member member, Keyword keyword) {
+    public MyKeyword addKeyword(Member member, Keyword keyword) {
         Member savedMember = memberRepository.findByEmail(member.getEmail()).orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
         Keyword savedKeyword = saveKeyword(keyword);
-        myKeywordRepository.save(buildMyKeyword(member, savedKeyword));
+        MyKeyword myKeyword = myKeywordRepository.save(buildMyKeyword(member, savedKeyword));
         savedMember.addKeyword(savedKeyword);
+        return myKeyword;
     }
 
     @Transactional

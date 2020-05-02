@@ -1,7 +1,8 @@
 package com.palmseung.keyword.controller;
 
 import com.palmseung.keyword.domain.Keyword;
-import com.palmseung.keyword.dto.KeywordResponseView;
+import com.palmseung.keyword.domain.MyKeyword;
+import com.palmseung.keyword.dto.MyKeywordResponseView;
 import com.palmseung.member.domain.Member;
 import com.palmseung.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +22,14 @@ public class ApiKeywordController {
 
     @PostMapping
     public ResponseEntity addKeyword(@RequestBody String keyword) {
-        memberService.addKeyword(getLoginUser(), Keyword.builder().keyword(keyword).build());
-        Member member = memberService.findByEmail(getLoginUser().getEmail());
+        MyKeyword myKeyword
+                = memberService.addKeyword(getLoginUser(), Keyword.builder().keyword(keyword).build());
 
         return ResponseEntity
                 .ok()
-                .body(KeywordResponseView.listOf(member.getKeywords()));
+                .body(MyKeywordResponseView.builder()
+                        .myKeywordId(myKeyword.getId())
+                        .keyword(myKeyword.getKeyword().getKeyword()));
     }
 
     @GetMapping
@@ -35,7 +38,7 @@ public class ApiKeywordController {
 
         return ResponseEntity
                 .ok()
-                .body(KeywordResponseView.listOf(allKeywords));
+                .body(MyKeywordResponseView.listOf(allKeywords));
     }
 
     private Member getLoginUser() {
