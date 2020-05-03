@@ -1,6 +1,7 @@
 package com.palmseung.keyword.acceptancetest;
 
 import com.palmseung.keyword.dto.MyKeywordResponseView;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
@@ -18,7 +19,7 @@ public class KeywordHttpTest {
 
     public MyKeywordResponseView addMyKeyword(String keyword, String accessToken) {
         return webTestClient.post().uri(BASE_URI_KEYWORD_API)
-                .header("Authorization", accessToken)
+                .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(keyword), String.class)
                 .exchange()
@@ -29,7 +30,7 @@ public class KeywordHttpTest {
 
     public MyKeywordResponseView findMyKeyword(Long id, String accessToken) {
         return webTestClient.get().uri(BASE_URI_KEYWORD_API + "/" + id)
-                .header("Authorization", accessToken)
+                .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
@@ -40,7 +41,7 @@ public class KeywordHttpTest {
 
     public List<MyKeywordResponseView> findAllMyKeyword(String accessToken) {
         return webTestClient.get().uri(BASE_URI_KEYWORD_API)
-                .header("Authorization", accessToken)
+                .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()

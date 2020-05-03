@@ -6,6 +6,7 @@ import com.palmseung.member.dto.MemberResponseView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static com.palmseung.member.MemberConstant.*;
@@ -40,7 +41,7 @@ public class MemberAcceptanceTest extends AbstractAcceptanceTest {
 
         //when, then
         webTestClient.delete().uri(BASE_URI_MEMBER_API + "/" + id)
-                .header("Authorization", responseBody.getAccessToken())
+                .header(HttpHeaders.AUTHORIZATION, responseBody.getAccessToken())
                 .exchange()
                 .expectStatus().isNoContent();
     }

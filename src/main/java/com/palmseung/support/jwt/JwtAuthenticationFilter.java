@@ -1,6 +1,7 @@
 package com.palmseung.support.jwt;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -28,6 +29,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
     private String extractToken(ServletRequest request) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        return httpServletRequest.getHeader("Authorization");
+        return httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
     }
 }
