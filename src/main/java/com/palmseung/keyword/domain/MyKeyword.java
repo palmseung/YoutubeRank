@@ -1,17 +1,17 @@
 package com.palmseung.keyword.domain;
 
 import com.palmseung.member.domain.Member;
+import com.palmseung.support.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @NoArgsConstructor
 @Getter
 @Entity
-public class MyKeyword implements Serializable {
+public class MyKeyword extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "memberkeyword_id")
