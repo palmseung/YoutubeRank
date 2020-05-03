@@ -1,0 +1,29 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 6
+:sectlinks:
+:operation-http-request-title: Example Request
+:operation-http-response-title: Example Response
+
+[[resources]]
+= Rest API Guide
+
+[[resources-members]]
+== 회원 관리
+
+[[resources-members-create]]
+=== 회원 가입
+
+operation::members-create[snippets='http-request']
+operation::members-create[snippets='request-headers']
+operation::members-create[snippets='request-fields']
+
+operation::members-create[snippets='http-response']
+operation::members-create[snippets='response-headers']
+operation::members-create[snippets='response-fields']
+
