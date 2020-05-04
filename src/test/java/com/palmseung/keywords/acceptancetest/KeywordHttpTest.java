@@ -1,5 +1,6 @@
 package com.palmseung.keywords.acceptancetest;
 
+import com.palmseung.keywords.dto.MyKeywordRequestView;
 import com.palmseung.keywords.dto.MyKeywordResponseView;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,7 +22,7 @@ public class KeywordHttpTest {
         return webTestClient.post().uri(BASE_URI_KEYWORD_API)
                 .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(keyword), String.class)
+                .bodyValue(createRequest(keyword))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(MyKeywordResponseView.class)
@@ -47,5 +48,11 @@ public class KeywordHttpTest {
                 .expectStatus().isOk()
                 .expectBodyList(MyKeywordResponseView.class)
                 .returnResult().getResponseBody();
+    }
+
+    private MyKeywordRequestView createRequest(String keyword){
+        return MyKeywordRequestView.builder()
+                .keyword(keyword)
+                .build();
     }
 }

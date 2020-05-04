@@ -66,3 +66,18 @@ operation::members-unsubscribe[snippets='http-request']
 operation::members-unsubscribe[snippets='request-headers']
 
 operation::members-unsubscribe[snippets='http-response']
+
+
+[[resources-keywords]]
+== Keywords
+
+[[resources-keywords-add-my-keyword]]
+=== Add my keyword
+
+operation::keywords-add-my-keyword[snippets='http-request']
+operation::keywords-add-my-keyword[snippets='request-headers']
+operation::keywords-add-my-keyword[snippets='request-fields']
+
+operation::keywords-add-my-keyword[snippets='http-response']
+operation::keywords-add-my-keyword[snippets='response-headers']
+operation::keywords-add-my-keyword[snippets='response-fields']
