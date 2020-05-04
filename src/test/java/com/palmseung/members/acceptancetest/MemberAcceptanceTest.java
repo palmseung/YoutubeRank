@@ -5,6 +5,7 @@ import com.palmseung.members.domain.MemberRepository;
 import com.palmseung.members.dto.CreateMemberResponseView;
 import com.palmseung.members.dto.LoginResponseView;
 import com.palmseung.members.dto.MemberResponseView;
+import com.palmseung.members.dto.MyInfoResponseView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -55,7 +56,7 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
         webTestClient.delete().uri(BASE_URI_MEMBER_API + "/" + id)
                 .header(HttpHeaders.AUTHORIZATION, responseBody.getAccessToken())
                 .exchange()
-                .expectStatus().isNoContent();
+                .expectStatus().isOk();
     }
 
     @DisplayName("로그인")
@@ -80,7 +81,7 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
         LoginResponseView responseView = doLogin();
 
         //when, then
-        MemberResponseView response
+        MyInfoResponseView response
                 = memberHttpTest.retrieveMyInfo(id, responseView).getResponseBody();
 
         //then

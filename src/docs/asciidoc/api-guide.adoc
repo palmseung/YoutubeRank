@@ -38,3 +38,20 @@ operation::members-login[snippets='http-response']
 operation::members-login[snippets='response-headers']
 operation::members-login[snippets='response-fields']
 
+[[resources-members-myInfo]]
+=== 회원 정보 조회 (내 정보 조회)
+
+operation::members-myInfo[snippets='http-request']
+operation::members-myInfo[snippets='request-headers']
+
+operation::members-myInfo[snippets='http-response']
+operation::members-myInfo[snippets='response-headers']
+operation::members-myInfo[snippets='response-fields']
+
+[[resources-members-unsubscribe]]
+=== 회원 탈퇴
+
+operation::members-unsubscribe[snippets='http-request']
+operation::members-unsubscribe[snippets='request-headers']
+
+operation::members-unsubscribe[snippets='http-response']

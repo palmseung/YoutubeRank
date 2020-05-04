@@ -51,13 +51,13 @@ public class MemberHttpTest {
                 .returnResult();
     }
 
-    public EntityExchangeResult<MemberResponseView> retrieveMyInfo(Long id, LoginResponseView responseView) {
+    public EntityExchangeResult<MyInfoResponseView> retrieveMyInfo(Long id, LoginResponseView responseView) {
         return webTestClient.get().uri(BASE_URI_MY_INFO_API + "/" + id)
                 .header(HttpHeaders.AUTHORIZATION, responseView.getAccessToken())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(MemberResponseView.class)
+                .expectBody(MyInfoResponseView.class)
                 .returnResult();
     }
 

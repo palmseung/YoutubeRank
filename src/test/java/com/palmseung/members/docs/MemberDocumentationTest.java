@@ -5,6 +5,7 @@ import com.palmseung.members.domain.Member;
 import com.palmseung.members.dto.CreateMemberRequestView;
 import com.palmseung.members.dto.LoginRequestView;
 import com.palmseung.members.service.MemberService;
+import com.palmseung.support.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,16 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class MemberDocumentationTest extends BaseDocumentationTest {
     @Autowired
     public MockMvc mockMvc;
+
+    @Autowired
+    public JwtTokenProvider jwtTokenProvider;
 
     @MockBean
     private MemberService memberService;
@@ -133,6 +137,69 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                                 fieldWithPath("tokenType")
                                         .type(JsonFieldType.STRING)
                                         .description("It should be Bearer type in this application")
+                        )
+                ));
+    }
+
+    @DisplayName("[문서화] 회원 조회")
+    @Test
+    public void retrieveMyInfo() throws Exception {
+        //given
+        Member member = createMember(TEST_EMAIL);
+        String accessToken = jwtTokenProvider.createToken(TEST_EMAIL);
+        given(memberService.findById(member.getId())).willReturn(member);
+
+        //when, then
+        mockMvc.perform(get(BASE_URI_MY_INFO_API + "/" + member.getId())
+                .header(HttpHeaders.AUTHORIZATION, accessToken)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("members-myInfo",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT)
+                                        .description(MediaType.APPLICATION_JSON),
+                                headerWithName(HttpHeaders.AUTHORIZATION)
+                                        .description("The client should have valid access token produced on the server side")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE)
+                                        .description(MediaType.APPLICATION_JSON)
+                        ),
+                        responseFields(
+                                fieldWithPath("email")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The email address to retrieve member information"),
+                                fieldWithPath("name")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The member's name to retrieve member information"),
+                                fieldWithPath("password")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The member's bcrypt encoded password")
+                        )
+                ));
+    }
+
+    @DisplayName("[문서화] 회원 탈퇴")
+    @Test
+    public void unsubscribe() throws Exception {
+        //given
+        Member member = createMember(TEST_EMAIL);
+        String accessToken = jwtTokenProvider.createToken(TEST_EMAIL);
+        given(memberService.findById(member.getId())).willReturn(member);
+
+        //when, then
+        mockMvc.perform(delete(BASE_URI_MEMBER_API + "/" + member.getId())
+                .accept(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, accessToken))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("members-unsubscribe",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT)
+                                        .description(MediaType.APPLICATION_JSON),
+                                headerWithName(HttpHeaders.AUTHORIZATION)
+                                        .description("The client should have valid access token produced on the server side")
                         )
                 ));
     }

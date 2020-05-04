@@ -36,7 +36,7 @@ public class ApiMemberController {
         memberService.delete(memberService.findById(id));
 
         return ResponseEntity
-                .noContent()
+                .ok()
                 .build();
     }
 
@@ -51,12 +51,12 @@ public class ApiMemberController {
     }
 
     @GetMapping("/my-info/{id}")
-    public ResponseEntity<MemberResponseView> retrieveMyInfo(@PathVariable Long id) {
+    public ResponseEntity<MyInfoResponseView> retrieveMyInfo(@PathVariable Long id) {
         Member member = memberService.findById(id);
 
         return ResponseEntity
                 .ok()
-                .body(MemberResponseView.of(member));
+                .body(MyInfoResponseView.of(member));
     }
 
     @PutMapping("/my-info/{id}")
