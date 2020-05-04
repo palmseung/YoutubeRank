@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Rest API Guide</title>
+<title>Rest API Guide for YouTubeRank</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -428,7 +428,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body id="resources" class="book toc2 toc-left">
 <div id="header">
-<h1>Rest API Guide</h1>
+<h1>Rest API Guide for YouTubeRank</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -510,6 +510,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#resources-keywords-retrieve-all-my-keywords_http_response">Example Response</a></li>
 <li><a href="#resources-keywords-retrieve-all-my-keywords_response_headers">Response headers</a></li>
 <li><a href="#resources-keywords-retrieve-all-my-keywords_response_fields">Response fields</a></li>
+</ul>
+</li>
+<li><a href="#resources-keywords-delete-my-keywords">Delete my keyword</a>
+<ul class="sectlevel3">
+<li><a href="#resources-keywords-delete-my-keywords_http_request">Example Request</a></li>
+<li><a href="#resources-keywords-delete-my-keywords_request_headers">Request headers</a></li>
+<li><a href="#resources-keywords-delete-my-keywords_http_response">Example Response</a></li>
 </ul>
 </li>
 </ul>
@@ -619,7 +626,7 @@ Content-Length: 150
   "id" : 1,
   "email" : "user@email.com",
   "name" : "user",
-  "password" : "{bcrypt}$2a$10$DU9FVK0EFuKzhCLWAP/14OgDp1Zd0Rx3cslAlSshpGnnpk2Yj3cDe"
+  "password" : "{bcrypt}$2a$10$u.28n7fA.Be3T81R.mYTi.omkfdME/90bC9tFuB/wvU3zWiGfyuYO"
 }</code></pre>
 </div>
 </div>
@@ -786,7 +793,7 @@ X-Frame-Options: DENY
 Content-Length: 194
 
 {
-  "accessToken" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTA5OCwiZXhwIjoxNTg4NjE4Njk4fQ.tFOZm_tQuia5MLWvggD-Qynppa0PzYq9Q-bX6jm6NZE",
+  "accessToken" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNjgwOCwiZXhwIjoxNTg4NjIwNDA4fQ.Tx0TWOTKm-mvjxrt6QMe_k5I9JxQ4e8Al9d3CETSH9w",
   "tokenType" : "Bearer "
 }</code></pre>
 </div>
@@ -854,7 +861,7 @@ Content-Length: 194
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/members/my-info/1 HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTEwNCwiZXhwIjoxNTg4NjE4NzA0fQ.rc-0BSXQRBmeYaLPmjzbxh1ihjqsoZVUHahM-mCuRqk
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNjgxMiwiZXhwIjoxNTg4NjIwNDEyfQ.NFN0lVChSvgcKd74rxPH72aNw6isq_4j0OptTsqLGzY
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -902,7 +909,7 @@ Content-Length: 138
 {
   "email" : "user@email.com",
   "name" : "user",
-  "password" : "{bcrypt}$2a$10$ziEmAztAXrekzW8l6WrBZeQR9WvjstRhMdY3MpBbiV6nFVSac5kVu"
+  "password" : "{bcrypt}$2a$10$EJN1ven6XtjSQ.ynawgOjuKMHbDgCcGyE1Fx1mdVd03lz1FKT9OsG"
 }</code></pre>
 </div>
 </div>
@@ -971,7 +978,7 @@ Content-Length: 138
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/members/my-info/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTA5MSwiZXhwIjoxNTg4NjE4NjkxfQ.PzEI9S5txO27B02BzJpuS7-c6w5cpMfotuhdHsFexNQ
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNjgwMywiZXhwIjoxNTg4NjIwNDAzfQ.x6XSdyCL-BrXRJih17s8gDiq65Scuh-g1BNFkBhN3lg
 Accept: application/json
 Content-Length: 60
 Host: localhost:8080
@@ -1055,7 +1062,7 @@ Content-Length: 153
   "id" : 1,
   "email" : "user@email.com",
   "name" : "newName",
-  "password" : "{bcrypt}$2a$10$ekYC87qOAzIdl4OwRLVkre8Fcp3hCp4iftCvewRu2tG2lT0TJhpea"
+  "password" : "{bcrypt}$2a$10$ehvk0zTpXnl3Q7PTchj6j.IUF8.gd.RaZwIEc68qozi/Y3ybIMTvW"
 }</code></pre>
 </div>
 </div>
@@ -1129,7 +1136,7 @@ Content-Length: 153
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/members/1 HTTP/1.1
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTEwMCwiZXhwIjoxNTg4NjE4NzAwfQ.dFOzq0TBd_s0KybazRZf1YvP7amn2fCH-20eZgSxy60
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNjgxMCwiZXhwIjoxNTg4NjIwNDEwfQ.pntGvrRtPLCpYIriBd2L79vx230GViJg3lMfNpD3nfc
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1188,7 +1195,7 @@ X-Frame-Options: DENY</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/keywords HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTE0MSwiZXhwIjoxNTg4NjE4NzQxfQ.7UXdju5qqO_-xSda7_XRZiwSMzCdiU4p9AUQZr6YMOc
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNjg0MCwiZXhwIjoxNTg4NjIwNDQwfQ.J087H4KYccfHDSn-6f57_phHoh4_uPFUq3b6ZuJkymw
 Content-Length: 28
 Host: localhost:8080
 
@@ -1327,7 +1334,7 @@ Content-Length: 40
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/keywords/1 HTTP/1.1
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTEzOSwiZXhwIjoxNTg4NjE4NzM5fQ.y6Y0onS2H8mES-kxo2rjsQceIHwul3kMW-962S74wek
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNjgzOSwiZXhwIjoxNTg4NjIwNDM5fQ.qV0-v3UY5s2-B2MoYQqfRCES3QBjYM7u-V1QuF3imEc
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1437,7 +1444,7 @@ Content-Length: 40
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/keywords HTTP/1.1
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTEzNSwiZXhwIjoxNTg4NjE4NzM1fQ.RmojhMPKdPLVOqvOCgcSRzDVQR1ecppdZBp8s0_JZ_c
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNjgzNywiZXhwIjoxNTg4NjIwNDM3fQ.g91svBUR2R-2Ri0rhS8bCHNvXsJQNLym68NnCs2nijk
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1545,12 +1552,65 @@ Content-Length: 123
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="resources-keywords-delete-my-keywords"><a class="link" href="#resources-keywords-delete-my-keywords">Delete my keyword</a></h3>
+<div class="sect3">
+<h4 id="resources-keywords-delete-my-keywords_http_request"><a class="link" href="#resources-keywords-delete-my-keywords_http_request">Example Request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/keywords/1 HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNjgzMywiZXhwIjoxNTg4NjIwNDMzfQ.5ND0fOV1viOBH7cxFgFU_s3voDd0zxPFl2Y7s20vdfU
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="resources-keywords-delete-my-keywords_request_headers"><a class="link" href="#resources-keywords-delete-my-keywords_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Accept</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The client should have valid access token produced on the server side</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="resources-keywords-delete-my-keywords_http_response"><a class="link" href="#resources-keywords-delete-my-keywords_http_response">Example Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-05 02:47:12 KST
+Last updated 2020-05-05 03:21:26 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">

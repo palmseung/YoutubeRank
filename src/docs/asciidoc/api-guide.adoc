@@ -11,7 +11,7 @@ endif::[]
 :operation-http-response-title: Example Response
 
 [[resources]]
-= Rest API Guide
+= Rest API Guide for YouTubeRank
 
 [[resources-members]]
 == Members
@@ -101,3 +101,11 @@ operation::keywords-retrieve-all-my-keywords[snippets='request-headers']
 operation::keywords-retrieve-all-my-keywords[snippets='http-response']
 operation::keywords-retrieve-all-my-keywords[snippets='response-headers']
 operation::keywords-retrieve-all-my-keywords[snippets='response-fields']
+
+[[resources-keywords-delete-my-keywords]]
+=== Delete my keyword
+
+operation::keywords-delete-my-keyword[snippets='http-request']
+operation::keywords-delete-my-keyword[snippets='request-headers']
+
+operation::keywords-delete-my-keyword[snippets='http-response']
