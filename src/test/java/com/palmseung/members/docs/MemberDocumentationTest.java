@@ -141,45 +141,6 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                 ));
     }
 
-    @DisplayName("[문서화] 회원 조회")
-    @Test
-    public void retrieveMyInfo() throws Exception {
-        //given
-        Member member = createMember(TEST_EMAIL);
-        String accessToken = jwtTokenProvider.createToken(TEST_EMAIL);
-        given(memberService.findById(member.getId())).willReturn(member);
-
-        //when, then
-        mockMvc.perform(get(BASE_URI_MY_INFO_API + "/" + member.getId())
-                .header(HttpHeaders.AUTHORIZATION, accessToken)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andDo(document("members-myInfo",
-                        requestHeaders(
-                                headerWithName(HttpHeaders.ACCEPT)
-                                        .description(MediaType.APPLICATION_JSON),
-                                headerWithName(HttpHeaders.AUTHORIZATION)
-                                        .description("The client should have valid access token produced on the server side")
-                        ),
-                        responseHeaders(
-                                headerWithName(HttpHeaders.CONTENT_TYPE)
-                                        .description(MediaType.APPLICATION_JSON)
-                        ),
-                        responseFields(
-                                fieldWithPath("email")
-                                        .type(JsonFieldType.STRING)
-                                        .description("The email address to retrieve member information"),
-                                fieldWithPath("name")
-                                        .type(JsonFieldType.STRING)
-                                        .description("The member's name to retrieve member information"),
-                                fieldWithPath("password")
-                                        .type(JsonFieldType.STRING)
-                                        .description("The member's bcrypt encoded password")
-                        )
-                ));
-    }
-
     @DisplayName("[문서화] 회원 탈퇴")
     @Test
     public void unsubscribe() throws Exception {
