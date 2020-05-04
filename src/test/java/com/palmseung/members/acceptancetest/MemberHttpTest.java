@@ -61,15 +61,13 @@ public class MemberHttpTest {
                 .returnResult();
     }
 
-    public EntityExchangeResult<MemberResponseView> updateMyInfo(Member loginUser,
+    public EntityExchangeResult<UpdateMemberResponseView> updateMyInfo(Member loginUser,
                                                                  LoginResponseView responseView,
                                                                  String newName,
                                                                  String newPassword) {
         UpdateMemberRequestView requestView = UpdateMemberRequestView.builder()
-                .id(loginUser.getId())
-                .email(loginUser.getEmail())
-                .name(newName)
-                .password(newPassword)
+                .newName(newName)
+                .newPassword(newPassword)
                 .build();
 
         return webTestClient.put().uri(BASE_URI_MY_INFO_API + "/" + loginUser.getId())
@@ -78,7 +76,7 @@ public class MemberHttpTest {
                 .bodyValue(requestView)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(MemberResponseView.class)
+                .expectBody(UpdateMemberResponseView.class)
                 .returnResult();
     }
 }

@@ -206,11 +206,10 @@ public class MemberServiceTest {
     @Test
     void updateMemberInfo() {
         //given
-        given(memberRepository.findById(TEST_ID)).willReturn(Optional.of(TEST_MEMBER));
         Member updatedMember = createUpdateMember();
 
         //when
-        memberService.updateInfo(TEST_MEMBER, updatedMember);
+        memberService.updateInfo(TEST_MEMBER, TEST_MEMBER, updatedMember);
 
         //then
         verify(memberRepository, times(1)).save(TEST_MEMBER);
@@ -221,7 +220,6 @@ public class MemberServiceTest {
     @ValueSource(longs = {1L, 2L})
     void updateMemberInfoWhenLoginUserIsNotSame(Long id) {
         //given
-        given(memberRepository.findById(1L)).willReturn(Optional.of(TEST_MEMBER));
         Member loginUser = Member.builder()
                 .id(id)
                 .email("newEmail")
@@ -231,7 +229,7 @@ public class MemberServiceTest {
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> memberService.updateInfo(loginUser, TEST_MEMBER))
+                .isThrownBy(() -> memberService.updateInfo(loginUser, TEST_MEMBER, TEST_MEMBER))
                 .withMessageContaining("authorize");
     }
 

@@ -7,16 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class UpdateMemberRequestView {
-    private Long id;
-    private String email;
-    private String name;
-    private String password;
+    private String newName;
+    private String newPassword;
 
     @Builder
-    public UpdateMemberRequestView(Long id, String email, String name, String password) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.password = password;
+    public UpdateMemberRequestView(String newName, String newPassword) {
+        this.newName = newName;
+        this.newPassword = newPassword;
     }
 }

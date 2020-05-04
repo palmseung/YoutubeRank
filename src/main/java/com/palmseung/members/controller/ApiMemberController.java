@@ -60,13 +60,14 @@ public class ApiMemberController {
     }
 
     @PutMapping("/my-info/{id}")
-    public ResponseEntity<MemberResponseView> updateMyInfo(@RequestBody UpdateMemberRequestView requestView) {
-        Member updatedMember
-                = memberService.updateInfo(getLoginUser(), Member.of(requestView));
+    public ResponseEntity<UpdateMemberResponseView> updateMyInfo(@PathVariable Long id,
+                                                                 @RequestBody UpdateMemberRequestView requestView) {
+        Member oldMember = memberService.findById(id);
+        Member updatedMember = memberService.updateInfo(getLoginUser(), oldMember, Member.of(requestView));
 
         return ResponseEntity
                 .ok()
-                .body(MemberResponseView.of(updatedMember));
+                .body(UpdateMemberResponseView.of(updatedMember));
     }
 
     private Member getLoginUser() {
