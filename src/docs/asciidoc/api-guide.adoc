@@ -81,3 +81,13 @@ operation::keywords-add-my-keyword[snippets='request-fields']
 operation::keywords-add-my-keyword[snippets='http-response']
 operation::keywords-add-my-keyword[snippets='response-headers']
 operation::keywords-add-my-keyword[snippets='response-fields']
+
+[[resources-keywords-retrieve-my-keyword]]
+=== Retrieve my keyword
+
+operation::keywords-retrieve-my-keyword[snippets='http-request']
+operation::keywords-retrieve-my-keyword[snippets='request-headers']
+
+operation::keywords-retrieve-my-keyword[snippets='http-response']
+operation::keywords-retrieve-my-keyword[snippets='response-headers']
+operation::keywords-retrieve-my-keyword[snippets='response-fields']
