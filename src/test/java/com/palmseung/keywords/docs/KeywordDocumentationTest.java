@@ -13,8 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.palmseung.keywords.KeywordConstant.BASE_URI_KEYWORD_API;
-import static com.palmseung.keywords.KeywordConstant.TEST_MY_KEYWORD;
+import java.util.Arrays;
+
+import static com.palmseung.keywords.KeywordConstant.*;
 import static com.palmseung.members.MemberConstant.TEST_EMAIL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -86,10 +87,9 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
     @Test
     public void retrieveMyKeyword() throws Exception {
         //given
-        String keyword = "queendom";
         given(memberService.findMyKeywordByMyKeywordId(any(), anyLong())).willReturn(TEST_MY_KEYWORD);
 
-        //when
+        //when, then
         mockMvc.perform(get(BASE_URI_KEYWORD_API + "/" + TEST_MY_KEYWORD.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION, createToken(TEST_EMAIL)))
@@ -111,6 +111,41 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
                                         .type(JsonFieldType.NUMBER)
                                         .description("The intrinsic myKeyword id to retrieve"),
                                 fieldWithPath("keyword")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The keyword added to member's my-keyword to retrieve")
+                        )
+                ));
+    }
+
+    @DisplayName("[문서화] My Keyword 목록 조회")
+    @Test
+    public void retrieveAllMyKeywords() throws Exception {
+        //given
+        given(memberService.findAllKeywords(any()))
+                .willReturn(Arrays.asList(TEST_MY_KEYWORD, TEST_MY_KEYWORD_2, TEST_MY_KEYWORD_3));
+
+        //when, then
+        mockMvc.perform(get(BASE_URI_KEYWORD_API)
+                .accept(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, createToken(TEST_EMAIL)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("keywords-retrieve-all-my-keywords",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT)
+                                        .description(MediaType.APPLICATION_JSON),
+                                headerWithName(HttpHeaders.AUTHORIZATION)
+                                        .description("The client should have valid access token produced on the server side")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE)
+                                        .description(MediaType.APPLICATION_JSON)
+                        ),
+                        responseFields(
+                                fieldWithPath("[].id")
+                                        .type(JsonFieldType.NUMBER)
+                                        .description("The intrinsic myKeyword id to retrieve"),
+                                fieldWithPath("[].keyword")
                                         .type(JsonFieldType.STRING)
                                         .description("The keyword added to member's my-keyword to retrieve")
                         )

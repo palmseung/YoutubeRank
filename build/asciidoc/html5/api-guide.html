@@ -503,6 +503,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#resources-keywords-retrieve-my-keyword_response_fields">Response fields</a></li>
 </ul>
 </li>
+<li><a href="#resources-keywords-retrieve-all-my-keywords">Retrieve all my keywords</a>
+<ul class="sectlevel3">
+<li><a href="#resources-keywords-retrieve-all-my-keywords_http_request">Example Request</a></li>
+<li><a href="#resources-keywords-retrieve-all-my-keywords_request_headers">Request headers</a></li>
+<li><a href="#resources-keywords-retrieve-all-my-keywords_http_response">Example Response</a></li>
+<li><a href="#resources-keywords-retrieve-all-my-keywords_response_headers">Response headers</a></li>
+<li><a href="#resources-keywords-retrieve-all-my-keywords_response_fields">Response fields</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -610,7 +619,7 @@ Content-Length: 150
   "id" : 1,
   "email" : "user@email.com",
   "name" : "user",
-  "password" : "{bcrypt}$2a$10$wzqQ/Dva9dfVm6tCzsEs3ePhCQJdDLW.mw.NgrM8k.x12TP/7YjqS"
+  "password" : "{bcrypt}$2a$10$DU9FVK0EFuKzhCLWAP/14OgDp1Zd0Rx3cslAlSshpGnnpk2Yj3cDe"
 }</code></pre>
 </div>
 </div>
@@ -777,7 +786,7 @@ X-Frame-Options: DENY
 Content-Length: 194
 
 {
-  "accessToken" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxMzI1OCwiZXhwIjoxNTg4NjE2ODU4fQ.FLgVPJjPVwAs2um5J3fcS0k5o-DlShsXCYcRc8ZG0ZQ",
+  "accessToken" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTA5OCwiZXhwIjoxNTg4NjE4Njk4fQ.tFOZm_tQuia5MLWvggD-Qynppa0PzYq9Q-bX6jm6NZE",
   "tokenType" : "Bearer "
 }</code></pre>
 </div>
@@ -845,7 +854,7 @@ Content-Length: 194
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/members/my-info/1 HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxMzI2NSwiZXhwIjoxNTg4NjE2ODY1fQ.GW5qVY4elb-ocQ8k64iCzR1pIJhejNBj-7qF8Kyhpkg
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTEwNCwiZXhwIjoxNTg4NjE4NzA0fQ.rc-0BSXQRBmeYaLPmjzbxh1ihjqsoZVUHahM-mCuRqk
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -893,7 +902,7 @@ Content-Length: 138
 {
   "email" : "user@email.com",
   "name" : "user",
-  "password" : "{bcrypt}$2a$10$hBZXz7H0H8G66BVWjIaDguXtNWO5NES1rZwr35XKkBIRHe8Ip2a86"
+  "password" : "{bcrypt}$2a$10$ziEmAztAXrekzW8l6WrBZeQR9WvjstRhMdY3MpBbiV6nFVSac5kVu"
 }</code></pre>
 </div>
 </div>
@@ -962,7 +971,7 @@ Content-Length: 138
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/members/my-info/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxMzIzNCwiZXhwIjoxNTg4NjE2ODM0fQ.hxt6k2RJtW1_Cs6UYGg3Om-6p0d8qlr0qG5qH9a2xeU
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTA5MSwiZXhwIjoxNTg4NjE4NjkxfQ.PzEI9S5txO27B02BzJpuS7-c6w5cpMfotuhdHsFexNQ
 Accept: application/json
 Content-Length: 60
 Host: localhost:8080
@@ -1046,7 +1055,7 @@ Content-Length: 153
   "id" : 1,
   "email" : "user@email.com",
   "name" : "newName",
-  "password" : "{bcrypt}$2a$10$ULo2AnZi/7Ryuw.hWJDwYOHWBLgWm1a1OrlbAh7jVln744QPXok4e"
+  "password" : "{bcrypt}$2a$10$ekYC87qOAzIdl4OwRLVkre8Fcp3hCp4iftCvewRu2tG2lT0TJhpea"
 }</code></pre>
 </div>
 </div>
@@ -1120,7 +1129,7 @@ Content-Length: 153
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/members/1 HTTP/1.1
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxMzI2MiwiZXhwIjoxNTg4NjE2ODYyfQ.9ApEW_N77hy_ILQLaXLpop8rudIgdTDti4hifA3nh2U
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTEwMCwiZXhwIjoxNTg4NjE4NzAwfQ.dFOzq0TBd_s0KybazRZf1YvP7amn2fCH-20eZgSxy60
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1179,7 +1188,7 @@ X-Frame-Options: DENY</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/keywords HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxMzMwMywiZXhwIjoxNTg4NjE2OTAzfQ.K5aucmnug3OmXke1UNsTTr06zEGqGMb7o0ohcOJFmE4
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTE0MSwiZXhwIjoxNTg4NjE4NzQxfQ.7UXdju5qqO_-xSda7_XRZiwSMzCdiU4p9AUQZr6YMOc
 Content-Length: 28
 Host: localhost:8080
 
@@ -1318,7 +1327,7 @@ Content-Length: 40
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/keywords/1 HTTP/1.1
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxMzI5OSwiZXhwIjoxNTg4NjE2ODk5fQ.g60K0s6K4gvZk3qgUQOTQ_-a9XSPQ20D4lHpupzUk-0
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTEzOSwiZXhwIjoxNTg4NjE4NzM5fQ.y6Y0onS2H8mES-kxo2rjsQceIHwul3kMW-962S74wek
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1420,12 +1429,128 @@ Content-Length: 40
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="resources-keywords-retrieve-all-my-keywords"><a class="link" href="#resources-keywords-retrieve-all-my-keywords">Retrieve all my keywords</a></h3>
+<div class="sect3">
+<h4 id="resources-keywords-retrieve-all-my-keywords_http_request"><a class="link" href="#resources-keywords-retrieve-all-my-keywords_http_request">Example Request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/keywords HTTP/1.1
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYxNTEzNSwiZXhwIjoxNTg4NjE4NzM1fQ.RmojhMPKdPLVOqvOCgcSRzDVQR1ecppdZBp8s0_JZ_c
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="resources-keywords-retrieve-all-my-keywords_request_headers"><a class="link" href="#resources-keywords-retrieve-all-my-keywords_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Accept</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The client should have valid access token produced on the server side</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="resources-keywords-retrieve-all-my-keywords_http_response"><a class="link" href="#resources-keywords-retrieve-all-my-keywords_http_response">Example Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 123
+
+[ {
+  "id" : 1,
+  "keyword" : "queendom"
+}, {
+  "id" : 1,
+  "keyword" : "(g)idle"
+}, {
+  "id" : 1,
+  "keyword" : "GOT7"
+} ]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="resources-keywords-retrieve-all-my-keywords_response_headers"><a class="link" href="#resources-keywords-retrieve-all-my-keywords_response_headers">Response headers</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Content-Type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="resources-keywords-retrieve-all-my-keywords_response_fields"><a class="link" href="#resources-keywords-retrieve-all-my-keywords_response_fields">Response fields</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The intrinsic myKeyword id to retrieve</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].keyword</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The keyword added to member&#8217;s my-keyword to retrieve</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-05 02:02:16 KST
+Last updated 2020-05-05 02:47:12 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">

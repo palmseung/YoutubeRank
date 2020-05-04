@@ -91,3 +91,13 @@ operation::keywords-retrieve-my-keyword[snippets='request-headers']
 operation::keywords-retrieve-my-keyword[snippets='http-response']
 operation::keywords-retrieve-my-keyword[snippets='response-headers']
 operation::keywords-retrieve-my-keyword[snippets='response-fields']
+
+[[resources-keywords-retrieve-all-my-keywords]]
+=== Retrieve all my keywords
+
+operation::keywords-retrieve-all-my-keywords[snippets='http-request']
+operation::keywords-retrieve-all-my-keywords[snippets='request-headers']
+
+operation::keywords-retrieve-all-my-keywords[snippets='http-response']
+operation::keywords-retrieve-all-my-keywords[snippets='response-headers']
+operation::keywords-retrieve-all-my-keywords[snippets='response-fields']
