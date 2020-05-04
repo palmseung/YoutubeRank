@@ -141,6 +141,7 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                 ));
     }
 
+
     @DisplayName("[문서화] 회원 조회")
     @Test
     public void retrieveMyInfo() throws Exception {
