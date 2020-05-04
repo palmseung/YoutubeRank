@@ -4,6 +4,7 @@ import com.palmseung.BaseDocumentationTest;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.dto.CreateMemberRequestView;
 import com.palmseung.members.dto.LoginRequestView;
+import com.palmseung.members.dto.UpdateMemberRequestView;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.support.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -29,10 +31,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class MemberDocumentationTest extends BaseDocumentationTest {
     @Autowired
-    public MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Autowired
-    public JwtTokenProvider jwtTokenProvider;
+    private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @MockBean
     private MemberService memberService;
@@ -205,6 +210,79 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                 ));
     }
 
+    @DisplayName("[문서화] 회원 정보 수정")
+    @Test
+    public void updateMyInfo() throws Exception {
+        //given
+        Member member = createMember(TEST_EMAIL);
+        String accessToken = jwtTokenProvider.createToken(TEST_EMAIL);
+        String newName = "newName";
+        String newPassword = "newPassword";
+        UpdateMemberRequestView updateRequest = createUpdateRequest(newName, newPassword);
+        Member updatedMember = updateMember(member, newName, newPassword);
+        given(memberService.updateInfo(any(), any(), any())).willReturn(updatedMember);
+
+        //when, then
+        mockMvc.perform(put(BASE_URI_MY_INFO_API + "/" + member.getId())
+                .header(HttpHeaders.AUTHORIZATION, accessToken)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updateRequest)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("members-update-myInfo",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT)
+                                        .description(MediaType.APPLICATION_JSON),
+                                headerWithName(HttpHeaders.AUTHORIZATION)
+                                        .description("The client should have valid access token produced on the server side")
+                        ),
+                        requestFields(
+                                fieldWithPath("newName")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The member's new name to update"),
+                                fieldWithPath("newPassword")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The member's new password to update")
+                        ),
+                        responseHeaders(
+                                headerWithName(HttpHeaders.CONTENT_TYPE)
+                                        .description(MediaType.APPLICATION_JSON)
+                        ),
+                        responseFields(
+                                fieldWithPath("id")
+                                        .type(JsonFieldType.NUMBER)
+                                        .description("The intrinsic member number issued on the server side"),
+                                fieldWithPath("email")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The unique email of a valid member in the server"),
+                                fieldWithPath("name")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The updated name of a valid member in the server"),
+                                fieldWithPath("password")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The updated password of a valid member in the server and it is bcrypt encoded")
+                        )
+                ));
+    }
+
+    private Member updateMember(Member member, String newName, String newPassword) {
+        return Member.builder()
+                .id(member.getId())
+                .email(member.getEmail())
+                .name(newName)
+                .password(passwordEncoder.encode(newPassword))
+                .roles(Arrays.asList("ROLE_USER"))
+                .build();
+    }
+
+    private UpdateMemberRequestView createUpdateRequest(String newName, String newPassword) {
+        return UpdateMemberRequestView.builder()
+                .newName(newName)
+                .newPassword(newPassword)
+                .build();
+    }
+
     private LoginRequestView createLoginRequest(String email) {
         return LoginRequestView.builder()
                 .email(email)
@@ -225,7 +303,7 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                 .id(TEST_ID)
                 .email(email)
                 .name(TEST_NAME)
-                .password(TEST_PASSWORD)
+                .password(passwordEncoder.encode(TEST_PASSWORD))
                 .roles(Arrays.asList("ROLE_USER"))
                 .build();
     }

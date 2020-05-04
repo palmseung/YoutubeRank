@@ -14,10 +14,10 @@ endif::[]
 = Rest API Guide
 
 [[resources-members]]
-== 회원 관리
+== Members
 
 [[resources-members-create]]
-=== 회원 가입
+=== Sign-up
 
 operation::members-create[snippets='http-request']
 operation::members-create[snippets='request-headers']
@@ -28,7 +28,7 @@ operation::members-create[snippets='response-headers']
 operation::members-create[snippets='response-fields']
 
 [[resources-members-login]]
-=== 로그인
+=== Login
 
 operation::members-login[snippets='http-request']
 operation::members-login[snippets='request-headers']
@@ -39,7 +39,7 @@ operation::members-login[snippets='response-headers']
 operation::members-login[snippets='response-fields']
 
 [[resources-members-myInfo]]
-=== 회원 정보 조회 (내 정보 조회)
+=== Retrieve member information
 
 operation::members-myInfo[snippets='http-request']
 operation::members-myInfo[snippets='request-headers']
@@ -48,8 +48,19 @@ operation::members-myInfo[snippets='http-response']
 operation::members-myInfo[snippets='response-headers']
 operation::members-myInfo[snippets='response-fields']
 
+[[resources-members-update-myInfo]]
+=== Update member information
+
+operation::members-update-myInfo[snippets='http-request']
+operation::members-update-myInfo[snippets='request-headers']
+operation::members-update-myInfo[snippets='request-fields']
+
+operation::members-update-myInfo[snippets='http-response']
+operation::members-update-myInfo[snippets='response-headers']
+operation::members-update-myInfo[snippets='response-fields']
+
 [[resources-members-unsubscribe]]
-=== 회원 탈퇴
+=== Unsubscribe
 
 operation::members-unsubscribe[snippets='http-request']
 operation::members-unsubscribe[snippets='request-headers']

@@ -2,10 +2,7 @@ package com.palmseung.members.acceptancetest;
 
 import com.palmseung.BaseAcceptanceTest;
 import com.palmseung.members.domain.MemberRepository;
-import com.palmseung.members.dto.CreateMemberResponseView;
-import com.palmseung.members.dto.LoginResponseView;
-import com.palmseung.members.dto.MemberResponseView;
-import com.palmseung.members.dto.MyInfoResponseView;
+import com.palmseung.members.dto.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -101,7 +98,7 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
         String newPassword = "newPassword";
 
         //when
-        MemberResponseView responseBody
+        UpdateMemberResponseView responseBody
                 = memberHttpTest.updateMyInfo(TEST_MEMBER, responseView, newName, newPassword)
                 .getResponseBody();
 

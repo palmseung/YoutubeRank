@@ -59,10 +59,10 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public Member updateInfo(Member loginUser, Member updatedMember) {
+    public Member updateInfo(Member loginUser, Member oldMember, Member updatedMember) {
         updatedMember.updatePassword(passwordEncoder.encode(updatedMember.getPassword()));
-        Member oldMember = findById(updatedMember.getId());
         oldMember.update(loginUser, updatedMember);
+
         return memberRepository.save(oldMember);
     }
 

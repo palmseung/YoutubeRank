@@ -59,7 +59,7 @@ task testDocument(type: Test) {
 }
 
 asciidoctor {
-    dependsOn testDocument
+    dependsOn test
     inputs.dir snippetsDir
 }
 

@@ -56,10 +56,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     public static Member of(UpdateMemberRequestView requestView) {
         return Member.builder()
-                .id(requestView.getId())
-                .email(requestView.getEmail())
-                .name(requestView.getName())
-                .password(requestView.getPassword())
+                .name(requestView.getNewName())
+                .password(requestView.getNewPassword())
                 .build();
     }
 
