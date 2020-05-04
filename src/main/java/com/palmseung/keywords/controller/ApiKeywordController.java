@@ -2,6 +2,7 @@ package com.palmseung.keywords.controller;
 
 import com.palmseung.keywords.domain.Keyword;
 import com.palmseung.keywords.domain.MyKeyword;
+import com.palmseung.keywords.dto.MyKeywordRequestView;
 import com.palmseung.keywords.dto.MyKeywordResponseView;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.service.MemberService;
@@ -21,13 +22,15 @@ public class ApiKeywordController {
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity addKeyword(@RequestBody String keyword) {
+    public ResponseEntity addKeyword(@RequestBody MyKeywordRequestView requestView) {
         MyKeyword myKeyword
-                = memberService.addKeyword(getLoginUser(), Keyword.builder().keyword(keyword).build());
+                = memberService.addKeyword(getLoginUser(), Keyword.builder().keyword(requestView.getKeyword()).build());
+
+        MyKeywordResponseView responseView = MyKeywordResponseView.of(myKeyword);
 
         return ResponseEntity
                 .ok()
-                .body(MyKeywordResponseView.of(myKeyword));
+                .body(responseView);
     }
 
     @GetMapping("/{id}")
