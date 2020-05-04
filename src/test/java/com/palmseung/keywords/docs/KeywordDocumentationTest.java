@@ -1,7 +1,6 @@
 package com.palmseung.keywords.docs;
 
 import com.palmseung.BaseDocumentationTest;
-import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.keywords.dto.MyKeywordRequestView;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.support.jwt.JwtTokenProvider;
