@@ -1,6 +1,7 @@
 package com.palmseung.keywords.docs;
 
 import com.palmseung.BaseDocumentationTest;
+import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.keywords.dto.MyKeywordRequestView;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.support.jwt.JwtTokenProvider;
@@ -14,6 +15,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static com.palmseung.keywords.KeywordConstant.*;
 import static com.palmseung.members.MemberConstant.TEST_EMAIL;
@@ -23,8 +25,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -148,6 +149,28 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
                                 fieldWithPath("[].keyword")
                                         .type(JsonFieldType.STRING)
                                         .description("The keyword added to member's my-keyword to retrieve")
+                        )
+                ));
+    }
+
+    @DisplayName("[문서화] My Keyword 삭제")
+    @Test
+    public void deleteMyKeyword() throws Exception {
+        //given
+        given(memberService.findMyKeywordById(anyLong())).willReturn(Optional.of(TEST_MY_KEYWORD));
+
+        //when, then
+        mockMvc.perform(delete(BASE_URI_KEYWORD_API + "/" + TEST_MY_KEYWORD.getId())
+                .header(HttpHeaders.AUTHORIZATION, createToken(TEST_EMAIL))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("keywords-delete-my-keyword",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT)
+                                        .description(MediaType.APPLICATION_JSON),
+                                headerWithName(HttpHeaders.AUTHORIZATION)
+                                        .description("The client should have valid access token produced on the server side")
                         )
                 ));
     }
