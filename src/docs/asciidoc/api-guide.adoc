@@ -27,3 +27,14 @@ operation::members-create[snippets='http-response']
 operation::members-create[snippets='response-headers']
 operation::members-create[snippets='response-fields']
 
+[[resources-members-login]]
+=== 로그인
+
+operation::members-login[snippets='http-request']
+operation::members-login[snippets='request-headers']
+operation::members-login[snippets='request-fields']
+
+operation::members-login[snippets='http-response']
+operation::members-login[snippets='response-headers']
+operation::members-login[snippets='response-fields']
+
