@@ -1,7 +1,7 @@
 package com.palmseung.keywords.domain;
 
 import com.palmseung.members.domain.Member;
-import com.palmseung.support.BaseTimeEntity;
+import com.palmseung.common.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

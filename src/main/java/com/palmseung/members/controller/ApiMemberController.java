@@ -4,7 +4,7 @@ import com.palmseung.members.MemberConstant;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.dto.*;
 import com.palmseung.members.service.MemberService;
-import com.palmseung.support.jwt.JwtTokenProvider;
+import com.palmseung.members.support.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

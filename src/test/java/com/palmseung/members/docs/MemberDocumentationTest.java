@@ -6,7 +6,7 @@ import com.palmseung.members.dto.CreateMemberRequestView;
 import com.palmseung.members.dto.LoginRequestView;
 import com.palmseung.members.dto.UpdateMemberRequestView;
 import com.palmseung.members.service.MemberService;
-import com.palmseung.support.jwt.JwtTokenProvider;
+import com.palmseung.members.support.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

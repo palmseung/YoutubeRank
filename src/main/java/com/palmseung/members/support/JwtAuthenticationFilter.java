@@ -1,4 +1,4 @@
-package com.palmseung.support.jwt;
+package com.palmseung.members.support;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

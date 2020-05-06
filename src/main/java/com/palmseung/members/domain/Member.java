@@ -3,7 +3,7 @@ package com.palmseung.members.domain;
 import com.palmseung.keywords.domain.Keyword;
 import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.members.dto.UpdateMemberRequestView;
-import com.palmseung.support.BaseTimeEntity;
+import com.palmseung.common.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.palmseung.support.Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE;
+import static com.palmseung.common.Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE;
 
 @Getter
 @Entity(name = "member")

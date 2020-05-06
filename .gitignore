@@ -3,7 +3,17 @@
 *.iml
 *.ipr
 out/
+application.properties
 
 *.DS_Store
 # Project exclude paths
 /.gradle/
+build/classes/
+build/generated-snippets/
+build/generated/
+build/libs/
+build/reports/
+build/resources/
+build/test-results/
+build/tmp/
+src/test/resources/

@@ -1,8 +1,7 @@
 package com.palmseung.config;
 
-import com.palmseung.support.jwt.JwtAuthenticationFilter;
-import com.palmseung.support.jwt.JwtTokenProvider;
-import lombok.NoArgsConstructor;
+import com.palmseung.members.support.JwtAuthenticationFilter;
+import com.palmseung.members.support.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .mvcMatchers("/", "/login", "/sign-up",
                         "/api/login", "/api/logout",
-                        "/api/members/login").permitAll()
+                        "/api/members/login", "/api/youtube/**").permitAll()
                 .mvcMatchers("/api/members/my-info/**").hasRole("USER")
                 .mvcMatchers(HttpMethod.POST, "/api/members").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/members").hasRole("USER")

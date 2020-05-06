@@ -1,5 +1,6 @@
 package com.palmseung;
 
+import com.google.api.services.youtube.YouTube;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
