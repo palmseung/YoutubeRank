@@ -5,8 +5,12 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.palmseung.youtube.domain.YouTubeVideo;
+import com.palmseung.youtube.domain.YouTubeVideos;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.util.Arrays;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class YoutubeConstant {
@@ -76,4 +80,10 @@ public class YoutubeConstant {
             .description("[3회] ♬ 한(一) feat.치타 - 박봄 @2차 경연ㅣ커버곡 대결 K-POP 여왕의 자리를 두고 펼쳐지는 걸그룹 컴백 전쟁! Mnet '퀸덤(Queendom)' -----------------------...")
             .thumbnailUrl("https://i.ytimg.com/vi/QxOr7l7utUo/hqdefault.jpg")
             .build();
+
+    public static final List<YouTubeVideo> TEST_YOUTUBE_VIDEO_LIST
+            = Arrays.asList(TEST_YOUTUBE_VIDEO_1, TEST_YOUTUBE_VIDEO_2, TEST_YOUTUBE_VIDEO_3,
+            TEST_YOUTUBE_VIDEO_4, TEST_YOUTUBE_VIDEO_5);
+
+    public static final YouTubeVideos TEST_YOUTUBE_VIDEOS = YouTubeVideos.of(TEST_YOUTUBE_VIDEO_LIST);
 }
