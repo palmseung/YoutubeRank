@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .mvcMatchers("/", "/login", "/sign-up",
                         "/api/login", "/api/logout",
-                        "/api/members/login").permitAll()
+                        "/api/members/login", "/api/youtube/**").permitAll()
                 .mvcMatchers("/api/members/my-info/**").hasRole("USER")
                 .mvcMatchers(HttpMethod.POST, "/api/members").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/members").hasRole("USER")
