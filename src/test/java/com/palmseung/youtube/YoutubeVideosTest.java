@@ -7,10 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.palmseung.youtube.support.YoutubeConstant.*;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
@@ -31,9 +33,23 @@ public class YoutubeVideosTest {
         }).withMessageContaining("video");
     }
 
+    @DisplayName("Collection의 index가 커질수록 viewCount는 작아진다. (정상)")
+    @Test
+    void validateViewCountRule() {
+        //given
+        List<YoutubeVideo> youtubeVideos
+                = Arrays.asList(TEST_YOUTUBE_VIDEO_1, TEST_YOUTUBE_VIDEO_2,
+                TEST_YOUTUBE_VIDEO_3, TEST_YOUTUBE_VIDEO_4, TEST_YOUTUBE_VIDEO_5);
+
+        //when, then
+        assertThatCode(() -> {
+            YoutubeVideos.of(youtubeVideos);
+        }).doesNotThrowAnyException();
+    }
+
     private List<YoutubeVideo> createYoutubeVideos(int number) {
         return IntStream.range(0, number)
-                .mapToObj(consume -> new YoutubeVideo())
+                .mapToObj(consume -> YoutubeVideo.builder().viewCount(1000 - number).build())
                 .collect(Collectors.toList());
     }
 }
