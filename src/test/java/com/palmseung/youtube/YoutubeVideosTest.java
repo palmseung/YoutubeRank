@@ -47,6 +47,20 @@ public class YoutubeVideosTest {
         }).doesNotThrowAnyException();
     }
 
+    @DisplayName("Collection의 index가 커질수록 viewCount는 작아진다. (비정상)")
+    @Test
+    void validateViewCountRuleWhenAbnormal() {
+        //given
+        List<YoutubeVideo> youtubeVideos
+                = Arrays.asList(TEST_YOUTUBE_VIDEO_2, TEST_YOUTUBE_VIDEO_1,
+                TEST_YOUTUBE_VIDEO_3, TEST_YOUTUBE_VIDEO_4, TEST_YOUTUBE_VIDEO_5);
+
+        //when, then
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            YoutubeVideos.of(youtubeVideos);
+        });
+    }
+
     private List<YoutubeVideo> createYoutubeVideos(int number) {
         return IntStream.range(0, number)
                 .mapToObj(consume -> YoutubeVideo.builder().viewCount(1000 - number).build())
