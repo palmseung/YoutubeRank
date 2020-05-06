@@ -9,20 +9,20 @@ import java.util.stream.IntStream;
 import static com.palmseung.youtube.support.YoutubeConstant.YOUTUBE_NUMBER_OF_RESULT;
 
 @Getter
-public class YoutubeVideos {
-    private List<YoutubeVideo> youtubeVideos;
+public class YouTubeVideos {
+    private List<YouTubeVideo> youTubeVideos;
 
-    public YoutubeVideos(List<YoutubeVideo> youtubeVideos) {
-        validateSize(youtubeVideos);
-        validateViewCountRule(youtubeVideos);
-        this.youtubeVideos = Collections.unmodifiableList(youtubeVideos);
+    public YouTubeVideos(List<YouTubeVideo> youTubeVideos) {
+        validateSize(youTubeVideos);
+        validateViewCountRule(youTubeVideos);
+        this.youTubeVideos = Collections.unmodifiableList(youTubeVideos);
     }
 
-    public static YoutubeVideos of(List<YoutubeVideo> youtubeVideos) {
-        return new YoutubeVideos(youtubeVideos);
+    public static YouTubeVideos of(List<YouTubeVideo> youTubeVideos) {
+        return new YouTubeVideos(youTubeVideos);
     }
 
-    private void validateViewCountRule(List<YoutubeVideo> videos) {
+    private void validateViewCountRule(List<YouTubeVideo> videos) {
         boolean followViewCountRule = IntStream.range(0, videos.size() - 1)
                 .allMatch(i -> videos.get(i).getViewCount() >= videos.get(i + 1).getViewCount());
 
@@ -31,8 +31,8 @@ public class YoutubeVideos {
         }
     }
 
-    private void validateSize(List<YoutubeVideo> youtubeVideos) {
-        if (youtubeVideos.size() != YOUTUBE_NUMBER_OF_RESULT) {
+    private void validateSize(List<YouTubeVideo> youTubeVideos) {
+        if (youTubeVideos.size() != YOUTUBE_NUMBER_OF_RESULT) {
             throw new IllegalArgumentException("The number of videos returned should be" + YOUTUBE_NUMBER_OF_RESULT);
         }
     }

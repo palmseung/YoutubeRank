@@ -1,6 +1,6 @@
 package com.palmseung.youtube.service;
 
-import com.palmseung.youtube.domain.YoutubeVideos;
+import com.palmseung.youtube.domain.YouTubeVideos;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,10 +21,10 @@ public class YouTubeServiceTest {
         String searchKeyword = "GOT7";
 
         //when
-        YoutubeVideos results = youTubeService.search(searchKeyword);
+        YouTubeVideos results = youTubeService.search(searchKeyword);
 
         //then
         assertThat(results).isNotNull();
-        assertThat(results.getYoutubeVideos().size()).isEqualTo(YOUTUBE_NUMBER_OF_RESULT);
+        assertThat(results.getYouTubeVideos().size()).isEqualTo(YOUTUBE_NUMBER_OF_RESULT);
     }
 }

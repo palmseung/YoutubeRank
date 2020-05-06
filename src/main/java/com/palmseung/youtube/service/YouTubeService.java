@@ -4,8 +4,8 @@ import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
-import com.palmseung.youtube.domain.YoutubeVideo;
-import com.palmseung.youtube.domain.YoutubeVideos;
+import com.palmseung.youtube.domain.YouTubeVideo;
+import com.palmseung.youtube.domain.YouTubeVideos;
 import com.palmseung.youtube.support.YoutubeProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,13 +35,13 @@ public class YouTubeService {
                 }).setApplicationName(YOUTUBE_API_APPLICATION).build();
     }
 
-    public YoutubeVideos search(String searchKeyword) throws IOException {
+    public YouTubeVideos search(String searchKeyword) throws IOException {
         String apiKey = youtubeProperties.getApiKey();
 
         return executeSearching(searchKeyword, apiKey)
                 .stream()
-                .map(searchResult -> YoutubeVideo.of(searchResult, getViewCount(searchResult, apiKey)))
-                .collect(Collectors.collectingAndThen(toList(), YoutubeVideos::new));
+                .map(searchResult -> YouTubeVideo.of(searchResult, getViewCount(searchResult, apiKey)))
+                .collect(Collectors.collectingAndThen(toList(), YouTubeVideos::new));
     }
 
     private List<SearchResult> executeSearching(String keyword, String apiKey) throws IOException {

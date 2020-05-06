@@ -4,11 +4,9 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.palmseung.youtube.domain.YoutubeVideo;
+import com.palmseung.youtube.domain.YouTubeVideo;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class YoutubeConstant {
@@ -29,8 +27,8 @@ public class YoutubeConstant {
     public static final String YOUTUBE_PART_FOR_STATISTICS = "statistics";
 
 
-    public static final YoutubeVideo TEST_YOUTUBE_VIDEO_1
-            = YoutubeVideo.builder()
+    public static final YouTubeVideo TEST_YOUTUBE_VIDEO_1
+            = YouTubeVideo.builder()
             .title("[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연   커버곡 대결 컴백전쟁 : 퀸덤 4화")
             .url("https://www.youtube.com/watch?v=Og_X5gTXTF0")
             .videoId("Og_X5gTXTF0")
@@ -39,8 +37,8 @@ public class YoutubeConstant {
             .thumbnailUrl("https://i.ytimg.com/vi/Og_X5gTXTF0/hqdefault.jpg")
             .build();
 
-    public static final YoutubeVideo TEST_YOUTUBE_VIDEO_2
-            = YoutubeVideo.builder()
+    public static final YouTubeVideo TEST_YOUTUBE_VIDEO_2
+            = YouTubeVideo.builder()
             .title("[ENG sub] [3회] ♬ 너나 해(Egotistic) - AOA @2차 경연ㅣ커버곡 대결 컴백전쟁 : 퀸덤 3화")
             .url("https://www.youtube.com/watch?v=JXC7rtAVOzM")
             .videoId("JXC7rtAVOzM")
@@ -49,8 +47,8 @@ public class YoutubeConstant {
             .thumbnailUrl("https://i.ytimg.com/vi/JXC7rtAVOzM/hqdefault.jpg")
             .build();
 
-    public static final YoutubeVideo TEST_YOUTUBE_VIDEO_3
-            = YoutubeVideo.builder()
+    public static final YouTubeVideo TEST_YOUTUBE_VIDEO_3
+            = YouTubeVideo.builder()
             .title("[ENG sub] [최종회] ♬ LION - (여자)아이들 @ FINAL 경연 컴백전쟁 : 퀸덤 10화")
             .url("https://www.youtube.com/watch?v=2KtFPjSp3og")
             .videoId("2KtFPjSp3og")
@@ -59,8 +57,8 @@ public class YoutubeConstant {
             .thumbnailUrl("https://i.ytimg.com/vi/JXC7rtAVOzM/hqdefault.jpg")
             .build();
 
-    public static final YoutubeVideo TEST_YOUTUBE_VIDEO_4
-            = YoutubeVideo.builder()
+    public static final YouTubeVideo TEST_YOUTUBE_VIDEO_4
+            = YouTubeVideo.builder()
             .title("[ENG sub] [2회] ♬ LATATA - (여자)아이들 @1차 경연ㅣ히트곡 대결 컴백전쟁 : 퀸덤 2화")
             .url("https://www.youtube.com/watch?v=Knz0j_G7lKg")
             .videoId("Knz0j_G7lKg")
@@ -69,8 +67,8 @@ public class YoutubeConstant {
             .thumbnailUrl("https://i.ytimg.com/vi/Knz0j_G7lKg/hqdefault.jpg")
             .build();
 
-    public static final YoutubeVideo TEST_YOUTUBE_VIDEO_5
-            = YoutubeVideo.builder()
+    public static final YouTubeVideo TEST_YOUTUBE_VIDEO_5
+            = YouTubeVideo.builder()
             .title("[ENG sub] [3회] ♬ 한(一) feat.치타 - 박봄 @2차 경연ㅣ커버곡 대결 컴백전쟁 : 퀸덤 3화")
             .url("https://www.youtube.com/watch?v=QxOr7l7utUo")
             .videoId("QxOr7l7utUo")

@@ -9,7 +9,7 @@ import static com.palmseung.youtube.support.YoutubeConstant.YOUTUBE_URL;
 
 @NoArgsConstructor
 @Getter
-public class YoutubeVideo {
+public class YouTubeVideo {
     private String videoId;
     private String url;
     private String title;
@@ -18,7 +18,7 @@ public class YoutubeVideo {
     private long viewCount;
 
     @Builder
-    public YoutubeVideo(String videoId, String url, String title, long viewCount,
+    public YouTubeVideo(String videoId, String url, String title, long viewCount,
                         String thumbnailUrl, String description) {
         this.videoId = videoId;
         this.url = url;
@@ -28,8 +28,8 @@ public class YoutubeVideo {
         this.viewCount = viewCount;
     }
 
-    public static YoutubeVideo of(SearchResult result, long viewCount) {
-        return YoutubeVideo.builder()
+    public static YouTubeVideo of(SearchResult result, long viewCount) {
+        return YouTubeVideo.builder()
                 .videoId(result.getId().getVideoId())
                 .url(YOUTUBE_URL + result.getId().getVideoId())
                 .title(result.getSnippet().getTitle())
