@@ -1,4 +1,4 @@
-package com.palmseung.support.jwt;
+package com.palmseung.members.support;
 
 
 import io.jsonwebtoken.Claims;
@@ -20,20 +20,20 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
-import static com.palmseung.support.Messages.WARNING_JWT_INVALID_TOKEN;
+import static com.palmseung.common.Messages.WARNING_JWT_INVALID_TOKEN;
 
 @Setter
 @Getter
 @Component
-@EnableConfigurationProperties(ReadProperties.class)
+@EnableConfigurationProperties(TokenProperties.class)
 public class JwtTokenProvider {
     private String secretKey;
     private Long expireLength;
     private UserDetailsService userDetailsService;
 
-    public JwtTokenProvider(ReadProperties readProperties, UserDetailsService userDetailsService) {
-        this.secretKey = readProperties.getSecretKey();
-        this.expireLength = readProperties.getExpireLength();
+    public JwtTokenProvider(TokenProperties tokenProperties, UserDetailsService userDetailsService) {
+        this.secretKey = tokenProperties.getSecretKey();
+        this.expireLength = tokenProperties.getExpireLength();
         this.userDetailsService = userDetailsService;
     }
 

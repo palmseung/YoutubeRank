@@ -3,7 +3,7 @@ package com.palmseung.keywords.docs;
 import com.palmseung.BaseDocumentationTest;
 import com.palmseung.keywords.dto.MyKeywordRequestView;
 import com.palmseung.members.service.MemberService;
-import com.palmseung.support.jwt.JwtTokenProvider;
+import com.palmseung.members.support.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

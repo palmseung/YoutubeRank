@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static com.palmseung.support.Messages.*;
+import static com.palmseung.common.Messages.*;
 
 @RequiredArgsConstructor
 @Service

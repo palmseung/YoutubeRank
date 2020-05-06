@@ -1,8 +1,8 @@
-package com.palmseung.support;
+package com.palmseung.members.support;
 
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;
-import com.palmseung.support.jwt.JwtTokenProvider;
+import com.palmseung.members.support.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

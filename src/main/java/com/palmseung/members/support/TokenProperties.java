@@ -1,4 +1,4 @@
-package com.palmseung.support.jwt;
+package com.palmseung.members.support;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @Component
 @NoArgsConstructor
 @ConfigurationProperties(prefix = "token")
-public class ReadProperties {
+public class TokenProperties {
     private String secretKey;
     private Long expireLength;
 
-    public ReadProperties(String secretKey, Long expireLength) {
+    public TokenProperties(String secretKey, Long expireLength) {
         this.secretKey = secretKey;
         this.expireLength = expireLength;
     }
