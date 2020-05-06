@@ -12,7 +12,7 @@ import static com.palmseung.youtube.support.YoutubeConstant.YOUTUBE_URL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class YoutubeAcceptanceTest extends BaseAcceptanceTest {
-    @DisplayName("Youtube 키워드 검색 결과 가져오기")
+    @DisplayName("Youtube 키워드 검색 결과 가져 오기")
     @Test
     void searchVideos() {
         //given
