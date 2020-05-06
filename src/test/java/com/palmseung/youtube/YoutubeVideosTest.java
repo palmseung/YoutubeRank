@@ -15,18 +15,18 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 public class YoutubeVideosTest {
-    @DisplayName("Collection 사이즈가 5일 때 객체 생성 (정상)")
+    @DisplayName("정상 - Collection 사이즈가 5일 때 객체 생성")
     @Test
     void validateSize() {
         assertThatCode(() -> YoutubeVideos.of(createYoutubeVideos(5)))
                 .doesNotThrowAnyException();
     }
 
-    @DisplayName("Collection")
+    @DisplayName("비정상 - Collection 사이즈가 5가 아닐 때")
     @ParameterizedTest
     @ValueSource(ints = {1, 4, 6})
-    void validateSizeWhenAbnormal(int countOfVideo){
-        assertThatIllegalArgumentException().isThrownBy(() ->{
+    void validateSizeWhenAbnormal(int countOfVideo) {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
             YoutubeVideos.of(createYoutubeVideos(countOfVideo));
         }).withMessageContaining("video");
     }
