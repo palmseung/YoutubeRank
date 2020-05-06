@@ -109,3 +109,16 @@ operation::keywords-delete-my-keyword[snippets='http-request']
 operation::keywords-delete-my-keyword[snippets='request-headers']
 
 operation::keywords-delete-my-keyword[snippets='http-response']
+
+[[resources-youtube]]
+== YouTube
+
+[[resources-youtube-search]]
+=== Search youtube
+
+operation::youtube-search[snippets='http-request']
+operation::youtube-search[snippets='request-headers']
+operation::youtube-search[snippets='request-parameters']
+
+operation::youtube-search[snippets='http-response']
+operation::youtube-search[snippets='response-fields']

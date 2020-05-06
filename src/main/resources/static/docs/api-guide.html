@@ -521,6 +521,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
+<li><a href="#resources-youtube">YouTube</a>
+<ul class="sectlevel2">
+<li><a href="#resources-youtube-search">Search youtube</a>
+<ul class="sectlevel3">
+<li><a href="#resources-youtube-search_http_request">Example Request</a></li>
+<li><a href="#resources-youtube-search_request_headers">Request headers</a></li>
+<li><a href="#resources-youtube-search_request_parameters">Request parameters</a></li>
+<li><a href="#resources-youtube-search_http_response">Example Response</a></li>
+<li><a href="#resources-youtube-search_response_fields">Response fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -626,7 +639,7 @@ Content-Length: 150
   "id" : 1,
   "email" : "user@email.com",
   "name" : "user",
-  "password" : "{bcrypt}$2a$10$WBcB0gEEaZ/DceS6l66ZhuPNbbn7lZJ5rpNiaquNAfXOd0iFio1HO"
+  "password" : "{bcrypt}$2a$10$RP5TmocF8hwVjCctL/xIze3cwKmOxR5LS4GaHG7QZoaeVWy4J53wu"
 }</code></pre>
 </div>
 </div>
@@ -793,7 +806,7 @@ X-Frame-Options: DENY
 Content-Length: 194
 
 {
-  "accessToken" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYyMDg4NSwiZXhwIjoxNTg4NjI0NDg1fQ.44OtwzoQ44QZsPHQMyz_8kgB4gUbLYrW_7VcV_U4C8I",
+  "accessToken" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODc4NzgwOSwiZXhwIjoxNTg4NzkxNDA5fQ.GUDEHxobX_bI-hjLfopF2bXJxwXcEl0PfAbVRTvfj2s",
   "tokenType" : "Bearer "
 }</code></pre>
 </div>
@@ -861,7 +874,7 @@ Content-Length: 194
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/members/my-info/1 HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYyMDg5MCwiZXhwIjoxNTg4NjI0NDkwfQ.CzOTpxmwO3KLkgw7UssMmp20vko9qHG0_uP0LupkFn4
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODc4NzgxNCwiZXhwIjoxNTg4NzkxNDE0fQ.bIERdSOI6-tj0DGCtyIrfcCnhlFfKsi-NEQAbxelSDE
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -909,7 +922,7 @@ Content-Length: 138
 {
   "email" : "user@email.com",
   "name" : "user",
-  "password" : "{bcrypt}$2a$10$WQwqaOAyoyaBef2Gny/kSOpOp.UGsTdjolfsR8tqug5veAopviHVy"
+  "password" : "{bcrypt}$2a$10$oSh3kahhW7veUUPXC4i.4OQP2SRUG/OO9YJUnWYoCT3n/hnKUhG2e"
 }</code></pre>
 </div>
 </div>
@@ -978,7 +991,7 @@ Content-Length: 138
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/members/my-info/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYyMDg4MCwiZXhwIjoxNTg4NjI0NDgwfQ.DWJJ6eEjTT2hzMcKi0xYrgXJG8ykqZeBJMa0kcVLO0k
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODc4NzgwMSwiZXhwIjoxNTg4NzkxNDAxfQ.OdXNhypG_1eePiWotKf81MtegRXQBM1Lgx2vlE1xjGY
 Accept: application/json
 Content-Length: 60
 Host: localhost:8080
@@ -1062,7 +1075,7 @@ Content-Length: 153
   "id" : 1,
   "email" : "user@email.com",
   "name" : "newName",
-  "password" : "{bcrypt}$2a$10$lrB4MkrKHYLDSk5Kz3zfUeP9z396eLJlAIhgvxuT5yVM5OvW8qwtO"
+  "password" : "{bcrypt}$2a$10$hIHQAJ4dYKMXQoaDEAdGa.rDEPN7vRo0ecwnIp0IySwdqyuJi/pbC"
 }</code></pre>
 </div>
 </div>
@@ -1136,7 +1149,7 @@ Content-Length: 153
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/members/1 HTTP/1.1
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYyMDg4OCwiZXhwIjoxNTg4NjI0NDg4fQ.EqCpjz8JQx-XTtbzW-dw-xXe9mcIsEdlkvHf-gFsiGQ
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODc4NzgxMSwiZXhwIjoxNTg4NzkxNDExfQ.SZS0kDLwedMl_y3H_h55Wyw8xPz2BDDDBrfBHNP-xdI
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1195,7 +1208,7 @@ X-Frame-Options: DENY</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/keywords HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYyMDkxOSwiZXhwIjoxNTg4NjI0NTE5fQ.yG_SkJ_gxdf9ne1tiGHOkLYWCV564WL28kugvOERgb8
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODc4Nzg0NSwiZXhwIjoxNTg4NzkxNDQ1fQ.df5AwPPGhWCZP63X2esEXO8rVtJJ4frQ946ddkJViJQ
 Content-Length: 28
 Host: localhost:8080
 
@@ -1334,7 +1347,7 @@ Content-Length: 40
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/keywords/1 HTTP/1.1
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYyMDkxOCwiZXhwIjoxNTg4NjI0NTE4fQ.VHiGY4hftIXZ695U8TREaDRmNA5TCHkTaEyof-pG7RU
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODc4Nzg0NCwiZXhwIjoxNTg4NzkxNDQ0fQ.EqjQqHfY6iiwbtUBi7Z68Y-r2bJIJ-kQkDcd09Bw1-8
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1444,7 +1457,7 @@ Content-Length: 40
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/keywords HTTP/1.1
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYyMDkxNiwiZXhwIjoxNTg4NjI0NTE2fQ.9RDxN0uBi7B5jTuWZIHMLnGDy5XldCkaOK3qzVPY6ow
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODc4Nzg0MiwiZXhwIjoxNTg4NzkxNDQyfQ.Xtj-28kvf_5x8OafO1edV1s52xCZHFnOw9qOaI8EJts
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1559,7 +1572,7 @@ Content-Length: 123
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/keywords/1 HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODYyMDkxMywiZXhwIjoxNTg4NjI0NTEzfQ.1SGRrU0qrqnrwAV_ZV16jnSu4PqiKlBAXXkc9Hp1iaM
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTU4ODc4NzgzOSwiZXhwIjoxNTg4NzkxNDM5fQ.Ta4oDCYypuZP6dAIrqYe7CXYUoqmWPuQc1GbT74Jsn4
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -1607,10 +1620,172 @@ X-Frame-Options: DENY</code></pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="resources-youtube"><a class="link" href="#resources-youtube">YouTube</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="resources-youtube-search"><a class="link" href="#resources-youtube-search">Search youtube</a></h3>
+<div class="sect3">
+<h4 id="resources-youtube-search_http_request"><a class="link" href="#resources-youtube-search_http_request">Example Request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/youtube?search=Queendom HTTP/1.1
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="resources-youtube-search_request_headers"><a class="link" href="#resources-youtube-search_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Accept</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="resources-youtube-search_request_parameters"><a class="link" href="#resources-youtube-search_request_parameters">Request parameters</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>search</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A keyword to search on YouTube that a user typed</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="resources-youtube-search_http_response"><a class="link" href="#resources-youtube-search_http_response">Example Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 2608
+
+[ {
+  "videoId" : "Og_X5gTXTF0",
+  "url" : "https://www.youtube.com/watch?v=Og_X5gTXTF0",
+  "title" : "[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연   커버곡 대결 컴백전쟁 : 퀸덤 4화",
+  "thumbnailUrl" : "https://i.ytimg.com/vi/Og_X5gTXTF0/hqdefault.jpg",
+  "description" : "[4회] ♬ Fire - (여자)아이들 @2차 경연 : 커버곡 대결 K-POP 여왕의 자리를 두고 펼쳐지는 걸그룹 컴백 전쟁! Mnet '퀸덤(Queendom)' ----------------------------...",
+  "viewCount" : 21804641
+}, {
+  "videoId" : "JXC7rtAVOzM",
+  "url" : "https://www.youtube.com/watch?v=JXC7rtAVOzM",
+  "title" : "[ENG sub] [3회] ♬ 너나 해(Egotistic) - AOA @2차 경연ㅣ커버곡 대결 컴백전쟁 : 퀸덤 3화",
+  "thumbnailUrl" : "https://i.ytimg.com/vi/JXC7rtAVOzM/hqdefault.jpg",
+  "description" : "[3회] ♬ 너나 해(Egotistic) - AOA @2차 경연ㅣ커버곡 대결 K-POP 여왕의 자리를 두고 펼쳐지는 걸그룹 컴백 전쟁! Mnet '퀸덤(Queendom)' -------------------------...",
+  "viewCount" : 19234333
+}, {
+  "videoId" : "2KtFPjSp3og",
+  "url" : "https://www.youtube.com/watch?v=2KtFPjSp3og",
+  "title" : "[ENG sub] [최종회] ♬ LION - (여자)아이들 @ FINAL 경연 컴백전쟁 : 퀸덤 10화",
+  "thumbnailUrl" : "https://i.ytimg.com/vi/JXC7rtAVOzM/hqdefault.jpg",
+  "description" : "[최종회] ♬ LION - (여자)아이들 @ FINAL 경연 K-POP 여왕의 자리를 두고 펼쳐지는 걸그룹 컴백 전쟁! Mnet '퀸덤(Queendom)' --------------------------------...",
+  "viewCount" : 17694213
+}, {
+  "videoId" : "Knz0j_G7lKg",
+  "url" : "https://www.youtube.com/watch?v=Knz0j_G7lKg",
+  "title" : "[ENG sub] [2회] ♬ LATATA - (여자)아이들 @1차 경연ㅣ히트곡 대결 컴백전쟁 : 퀸덤 2화",
+  "thumbnailUrl" : "https://i.ytimg.com/vi/Knz0j_G7lKg/hqdefault.jpg",
+  "description" : "[2회] ♬ LATATA - (여자)아이들 @1차 경연ㅣ히트곡 대결 K-POP 여왕의 자리를 두고 펼쳐지는 걸그룹 컴백 전쟁! Mnet '퀸덤(Queendom)' --------------------------...",
+  "viewCount" : 15764132
+}, {
+  "videoId" : "QxOr7l7utUo",
+  "url" : "https://www.youtube.com/watch?v=QxOr7l7utUo",
+  "title" : "[ENG sub] [3회] ♬ 한(一) feat.치타 - 박봄 @2차 경연ㅣ커버곡 대결 컴백전쟁 : 퀸덤 3화",
+  "thumbnailUrl" : "https://i.ytimg.com/vi/QxOr7l7utUo/hqdefault.jpg",
+  "description" : "[3회] ♬ 한(一) feat.치타 - 박봄 @2차 경연ㅣ커버곡 대결 K-POP 여왕의 자리를 두고 펼쳐지는 걸그룹 컴백 전쟁! Mnet '퀸덤(Queendom)' -----------------------...",
+  "viewCount" : 12764130
+} ]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="resources-youtube-search_response_fields"><a class="link" href="#resources-youtube-search_response_fields">Response fields</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].videoId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An intrinsic id of video issued by YouTube</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A title of the YouTube video written by the uploader</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URL to play the video on YouTube</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The description for the video written by the uploader</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].thumbnailUrl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URL to access the thumbnail image of the video in high quality</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].viewCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The view counts of the video at the time of request</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-05 03:32:59 KST
+Last updated 2020-05-07 02:55:37 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
