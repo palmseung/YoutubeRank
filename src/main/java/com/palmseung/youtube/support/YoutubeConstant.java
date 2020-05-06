@@ -62,7 +62,7 @@ public class YoutubeConstant {
             .title("[ENG sub] [3회] ♬ 한(一) feat.치타 - 박봄 @2차 경연ㅣ커버곡 대결 컴백전쟁 : 퀸덤 3화")
             .url("https://www.youtube.com/watch?v=QxOr7l7utUo")
             .videoId("QxOr7l7utUo")
-            .viewCount(15_764_132)
+            .viewCount(12_764_130)
             .description("[3회] ♬ 한(一) feat.치타 - 박봄 @2차 경연ㅣ커버곡 대결 K-POP 여왕의 자리를 두고 펼쳐지는 걸그룹 컴백 전쟁! Mnet '퀸덤(Queendom)' -----------------------...")
             .thumbnail("https://i.ytimg.com/vi/QxOr7l7utUo/hqdefault.jpg")
             .build();

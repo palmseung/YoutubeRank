@@ -17,14 +17,14 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 public class YoutubeVideosTest {
-    @DisplayName("정상 - Collection 사이즈가 5일 때 객체 생성")
+    @DisplayName("정상 - Collection 사이즈")
     @Test
     void validateSize() {
         assertThatCode(() -> YoutubeVideos.of(createYoutubeVideos(5)))
                 .doesNotThrowAnyException();
     }
 
-    @DisplayName("비정상 - Collection 사이즈가 5가 아닐 때")
+    @DisplayName("비정상 - Collection 사이즈")
     @ParameterizedTest
     @ValueSource(ints = {1, 4, 6})
     void validateSizeWhenAbnormal(int countOfVideo) {
@@ -33,7 +33,7 @@ public class YoutubeVideosTest {
         }).withMessageContaining("video");
     }
 
-    @DisplayName("Collection의 index가 커질수록 viewCount는 작아진다. (정상)")
+    @DisplayName("정상 - viewCount 규칙")
     @Test
     void validateViewCountRule() {
         //given
@@ -47,7 +47,7 @@ public class YoutubeVideosTest {
         }).doesNotThrowAnyException();
     }
 
-    @DisplayName("Collection의 index가 커질수록 viewCount는 작아진다. (비정상)")
+    @DisplayName("비정상 - viewCount 규칙")
     @Test
     void validateViewCountRuleWhenAbnormal() {
         //given
