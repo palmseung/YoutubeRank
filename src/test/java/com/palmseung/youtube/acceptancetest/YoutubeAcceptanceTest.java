@@ -34,7 +34,7 @@ public class YoutubeAcceptanceTest extends BaseAcceptanceTest {
             assertThat(youtubeVideo.getUrl()).contains(YOUTUBE_URL);
             assertThat(youtubeVideo.getVideoId()).isNotEmpty();
             assertThat(youtubeVideo.getViewCount()).isLessThanOrEqualTo(viewCount);
-            assertThat(youtubeVideo.getThumbnail()).isNotEmpty();
+            assertThat(youtubeVideo.getThumbnailUrl()).isNotEmpty();
             assertThat(youtubeVideo.getDescription()).isNotNull();
             viewCount = youtubeVideo.getViewCount();
         }

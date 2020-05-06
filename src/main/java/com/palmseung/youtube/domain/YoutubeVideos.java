@@ -1,11 +1,14 @@
 package com.palmseung.youtube.domain;
 
+import lombok.Getter;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.palmseung.youtube.support.YoutubeConstant.YOUTUBE_MAX_RESULTS;
+import static com.palmseung.youtube.support.YoutubeConstant.YOUTUBE_NUMBER_OF_RESULT;
 
+@Getter
 public class YoutubeVideos {
     private List<YoutubeVideo> youtubeVideos;
 
@@ -29,8 +32,8 @@ public class YoutubeVideos {
     }
 
     private void validateSize(List<YoutubeVideo> youtubeVideos) {
-        if (youtubeVideos.size() != YOUTUBE_MAX_RESULTS) {
-            throw new IllegalArgumentException("The number of videos returned should be" + YOUTUBE_MAX_RESULTS);
+        if (youtubeVideos.size() != YOUTUBE_NUMBER_OF_RESULT) {
+            throw new IllegalArgumentException("The number of videos returned should be" + YOUTUBE_NUMBER_OF_RESULT);
         }
     }
 }
