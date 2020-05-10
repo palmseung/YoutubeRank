@@ -2,3 +2,5 @@ spring:
   devtools:
     restart:
       enabled: true
+  mustache:
+    cache: false
