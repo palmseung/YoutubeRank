@@ -24,4 +24,12 @@ public class MemberControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("member/sign-up"));
     }
+
+    @DisplayName("로그인 페이지 출력")
+    @Test
+    void loginPage() throws Exception {
+        mockMvc.perform(get("/login"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("member/login"));
+    }
 }
