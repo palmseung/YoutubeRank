@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -32,6 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
+        http.headers().frameOptions().disable();
+
         http.formLogin()
                 .loginPage("/login")
                 .permitAll();
@@ -40,15 +43,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout");
 
         http.authorizeRequests()
-                .mvcMatchers("/", "/login", "/sign-up",
-                        "/api/login", "/api/logout",
-                        "/api/members/login", "/api/youtube/**").permitAll()
+                .antMatchers("/h2-console/*").permitAll()
                 .mvcMatchers("/api/members/my-info/**").hasRole("USER")
-                .mvcMatchers(HttpMethod.POST, "/api/members").permitAll()
-                .mvcMatchers(HttpMethod.GET, "/api/members").hasRole("USER")
-                .anyRequest().authenticated();
+                .mvcMatchers(HttpMethod.GET, "/api/members/**").hasRole("USER")
+                .anyRequest().permitAll();
 
         http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                 UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/resources/**");
     }
 }

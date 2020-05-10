@@ -19,7 +19,7 @@ public class MemberControllerTest {
 
     @DisplayName("회원 가입 페이지 출력")
     @Test
-    void signUpForm() throws Exception {
+    void signUpPage() throws Exception {
         mockMvc.perform(get("/sign-up"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("member/sign-up"));

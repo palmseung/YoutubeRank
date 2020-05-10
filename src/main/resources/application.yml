@@ -4,3 +4,6 @@ spring:
       enabled: true
   mustache:
     cache: false
+  h2:
+    console:
+      enabled : true
