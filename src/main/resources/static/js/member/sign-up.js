@@ -18,8 +18,8 @@ create = function () {
         data: JSON.stringify(data)
     }).done(function(){
         alert(data.name + '님 회원 가입을 환영합니다.');
-        window.location.href = '/';
+        window.location.href = '/login';
     }).fail(function(error){
-       alert(JSON.stringify(error));
+        alert(JSON.stringify(error));
    });
 };
