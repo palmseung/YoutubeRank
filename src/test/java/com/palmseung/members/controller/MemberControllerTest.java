@@ -20,8 +20,7 @@ import java.util.Arrays;
 import static com.palmseung.members.MemberConstant.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -70,7 +69,8 @@ public class MemberControllerTest {
         mockMvc.perform(get("/my-info")
                 .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
-                .andExpect(view().name("member/my-info"));
+                .andExpect(view().name("member/my-info"))
+                .andExpect(model().attribute("loginUser", member));
     }
 
     @DisplayName("비인증 회원 - 회원 정보 조회 요청 시, 로그인 페이지 출력")

@@ -28,18 +28,6 @@ public class MemberController {
         return "member/login";
     }
 
-//    @GetMapping("/my-info")
-//    public String myInfoPage(Model model, Principal principal){
-//        String email = principal.getName();
-//        Member member = memberService.findByEmail(email);
-//        if(member != null){
-//            model.addAttribute("loginUser", member);
-//            return "member/my-info";
-//        }
-//
-//        return "member/login";
-//    }
-
     @GetMapping("/my-info")
     public String myInfoPage(Model model, @LoginUser Member loginUser){
         if(loginUser != null){
