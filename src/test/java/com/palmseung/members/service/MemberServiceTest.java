@@ -26,6 +26,7 @@ import java.util.Optional;
 import static com.palmseung.members.MemberConstant.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -206,13 +207,12 @@ public class MemberServiceTest {
     @Test
     void updateMemberInfo() {
         //given
-        Member updatedMember = createUpdateMember();
+        given(memberRepository.findById(anyLong())).willReturn(Optional.of(TEST_MEMBER));
 
-        //when
-        memberService.updateInfo(TEST_MEMBER, TEST_MEMBER, updatedMember);
-
-        //then
-        verify(memberRepository, times(1)).save(TEST_MEMBER);
+        //when, then
+        assertThatCode(() -> {
+            memberService.updateInfo(TEST_MEMBER, TEST_ID, "newPassword");
+        }).doesNotThrowAnyException();
     }
 
     @DisplayName("사용자 정보 수정 - 로그인 유저와 변경 대상 유저 불일치")
@@ -220,6 +220,7 @@ public class MemberServiceTest {
     @ValueSource(longs = {1L, 2L})
     void updateMemberInfoWhenLoginUserIsNotSame(Long id) {
         //given
+        given(memberRepository.findById(anyLong())).willReturn(Optional.of(TEST_MEMBER));
         Member loginUser = Member.builder()
                 .id(id)
                 .email("newEmail")
@@ -228,9 +229,9 @@ public class MemberServiceTest {
                 .build();
 
         //when, then
-        assertThatIllegalArgumentException()
-                .isThrownBy(() -> memberService.updateInfo(loginUser, TEST_MEMBER, TEST_MEMBER))
-                .withMessageContaining("authorize");
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            memberService.updateInfo(loginUser, id, "newPassword");
+        }).withMessageContaining("authorize");
     }
 
     @DisplayName("회원 - 키워드 추가")

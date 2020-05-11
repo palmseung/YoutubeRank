@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static com.palmseung.members.MemberConstant.*;
@@ -19,6 +20,9 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
 
     @Autowired
     public MemberRepository memberRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     public void setUp() {
@@ -94,18 +98,18 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
         //given
         Long id = createMember().getId();
         LoginResponseView responseView = doLogin();
-        String newName = "newName";
         String newPassword = "newPassword";
 
         //when
         UpdateMemberResponseView responseBody
-                = memberHttpTest.updateMyInfo(TEST_MEMBER, responseView, newName, newPassword)
+                = memberHttpTest.updateMyInfo(TEST_MEMBER, responseView, newPassword)
                 .getResponseBody();
 
         //then
         assertThat(responseBody.getId()).isEqualTo(id);
         assertThat(responseBody.getEmail()).isEqualTo(TEST_EMAIL);
-        assertThat(responseBody.getName()).isEqualTo(newName);
+        assertThat(responseBody.getPassword()).isNotEqualTo(passwordEncoder.encode(TEST_PASSWORD));
+
     }
 
     private CreateMemberResponseView createMember() {

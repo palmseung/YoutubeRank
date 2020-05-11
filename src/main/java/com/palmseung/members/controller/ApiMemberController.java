@@ -64,8 +64,7 @@ public class ApiMemberController {
     public ResponseEntity<UpdateMemberResponseView> updateMyInfo(@LoginUser Member loginUser,
                                                                  @PathVariable Long id,
                                                                  @RequestBody UpdateMemberRequestView requestView) {
-        Member oldMember = memberService.findById(id);
-        Member updatedMember = memberService.updateInfo(loginUser, oldMember, Member.of(requestView));
+        Member updatedMember = memberService.updateInfo(loginUser, id, requestView.getNewPassword());
 
         return ResponseEntity
                 .ok()

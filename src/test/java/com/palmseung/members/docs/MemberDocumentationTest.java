@@ -225,10 +225,9 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
         //given
         Member member = createMember(TEST_EMAIL);
         String accessToken = jwtTokenProvider.createToken(TEST_EMAIL);
-        String newName = "newName";
         String newPassword = "newPassword";
-        UpdateMemberRequestView updateRequest = createUpdateRequest(newName, newPassword);
-        Member updatedMember = updateMember(member, newName, newPassword);
+        UpdateMemberRequestView updateRequest = createUpdateRequest(newPassword);
+        Member updatedMember = updateMember(member, newPassword);
         given(memberService.updateInfo(any(), any(), any())).willReturn(updatedMember);
         given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
         given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
@@ -249,9 +248,6 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                                         .description("The client should have valid access token produced on the server side")
                         ),
                         requestFields(
-                                fieldWithPath("newName")
-                                        .type(JsonFieldType.STRING)
-                                        .description("The member's new name to update"),
                                 fieldWithPath("newPassword")
                                         .type(JsonFieldType.STRING)
                                         .description("The member's new password to update")
@@ -277,19 +273,18 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                 ));
     }
 
-    private Member updateMember(Member member, String newName, String newPassword) {
+    private Member updateMember(Member member, String newPassword) {
         return Member.builder()
                 .id(member.getId())
+                .name(member.getName())
                 .email(member.getEmail())
-                .name(newName)
                 .password(passwordEncoder.encode(newPassword))
                 .roles(Arrays.asList("ROLE_USER"))
                 .build();
     }
 
-    private UpdateMemberRequestView createUpdateRequest(String newName, String newPassword) {
+    private UpdateMemberRequestView createUpdateRequest(String newPassword) {
         return UpdateMemberRequestView.builder()
-                .newName(newName)
                 .newPassword(newPassword)
                 .build();
     }

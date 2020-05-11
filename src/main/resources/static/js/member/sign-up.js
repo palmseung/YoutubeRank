@@ -6,7 +6,7 @@ create = function () {
     var data = {
         email: $('#email').val(),
         name: $('#name').val(),
-        password: $('#password').val(),
+        password: $('#password').val()
     };
 
     $.ajax({

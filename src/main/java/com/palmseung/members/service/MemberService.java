@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,11 +59,10 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public Member updateInfo(Member loginUser, Member oldMember, Member updatedMember) {
-        updatedMember.updatePassword(passwordEncoder.encode(updatedMember.getPassword()));
-        oldMember.update(loginUser, updatedMember);
-
-        return memberRepository.save(oldMember);
+    public Member updateInfo(Member loginUser, Long id, String password) {
+        Member oldMember = findById(id);
+        oldMember.updatePassword(loginUser, passwordEncoder.encode(password));
+        return oldMember;
     }
 
     @Transactional
@@ -113,14 +111,6 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         Member member = findByEmail(email);
         return new UserMember(member);
-
-//        return Member.builder()
-//                .id(member.getId())
-//                .name(member.getName())
-//                .email(email)
-//                .password(member.getPassword())
-//                .roles(Arrays.asList("ROLE_USER"))
-//                .build();
     }
 
     private MyKeyword buildMyKeyword(Member member, Keyword keyword) {
