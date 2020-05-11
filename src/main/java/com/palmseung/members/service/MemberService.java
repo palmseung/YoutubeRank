@@ -7,6 +7,7 @@ import com.palmseung.keywords.domain.MyKeywordRepository;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;
 import com.palmseung.members.dto.CreateMemberRequestView;
+import com.palmseung.members.support.UserMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -111,13 +112,15 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) {
         Member member = findByEmail(email);
-        return Member.builder()
-                .id(member.getId())
-                .name(member.getName())
-                .email(email)
-                .password(member.getPassword())
-                .roles(Arrays.asList("ROLE_USER"))
-                .build();
+        return new UserMember(member);
+
+//        return Member.builder()
+//                .id(member.getId())
+//                .name(member.getName())
+//                .email(email)
+//                .password(member.getPassword())
+//                .roles(Arrays.asList("ROLE_USER"))
+//                .build();
     }
 
     private MyKeyword buildMyKeyword(Member member, Keyword keyword) {

@@ -5,6 +5,7 @@ import com.palmseung.members.domain.Member;
 import com.palmseung.members.dto.*;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.members.support.JwtTokenProvider;
+import com.palmseung.members.support.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -60,19 +61,14 @@ public class ApiMemberController {
     }
 
     @PutMapping("/my-info/{id}")
-    public ResponseEntity<UpdateMemberResponseView> updateMyInfo(@PathVariable Long id,
+    public ResponseEntity<UpdateMemberResponseView> updateMyInfo(@LoginUser Member loginUser,
+                                                                 @PathVariable Long id,
                                                                  @RequestBody UpdateMemberRequestView requestView) {
         Member oldMember = memberService.findById(id);
-        Member updatedMember = memberService.updateInfo(getLoginUser(), oldMember, Member.of(requestView));
+        Member updatedMember = memberService.updateInfo(loginUser, oldMember, Member.of(requestView));
 
         return ResponseEntity
                 .ok()
                 .body(UpdateMemberResponseView.of(updatedMember));
-    }
-
-    private Member getLoginUser() {
-        return (Member) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
     }
 }

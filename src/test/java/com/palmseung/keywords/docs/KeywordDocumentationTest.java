@@ -2,8 +2,10 @@ package com.palmseung.keywords.docs;
 
 import com.palmseung.BaseDocumentationTest;
 import com.palmseung.keywords.dto.MyKeywordRequestView;
+import com.palmseung.members.domain.Member;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.members.support.JwtTokenProvider;
+import com.palmseung.members.support.UserMember;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 import static com.palmseung.keywords.KeywordConstant.*;
-import static com.palmseung.members.MemberConstant.TEST_EMAIL;
+import static com.palmseung.members.MemberConstant.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -35,6 +38,9 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @MockBean
     private MemberService memberService;
 
@@ -43,10 +49,11 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
     public void addMyKeyword() throws Exception {
         //given
         String keyword = "queendom";
-        MyKeywordRequestView requestView = MyKeywordRequestView.builder()
-                .keyword(keyword)
-                .build();
+        Member member = createMember(TEST_EMAIL);
+        MyKeywordRequestView requestView = MyKeywordRequestView.builder().keyword(keyword).build();
         given(memberService.addKeyword(any(), any())).willReturn(TEST_MY_KEYWORD);
+        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
 
         //when, then
         mockMvc.perform(post(BASE_URI_KEYWORD_API)
@@ -87,7 +94,10 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
     @Test
     public void retrieveMyKeyword() throws Exception {
         //given
+        Member member = createMember(TEST_EMAIL);
         given(memberService.findMyKeywordByMyKeywordId(any(), anyLong())).willReturn(TEST_MY_KEYWORD);
+        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
 
         //when, then
         mockMvc.perform(get(BASE_URI_KEYWORD_API + "/" + TEST_MY_KEYWORD.getId())
@@ -121,6 +131,9 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
     @Test
     public void retrieveAllMyKeywords() throws Exception {
         //given
+        Member member = createMember(TEST_EMAIL);
+        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
         given(memberService.findAllKeywords(any()))
                 .willReturn(Arrays.asList(TEST_MY_KEYWORD, TEST_MY_KEYWORD_2, TEST_MY_KEYWORD_3));
 
@@ -156,6 +169,9 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
     @Test
     public void deleteMyKeyword() throws Exception {
         //given
+        Member member = createMember(TEST_EMAIL);
+        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
         given(memberService.findMyKeywordById(anyLong())).willReturn(Optional.of(TEST_MY_KEYWORD));
 
         //when, then
@@ -176,5 +192,15 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
 
     private String createToken(String email) {
         return jwtTokenProvider.createToken(TEST_EMAIL);
+    }
+
+    private Member createMember(String email) {
+        return Member.builder()
+                .id(TEST_ID)
+                .email(email)
+                .name(TEST_NAME)
+                .password(passwordEncoder.encode(TEST_PASSWORD))
+                .roles(Arrays.asList("ROLE_USER"))
+                .build();
     }
 }

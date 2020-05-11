@@ -6,7 +6,10 @@ import com.palmseung.keywords.dto.MyKeywordRequestView;
 import com.palmseung.keywords.dto.MyKeywordResponseView;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.service.MemberService;
+import com.palmseung.members.support.LoginUser;
+import com.palmseung.members.support.UserMember;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +25,10 @@ public class ApiKeywordController {
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity addKeyword(@RequestBody MyKeywordRequestView requestView) {
+    public ResponseEntity addKeyword(@LoginUser Member loginUser,
+                                     @RequestBody MyKeywordRequestView requestView) {
         MyKeyword myKeyword
-                = memberService.addKeyword(getLoginUser(), Keyword.builder().keyword(requestView.getKeyword()).build());
+                = memberService.addKeyword(loginUser, Keyword.builder().keyword(requestView.getKeyword()).build());
 
         MyKeywordResponseView responseView = MyKeywordResponseView.of(myKeyword);
 
@@ -34,8 +38,8 @@ public class ApiKeywordController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity findMyKeyword(@PathVariable Long id) {
-        MyKeyword myKeywordByMyKeywordId = memberService.findMyKeywordByMyKeywordId(getLoginUser(), id);
+    public ResponseEntity findMyKeyword(@LoginUser Member loginUser, @PathVariable Long id) {
+        MyKeyword myKeywordByMyKeywordId = memberService.findMyKeywordByMyKeywordId(loginUser, id);
 
         return ResponseEntity
                 .ok()
@@ -43,8 +47,8 @@ public class ApiKeywordController {
     }
 
     @GetMapping
-    public ResponseEntity findAllMyKeywords() {
-        List<MyKeyword> allKeywords = memberService.findAllKeywords(getLoginUser());
+    public ResponseEntity findAllMyKeywords(@LoginUser Member loginUser) {
+        List<MyKeyword> allKeywords = memberService.findAllKeywords(loginUser);
 
         return ResponseEntity
                 .ok()
@@ -52,9 +56,9 @@ public class ApiKeywordController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity removeMyKeyword(@PathVariable Long id) {
+    public ResponseEntity removeMyKeyword(@LoginUser Member loginUser, @PathVariable Long id) {
         if (memberService.findMyKeywordById(id).isPresent()) {
-            memberService.deleteMyKeywordById(getLoginUser(), id);
+            memberService.deleteMyKeywordById(loginUser, id);
 
             return ResponseEntity
                     .ok()
@@ -64,9 +68,5 @@ public class ApiKeywordController {
         return ResponseEntity
                 .noContent()
                 .build();
-    }
-
-    private Member getLoginUser() {
-        return (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.members.support.JwtTokenProvider;
+import com.palmseung.members.support.UserMember;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,8 @@ public class MemberControllerTest {
         //given
         Member member = createMember(TEST_EMAIL);
         String token = jwtTokenProvider.createToken(TEST_EMAIL);
-        given(memberService.findById(member.getId())).willReturn(member);
+        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
 
         //when, then
         mockMvc.perform(get("/my-info")
@@ -74,14 +76,8 @@ public class MemberControllerTest {
     @DisplayName("비인증 회원 - 회원 정보 조회 요청 시, 로그인 페이지 출력")
     @Test
     void myInfoPageWhenInvalidMember() throws Exception {
-        //given
-        Member member = createMember(TEST_EMAIL);
-        String token = jwtTokenProvider.createToken("email@email.com"); //Not same with TEST_EMAIL
-        given(memberService.findById(member.getId())).willReturn(member);
-
         //when, then
-        mockMvc.perform(get("/my-info")
-                .header(HttpHeaders.AUTHORIZATION, token))
+        mockMvc.perform(get("/my-info"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("member/login"));
     }
