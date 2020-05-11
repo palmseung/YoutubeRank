@@ -6,12 +6,9 @@ body {
 	margin: 0;
 	padding: 0;
 	background: linear-gradient(
-		10deg,
-		#ebcfe6,
-		#f8a5c2,
-		#ebcfe6,
-		#f8a5c2,
-		#ebcfe6
+		120deg,
+		#3498db,
+		#8e44ad
 	);
 }
 
@@ -19,7 +16,7 @@ body {
 	width: 300px;
 	padding: 20px;
 	text-align: center;
-	background: #ed4d6e;
+	background: #ffffff;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -30,7 +27,7 @@ body {
 .signup-form h1 {
 	margin-top: 100px;
 	font-family: 'Permanent Marker', cursive;
-	color: #ffffff;
+	color: #000000;
 	font-size: 40px;
 }
 
@@ -40,6 +37,7 @@ body {
 	padding: 0 16px;
 	height: 44px;
 	text-align: center;
+	background : #eef2f5;
 	box-sizing: border-box;
 	outline: none;
 	border: none;
@@ -59,10 +57,12 @@ body {
 	transition: 0.8s;
 	font-family: 'Permanent Marker', cursive;
 	font-size: 20px;
+	background : #ced1fe;
 }
 
 .signup-btn:hover {
 	transform: scale(0.96);
+	background : #ced1fe;
 }
 
 .signup-form a {
