@@ -42,4 +42,16 @@ public class MemberController {
 
         return "member/login";
     }
+
+    @GetMapping("/update-my-info")
+    public String updateMyInfoPage(Model model, @LoginUser Member loginUser){
+        model.addAttribute("loginUser", loginUser);
+
+        if (loginUser != null) {
+            model.addAttribute("loginUser", loginUser);
+            return "member/update-my-info";
+        }
+
+        return "member/login";
+    }
 }

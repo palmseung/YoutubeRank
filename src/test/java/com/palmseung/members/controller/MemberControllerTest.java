@@ -56,7 +56,7 @@ public class MemberControllerTest {
                 .andExpect(view().name("member/login"));
     }
 
-    @DisplayName("인증된 회원 - 회원 정보 조회(+업데이트) 페이지 출력")
+    @DisplayName("인증된 회원 - 회원 정보 조회 페이지 출력")
     @Test
     void myInfoPage() throws Exception {
         //given
@@ -78,6 +78,32 @@ public class MemberControllerTest {
     void myInfoPageWhenInvalidMember() throws Exception {
         //when, then
         mockMvc.perform(get("/my-info"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("member/login"));
+    }
+
+    @DisplayName("인증된 회원 - 회원 정보 수정 요청 시, 수정 페이지 출력")
+    @Test
+    void updateMyInfoPage() throws Exception {
+        //given
+        Member member = createMember(TEST_EMAIL);
+        String token = jwtTokenProvider.createToken(TEST_EMAIL);
+        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
+
+        //when, then
+        mockMvc.perform(get("/update-my-info")
+                .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isOk())
+                .andExpect(view().name("member/update-my-info"))
+                .andExpect(model().attribute("loginUser", member));
+    }
+
+    @DisplayName("비인증 회원 - 회원 정보 수정 요청 시, 로그인 페이지 출력")
+    @Test
+    void myInfoPageWhenInvalidMemberWhenInvalidMember() throws Exception {
+        //when, then
+        mockMvc.perform(get("/update-my-info"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("member/login"));
     }

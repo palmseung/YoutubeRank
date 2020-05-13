@@ -16,10 +16,7 @@ import java.util.Arrays;
 
 import static com.palmseung.members.MemberConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -76,9 +73,10 @@ public class JwtTokenProviderTest {
     @Test
     public void validateTokenValidityWhenInvalid() {
         //when
-        assertThatIllegalArgumentException()
-                .isThrownBy(() -> jwtTokenProvider.isValidToken(TEST_EMAIL))
-                .withMessageContaining("token");
+        boolean isValidToken = jwtTokenProvider.isValidToken(TEST_EMAIL);
+
+        //then
+        assertThat(isValidToken).isFalse();
     }
 
     @DisplayName("Jwt - 토큰에서 Authentication 추출")
@@ -88,7 +86,7 @@ public class JwtTokenProviderTest {
         String token = jwtTokenProvider.createToken(TEST_EMAIL);
         UserMember userMember = createUserMember();
         when(memberService.findByEmail(anyString())).thenReturn(TEST_MEMBER);
-        when(memberService.loadUserByUsername(anyString())).thenReturn((UserDetails)userMember);
+        when(memberService.loadUserByUsername(anyString())).thenReturn((UserDetails) userMember);
 
         //when
         Authentication authentication = jwtTokenProvider.getAuthentication(token);
@@ -99,7 +97,7 @@ public class JwtTokenProviderTest {
         assertThat(memberInToken.getEmail()).isEqualTo(TEST_EMAIL);
     }
 
-    private UserMember createUserMember(){
+    private UserMember createUserMember() {
         return new UserMember(createMember(TEST_EMAIL));
     }
 
