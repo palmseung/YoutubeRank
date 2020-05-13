@@ -16,10 +16,26 @@ login = function () {
         contentType: 'application/json',
         data: JSON.stringify(data)
     }).done(function(response){
-        alert('로그인 되었습니다.');
-        window.location.href = '/';
-        localStorage.setItem("accessToken", response.accessToken);
-        localStorage.setItem("tokenType", response.tokenType);
+        localStorage.setItem("accessToken", JSON.stringify(response.accessToken));
+        localStorage.setItem("tokenType", JSON.stringify(response.tokenType));
+
+        $.ajax({
+                type: 'GET',
+                url: '/',
+                async : false,
+                beforeSend : function (xhr) {
+                if (localStorage.getItem('accessToken') != null) {
+                    xhr.setRequestHeader('Authorization',
+                    localStorage.getItem('accessToken').replace(/^"(.*)"$/, '$1'));
+                }},
+                success: function(response) {
+                  alert('success');
+                  window.location.href = '/';
+                },
+                error: function() {
+                  alert("Sorry, you are not logged in.");
+                }
+            });
     }).fail(function(error){
        alert(JSON.stringify(error));
    });

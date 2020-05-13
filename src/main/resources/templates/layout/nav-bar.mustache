@@ -1,0 +1,17 @@
+<nav class="nav-bar">
+    <a href="javascript:home()"><h1>YoutubeRank</h1></a>
+    {{^loginUser}}
+        <div class="anonymous">
+            <a href="/login" id="login" class="right-menu"><h3>Login</h3></a>
+            <a href="/sign-up" id="sign-up" class="right-menu"><h3>Sign-up</h3></a>
+        </div>
+    {{/loginUser}}
+    {{#loginUser}}
+        <div class="authenticated">
+            <a href="#" id="logout" class="right-menu"><h3>Logout</h3></a>
+            <a href="/my-info" id="my-info" class="right-menu"
+            ><h3>My Profile</h3></a
+            >
+        </div>
+    {{/loginUser}}
+</nav>

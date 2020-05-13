@@ -1,16 +1,4 @@
-html {
-	height: 100%;
-}
 
-body {
-	margin: 0;
-    padding: 0;
-    background: linear-gradient(
-        120deg,
-        #3498db,
-        #8e44ad
-    );
-}
 
 .login-form {
 	width: 300px;

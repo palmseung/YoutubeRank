@@ -23,3 +23,17 @@ create = function () {
         alert(JSON.stringify(error));
    });
 };
+
+//$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+//    alert('prefilter working');
+//    if (options.headers === undefined) {
+//      options.headers = {};
+//    }
+//
+//    if (!options.headers.Authorization) {
+//      var jwt = localStorage.getItem('accessToken');
+//      options.beforeSend = function(xhr) {
+//        xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
+//      }
+//    }
+//});

@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Sign-up</title>
+    <script src="/js/common/nav-bar.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="../../css/member/sign-up.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/common/nav-bar.css"/>
     <link
             href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
             rel="stylesheet"
     />
 </head>
 <body>
+    {{>layout/nav-bar}}
     <div class="signup-form">
         <form>
             <h1>YoutubeRank</h1>
@@ -22,7 +25,6 @@
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="/js/member/sign-up.js"></script>
 </body>
 </html>
