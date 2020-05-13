@@ -7,6 +7,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,13 +22,13 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
-import static com.palmseung.common.Messages.WARNING_JWT_INVALID_TOKEN;
-
 @Setter
 @Getter
 @Component
 @EnableConfigurationProperties(TokenProperties.class)
 public class JwtTokenProvider {
+    private final static Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
+
     private String secretKey;
     private Long expireLength;
     private UserDetailsService userDetailsService;
@@ -65,23 +67,19 @@ public class JwtTokenProvider {
 
     public boolean isValidToken(String token) {
         try {
-            if (getExpirationFromToken(token).after(new Date())) {
-                return true;
-            }
-        } catch (RuntimeException e) {
-            throw new IllegalArgumentException(WARNING_JWT_INVALID_TOKEN);
+            Jws<Claims> claimsJws = Jwts.parser()
+                    .setSigningKey(this.secretKey)
+                    .parseClaimsJws(token);
+            logger.debug("token : {}", claimsJws);
+        } catch (Exception e) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     public Authentication getAuthentication(String token) {
         String emailInToken = extractEmail(token);
         UserDetails userDetails = userDetailsService.loadUserByUsername(emailInToken);
         return new UsernamePasswordAuthenticationToken(userDetails, "", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
-    }
-
-    private Date getExpirationFromToken(String token) {
-        Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-        return claims.getBody().getExpiration();
     }
 }

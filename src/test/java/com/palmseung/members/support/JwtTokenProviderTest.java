@@ -2,22 +2,22 @@ package com.palmseung.members.support;
 
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;
-import com.palmseung.members.support.JwtTokenProvider;
+import com.palmseung.members.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Optional;
+import java.util.Arrays;
 
-import static com.palmseung.members.MemberConstant.TEST_EMAIL;
-import static com.palmseung.members.MemberConstant.TEST_MEMBER;
+import static com.palmseung.members.MemberConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class JwtTokenProviderTest {
@@ -28,7 +28,10 @@ public class JwtTokenProviderTest {
     private PasswordEncoder passwordEncoder;
 
     @MockBean
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
+
+    @MockBean
+    private MemberService memberService;
 
     @DisplayName("Jwt - Access 토큰 생성")
     @Test
@@ -70,9 +73,10 @@ public class JwtTokenProviderTest {
     @Test
     public void validateTokenValidityWhenInvalid() {
         //when
-        assertThatIllegalArgumentException()
-                .isThrownBy(() -> jwtTokenProvider.isValidToken(TEST_EMAIL))
-                .withMessageContaining("token");
+        boolean isValidToken = jwtTokenProvider.isValidToken(TEST_EMAIL);
+
+        //then
+        assertThat(isValidToken).isFalse();
     }
 
     @DisplayName("Jwt - 토큰에서 Authentication 추출")
@@ -80,13 +84,30 @@ public class JwtTokenProviderTest {
     public void extractAuthentication() {
         //given
         String token = jwtTokenProvider.createToken(TEST_EMAIL);
-        given(memberRepository.findByEmail(TEST_EMAIL)).willReturn(Optional.of(TEST_MEMBER));
+        UserMember userMember = createUserMember();
+        when(memberService.findByEmail(anyString())).thenReturn(TEST_MEMBER);
+        when(memberService.loadUserByUsername(anyString())).thenReturn((UserDetails) userMember);
 
         //when
         Authentication authentication = jwtTokenProvider.getAuthentication(token);
 
         //then
-        Member memberInToken = (Member) authentication.getPrincipal();
+        UserMember userMemberInToken = (UserMember) authentication.getPrincipal();
+        Member memberInToken = userMemberInToken.getMember();
         assertThat(memberInToken.getEmail()).isEqualTo(TEST_EMAIL);
+    }
+
+    private UserMember createUserMember() {
+        return new UserMember(createMember(TEST_EMAIL));
+    }
+
+    private Member createMember(String email) {
+        return Member.builder()
+                .id(TEST_ID)
+                .email(email)
+                .name(TEST_NAME)
+                .password(passwordEncoder.encode(TEST_PASSWORD))
+                .roles(Arrays.asList("ROLE_USER"))
+                .build();
     }
 }

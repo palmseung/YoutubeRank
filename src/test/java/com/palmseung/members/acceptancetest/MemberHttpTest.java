@@ -63,10 +63,8 @@ public class MemberHttpTest {
 
     public EntityExchangeResult<UpdateMemberResponseView> updateMyInfo(Member loginUser,
                                                                  LoginResponseView responseView,
-                                                                 String newName,
                                                                  String newPassword) {
         UpdateMemberRequestView requestView = UpdateMemberRequestView.builder()
-                .newName(newName)
                 .newPassword(newPassword)
                 .build();
 

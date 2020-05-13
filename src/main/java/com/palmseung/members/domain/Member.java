@@ -39,7 +39,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<MyKeyword> myKeywords = new ArrayList<>();
 
     public Member() {
@@ -56,7 +56,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     public static Member of(UpdateMemberRequestView requestView) {
         return Member.builder()
-                .name(requestView.getNewName())
+//                .name(requestView.getNewName())
                 .password(requestView.getNewPassword())
                 .build();
     }
@@ -93,7 +93,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
         return true;
     }
 
-    public void updatePassword(String newEncodedPassword) {
+    public void updatePassword(Member loginUser, String newEncodedPassword) {
+        if(!matchEmailAndId(loginUser)){
+            throw new IllegalArgumentException(WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE);
+        }
         this.password = newEncodedPassword;
     }
 

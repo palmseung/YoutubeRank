@@ -7,6 +7,7 @@ import com.palmseung.members.dto.LoginRequestView;
 import com.palmseung.members.dto.UpdateMemberRequestView;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.members.support.JwtTokenProvider;
+import com.palmseung.members.support.UserMember;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,10 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
     @Test
     void signUp() throws Exception {
         //given
-        given(memberService.create(any())).willReturn(createMember(TEST_EMAIL));
+        Member member = createMember(TEST_EMAIL);
+        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
+        given(memberService.create(any())).willReturn(member);
         CreateMemberRequestView createMemberRequest = createMemberRequest(TEST_EMAIL);
 
         //when, then
@@ -98,7 +102,10 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
     @Test
     public void login() throws Exception {
         //given
-        given(memberService.login(TEST_EMAIL, TEST_PASSWORD)).willReturn(createMember(TEST_EMAIL));
+        Member member = createMember(TEST_EMAIL);
+        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
+        given(memberService.login(TEST_EMAIL, TEST_PASSWORD)).willReturn(member);
         LoginRequestView loginRequest = createLoginRequest(TEST_EMAIL);
 
         //when, then
@@ -154,6 +161,8 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
         Member member = createMember(TEST_EMAIL);
         String accessToken = jwtTokenProvider.createToken(TEST_EMAIL);
         given(memberService.findById(member.getId())).willReturn(member);
+        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
 
         //when, then
         mockMvc.perform(get(BASE_URI_MY_INFO_API + "/" + member.getId())
@@ -216,11 +225,12 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
         //given
         Member member = createMember(TEST_EMAIL);
         String accessToken = jwtTokenProvider.createToken(TEST_EMAIL);
-        String newName = "newName";
         String newPassword = "newPassword";
-        UpdateMemberRequestView updateRequest = createUpdateRequest(newName, newPassword);
-        Member updatedMember = updateMember(member, newName, newPassword);
+        UpdateMemberRequestView updateRequest = createUpdateRequest(newPassword);
+        Member updatedMember = updateMember(member, newPassword);
         given(memberService.updateInfo(any(), any(), any())).willReturn(updatedMember);
+        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
 
         //when, then
         mockMvc.perform(put(BASE_URI_MY_INFO_API + "/" + member.getId())
@@ -238,9 +248,6 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                                         .description("The client should have valid access token produced on the server side")
                         ),
                         requestFields(
-                                fieldWithPath("newName")
-                                        .type(JsonFieldType.STRING)
-                                        .description("The member's new name to update"),
                                 fieldWithPath("newPassword")
                                         .type(JsonFieldType.STRING)
                                         .description("The member's new password to update")
@@ -266,19 +273,18 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                 ));
     }
 
-    private Member updateMember(Member member, String newName, String newPassword) {
+    private Member updateMember(Member member, String newPassword) {
         return Member.builder()
                 .id(member.getId())
+                .name(member.getName())
                 .email(member.getEmail())
-                .name(newName)
                 .password(passwordEncoder.encode(newPassword))
                 .roles(Arrays.asList("ROLE_USER"))
                 .build();
     }
 
-    private UpdateMemberRequestView createUpdateRequest(String newName, String newPassword) {
+    private UpdateMemberRequestView createUpdateRequest(String newPassword) {
         return UpdateMemberRequestView.builder()
-                .newName(newName)
                 .newPassword(newPassword)
                 .build();
     }

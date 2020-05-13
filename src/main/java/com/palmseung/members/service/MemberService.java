@@ -7,6 +7,7 @@ import com.palmseung.keywords.domain.MyKeywordRepository;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;
 import com.palmseung.members.dto.CreateMemberRequestView;
+import com.palmseung.members.support.UserMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,11 +59,10 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public Member updateInfo(Member loginUser, Member oldMember, Member updatedMember) {
-        updatedMember.updatePassword(passwordEncoder.encode(updatedMember.getPassword()));
-        oldMember.update(loginUser, updatedMember);
-
-        return memberRepository.save(oldMember);
+    public Member updateInfo(Member loginUser, Long id, String password) {
+        Member oldMember = findById(id);
+        oldMember.updatePassword(loginUser, passwordEncoder.encode(password));
+        return oldMember;
     }
 
     @Transactional
@@ -111,13 +110,7 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) {
         Member member = findByEmail(email);
-        return Member.builder()
-                .id(member.getId())
-                .name(member.getName())
-                .email(email)
-                .password(member.getPassword())
-                .roles(Arrays.asList("ROLE_USER"))
-                .build();
+        return new UserMember(member);
     }
 
     private MyKeyword buildMyKeyword(Member member, Keyword keyword) {

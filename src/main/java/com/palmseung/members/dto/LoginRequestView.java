@@ -1,5 +1,6 @@
 package com.palmseung.members.dto;
 
+import com.palmseung.members.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,12 @@ public class LoginRequestView {
         this.password = password;
         this.accessToken = accessToken;
         this.tokenType = tokenType;
+    }
+
+    public static LoginRequestView of(Member member){
+        return LoginRequestView.builder()
+                .email(member.getEmail())
+                .password(member.getPassword())
+                .build();
     }
 }

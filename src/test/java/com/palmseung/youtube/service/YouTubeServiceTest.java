@@ -1,6 +1,7 @@
 package com.palmseung.youtube.service;
 
 import com.palmseung.youtube.domain.YouTubeVideos;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +16,7 @@ public class YouTubeServiceTest {
     @Autowired
     YouTubeService youTubeService;
 
+    @DisplayName("Youtube Data Api 검색 결과 (정상)")
     @Test
     void search() throws IOException {
         //given
