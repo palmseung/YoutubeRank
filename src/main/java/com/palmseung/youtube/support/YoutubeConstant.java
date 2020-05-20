@@ -58,7 +58,7 @@ public class YoutubeConstant {
             .videoId("2KtFPjSp3og")
             .viewCount(17_694_213)
             .description("[최종회] ♬ LION - (여자)아이들 @ FINAL 경연 K-POP 여왕의 자리를 두고 펼쳐지는 걸그룹 컴백 전쟁! Mnet '퀸덤(Queendom)' --------------------------------...")
-            .thumbnailUrl("https://i.ytimg.com/vi/JXC7rtAVOzM/hqdefault.jpg")
+            .thumbnailUrl("https://i.ytimg.com/vi/2KtFPjSp3og/hqdefault.jpg")
             .build();
 
     public static final YouTubeVideo TEST_YOUTUBE_VIDEO_4

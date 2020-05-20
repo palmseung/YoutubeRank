@@ -5,8 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" media="screen" href="../../css/common/nav-bar.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="../../css/common/search-box.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/common/nav-bar.css"/>
+
     <link
             rel="stylesheet"
             href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
@@ -33,18 +34,20 @@
         </script>
     {{/loginUser}}
 
-    {{#youTubeVideos}}
-        <div class="result">
-            <tr>
-                <td>{{videoId}}</td>
-                <a href="{{url}}"><td>Click to watch the video!</td></a>
-                <td>{{title}}</td>
-                <td>{{thumbnailUrl}}</td>
-                <td>{{description}}</td>
-                <td>{{viewCount}}</td>
-            </tr>
-        </div>
-    {{/youTubeVideos}}
+    <div class="search-result">
+        {{#youTubeVideos}}
+
+                <tr>
+                    <td>{{videoId}}</td><br/>
+                    <a href="{{url}}" target="_blank"><td>Click to watch the video!</td></a><br/>
+                    <td>{{title}}</td><br/>
+                    <img src="{{thumbnailUrl}}" alt=""><br/>
+                    <td>{{description}}</td><br/>
+                    <td>{{viewCount}}</td><br/>
+                </tr>
+
+        {{/youTubeVideos}}
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="/js/common/nav-bar.js"></script>
     <script src="/js/common/search-box.js"></script>

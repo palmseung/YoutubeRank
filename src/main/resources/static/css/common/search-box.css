@@ -71,6 +71,7 @@
 	transform: rotate(45deg);
 }
 
-.result {
+.search-result {
+    position: relative;
     color: black;
 }
