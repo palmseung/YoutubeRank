@@ -12,7 +12,7 @@ function home() {
           window.location.href = '/';
         },
         error: function() {
-          alert("Sorry, you are not logged in.");
+          window.location.href = '/';
         }
     });
 };

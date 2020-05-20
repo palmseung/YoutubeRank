@@ -27,6 +27,11 @@
     {{#loginUser}}
         {{>layout/search-box}}
     {{/loginUser}}
+    {{^loginUser}}
+        <script>
+            window.location.href = "/login";
+        </script>
+    {{/loginUser}}
     <script src="/js/common/nav-bar.js"></script>
     <script src="/js/common/search-box.js"></script>
 
