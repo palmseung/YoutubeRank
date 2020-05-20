@@ -10,6 +10,8 @@ import com.palmseung.members.support.LoginUser;
 import com.palmseung.members.support.UserMember;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +34,14 @@ public class ApiKeywordController {
 
         MyKeywordResponseView responseView = MyKeywordResponseView.of(myKeyword);
 
+//        return ResponseEntity
+//                .ok()
+//                .body(responseView);
+
         return ResponseEntity
-                .ok()
-                .body(responseView);
+                .status(HttpStatus.MOVED_PERMANENTLY)
+                .header(HttpHeaders.LOCATION, "/api/youtube?keyword="+responseView.getKeyword())
+                .build();
     }
 
     @GetMapping("/{id}")
