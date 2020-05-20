@@ -22,8 +22,8 @@ public class ApiYouTubeController {
 
     @GetMapping
     public String search(@RequestParam String keyword, RedirectAttributes redirect) throws IOException {
-//        YouTubeVideos searchResults = youTubeService.search(keyword);
-        YouTubeVideos searchResults = TEST_YOUTUBE_VIDEOS;
+        YouTubeVideos searchResults = youTubeService.search(keyword);
+//        YouTubeVideos searchResults = TEST_YOUTUBE_VIDEOS;
         redirect.addFlashAttribute("youTubeVideos", searchResults);
         return "redirect:/search-result";
     }
