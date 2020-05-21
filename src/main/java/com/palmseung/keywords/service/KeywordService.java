@@ -8,6 +8,8 @@ import com.palmseung.members.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class KeywordService {
@@ -21,6 +23,10 @@ public class KeywordService {
                 findByKeywordIdAndMemberId(savedKeyword.getId(), loginUser.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find MyKeyword!"));
     }
+
+//    public List<MyKeyword> findAllMyKeyword(Member loginUser){
+//        return
+//    }
 
     private Keyword findKeyword(String keyword){
         return keywordRepository
