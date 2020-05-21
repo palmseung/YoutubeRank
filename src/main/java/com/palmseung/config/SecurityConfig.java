@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.logout()
-                .logoutUrl("/logout");
+                .logoutSuccessUrl("/login");
 
         http.authorizeRequests()
                 .antMatchers("/h2-console/*").permitAll()
