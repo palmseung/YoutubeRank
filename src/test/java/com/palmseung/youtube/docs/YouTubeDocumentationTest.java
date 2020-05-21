@@ -44,9 +44,9 @@ public class YouTubeDocumentationTest extends BaseDocumentationTest {
         given(youTubeService.search(searchKeyword)).willReturn(TEST_YOUTUBE_VIDEOS);
 
         mockMvc.perform(get(BASE_URI_YOUTUBE_API)
-                .queryParam("search", searchKeyword)
+                .queryParam("keyword", searchKeyword)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().is3xxRedirection())
                 .andDo(print())
                 .andDo(document("youtube-search",
                         requestHeaders(
@@ -54,28 +54,12 @@ public class YouTubeDocumentationTest extends BaseDocumentationTest {
                                         .description(MediaType.APPLICATION_JSON)
                         ),
                         requestParameters(
-                                parameterWithName("search")
+                                parameterWithName("keyword")
                                         .description("A keyword to search on YouTube that a user typed")
                         ),
-                        responseFields(
-                                fieldWithPath("[].videoId")
-                                        .type(JsonFieldType.STRING)
-                                        .description("An intrinsic id of video issued by YouTube"),
-                                fieldWithPath("[].title")
-                                        .type(JsonFieldType.STRING)
-                                        .description("A title of the YouTube video written by the uploader"),
-                                fieldWithPath("[].url")
-                                        .type(JsonFieldType.STRING)
-                                        .description("The URL to play the video on YouTube"),
-                                fieldWithPath("[].description")
-                                        .type(JsonFieldType.STRING)
-                                        .description("The description for the video written by the uploader"),
-                                fieldWithPath("[].thumbnailUrl")
-                                        .type(JsonFieldType.STRING)
-                                        .description("The URL to access the thumbnail image of the video in high quality"),
-                                fieldWithPath("[].viewCount")
-                                        .type(JsonFieldType.NUMBER)
-                                        .description("The view counts of the video at the time of request")
+                        responseHeaders(
+                                headerWithName(HttpHeaders.LOCATION)
+                                        .description("The url for redirection")
                         )
                 ));
     }

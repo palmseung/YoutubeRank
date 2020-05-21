@@ -92,7 +92,7 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
         given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
 
         //when, then
-        mockMvc.perform(get(BASE_URI_KEYWORD_API + "/" + TEST_MY_KEYWORD.getId())
+        mockMvc.perform(get(BASE_URI_KEYWORD_API+ "/" + TEST_MY_KEYWORD.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION, createToken(TEST_EMAIL)))
                 .andExpect(status().isOk())
