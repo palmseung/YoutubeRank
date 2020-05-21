@@ -61,12 +61,13 @@ public class KeywordAcceptanceTest extends BaseAcceptanceTest {
         //given
         keywordHttpTest.addMyKeyword("queendom", accessToken);
         keywordHttpTest.addMyKeyword("(g)idle", accessToken);
+        keywordHttpTest.addMyKeyword("GOT7", accessToken);
 
         //when
         List<MyKeywordResponseView> responseViews = keywordHttpTest.findAllMyKeyword(accessToken);
 
         //then
-        assertThat(responseViews).hasSize(2);
+        assertThat(responseViews).hasSize(3);
     }
 
 //    @DisplayName("My Keyword 삭제")

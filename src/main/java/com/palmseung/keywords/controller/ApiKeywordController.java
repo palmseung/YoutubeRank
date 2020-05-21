@@ -51,22 +51,16 @@ public class ApiKeywordController {
 
     @GetMapping
     public ResponseEntity findAllMyKeywords(@LoginUser Member loginUser) {
-        List<MyKeyword> allKeywords = memberService.findAllKeywords(loginUser);
+        List<MyKeyword> allMyKeyword = keywordService.findAllMyKeyword(loginUser);
 
         return ResponseEntity
                 .ok()
-                .body(MyKeywordResponseView.listOf(allKeywords));
+                .body(MyKeywordResponseView.listOf(allMyKeyword));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity removeMyKeyword(@LoginUser Member loginUser, @PathVariable Long id) {
-        if (memberService.findMyKeywordById(id).isPresent()) {
-            memberService.deleteMyKeywordById(loginUser, id);
-
-            return ResponseEntity
-                    .ok()
-                    .build();
-        }
+    @DeleteMapping("/{keyword}")
+    public ResponseEntity removeMyKeyword(@LoginUser Member loginUser, @PathVariable String keyword) {
+        MyKeyword myKeyword = keywordService.findMyKeyword(loginUser, keyword);
 
         return ResponseEntity
                 .noContent()

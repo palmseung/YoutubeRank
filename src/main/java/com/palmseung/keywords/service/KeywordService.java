@@ -28,6 +28,11 @@ public class KeywordService {
         return myKeywordRepository.findAllByMemberId(loginUser.getId());
     }
 
+    public void deleteMyKeyword(Member loginUser, String keyword){
+        MyKeyword myKeyword = findMyKeyword(loginUser, keyword);
+        myKeywordRepository.deleteById(myKeyword.getId());
+    }
+
     private Keyword findKeyword(String keyword){
         return keywordRepository
                 .findByKeyword(keyword)

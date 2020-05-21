@@ -3,6 +3,7 @@ package com.palmseung.keywords.service;
 import com.palmseung.keywords.domain.KeywordRepository;
 import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.keywords.domain.MyKeywordRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +17,10 @@ import java.util.Optional;
 import static com.palmseung.keywords.KeywordConstant.*;
 import static com.palmseung.members.MemberConstant.TEST_MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class KeywordServiceTest {
@@ -29,6 +33,7 @@ public class KeywordServiceTest {
     @Mock
     private MyKeywordRepository myKeywordRepository;
 
+    @DisplayName("MyKeyword 조회")
     @Test
     void findMyKeywordByKeywordIdAndMemberId() {
         //given
@@ -47,6 +52,7 @@ public class KeywordServiceTest {
         assertThat(myKeyword.getMember().getEmail()).isEqualTo(email);
     }
 
+    @DisplayName("MyKeyword 목록 조회")
     @Test
     void findAllMyKeywords() {
         //given
@@ -58,5 +64,21 @@ public class KeywordServiceTest {
 
         //then
         assertThat(allMyKeyword.size()).isEqualTo(3);
+    }
+
+    @DisplayName("MyKeyword 삭제")
+    @Test
+    public void deleteMyKeyword() {
+        //given
+        given(keywordRepository.findByKeyword(TEST_KEYWORD.getKeyword()))
+                .willReturn(Optional.of(TEST_KEYWORD));
+        given(myKeywordRepository.findByKeywordIdAndMemberId(TEST_MEMBER.getId(), TEST_KEYWORD.getId()))
+                .willReturn(Optional.of(TEST_MY_KEYWORD));
+
+        //when
+        keywordService.deleteMyKeyword(TEST_MEMBER, TEST_KEYWORD.getKeyword());
+
+        //then
+        verify(myKeywordRepository, times(1)).deleteById(TEST_MY_KEYWORD.getId());
     }
 }
