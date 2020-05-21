@@ -27,8 +27,8 @@ public class KeywordHttpTest {
                 .expectStatus().is3xxRedirection();
     }
 
-    public MyKeywordResponseView findMyKeyword(Long id, String accessToken) {
-        return webTestClient.get().uri(BASE_URI_KEYWORD_API + "/" + id)
+    public MyKeywordResponseView findMyKeyword(String keyword, String accessToken) {
+        return webTestClient.get().uri(BASE_URI_KEYWORD_API +"/" + keyword)
                 .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()

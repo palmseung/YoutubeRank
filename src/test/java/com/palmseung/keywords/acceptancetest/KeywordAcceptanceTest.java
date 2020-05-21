@@ -40,19 +40,20 @@ public class KeywordAcceptanceTest extends BaseAcceptanceTest {
         keywordHttpTest.addMyKeyword(keyword, accessToken);
     }
 
-//    @DisplayName("My keyword 조회")
-//    @Test
-//    public void retrieveMyKeyword() {
-//        //given
-//        MyKeywordResponseView responseView = keywordHttpTest.addMyKeyword("queendom", accessToken);
-//
-//        //when
-//        MyKeywordResponseView response = keywordHttpTest.findMyKeyword(responseView.getId(), accessToken);
-//
-//        //then
-//        assertThat(response.getId()).isEqualTo(responseView.getId());
-//        assertThat(response.getKeyword()).isEqualTo(responseView.getKeyword());
-//    }
+    @DisplayName("My keyword 조회")
+    @Test
+    public void retrieveMyKeyword() {
+        //given
+        String keyword = "queendom";
+        keywordHttpTest.addMyKeyword(keyword, accessToken);
+
+        //when
+        MyKeywordResponseView response = keywordHttpTest.findMyKeyword(keyword, accessToken);
+
+        //then
+        assertThat(response.getId()).isNotNull();
+        assertThat(response.getKeyword()).isEqualTo(keyword);
+    }
 
     @DisplayName("My Keyword 목록 조회")
     @Test

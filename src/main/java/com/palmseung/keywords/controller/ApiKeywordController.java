@@ -4,6 +4,7 @@ import com.palmseung.keywords.domain.Keyword;
 import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.keywords.dto.MyKeywordRequestView;
 import com.palmseung.keywords.dto.MyKeywordResponseView;
+import com.palmseung.keywords.service.KeywordService;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.members.support.LoginUser;
@@ -25,6 +26,7 @@ import static com.palmseung.keywords.KeywordConstant.BASE_URI_KEYWORD_API;
 @RequestMapping(value = BASE_URI_KEYWORD_API)
 public class ApiKeywordController {
     private final MemberService memberService;
+    private final KeywordService keywordService;
 
     @PostMapping
     public ResponseEntity addKeyword(@LoginUser Member loginUser,
@@ -38,13 +40,13 @@ public class ApiKeywordController {
                 .build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity findMyKeyword(@LoginUser Member loginUser, @PathVariable Long id) {
-        MyKeyword myKeywordByMyKeywordId = memberService.findMyKeywordByMyKeywordId(loginUser, id);
+    @GetMapping("/{keyword}")
+    public ResponseEntity findMyKeyword(@LoginUser Member loginUser, @PathVariable String keyword) {
+        MyKeyword myKeyword = keywordService.findMyKeyword(loginUser, keyword);
 
         return ResponseEntity
                 .ok()
-                .body(MyKeywordResponseView.of(myKeywordByMyKeywordId));
+                .body(MyKeywordResponseView.of(myKeyword));
     }
 
     @GetMapping

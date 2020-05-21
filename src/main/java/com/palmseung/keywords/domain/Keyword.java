@@ -18,7 +18,7 @@ public class Keyword {
     @Column(name = "keyword_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String keyword;
 
     @OneToMany(mappedBy = "keyword")
