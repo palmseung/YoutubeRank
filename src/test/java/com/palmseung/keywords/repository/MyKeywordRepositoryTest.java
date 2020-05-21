@@ -1,4 +1,4 @@
-package com.palmseung.keywords;
+package com.palmseung.keywords.repository;
 
 import com.palmseung.keywords.domain.Keyword;
 import com.palmseung.keywords.domain.KeywordRepository;
