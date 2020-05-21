@@ -60,10 +60,10 @@ public class ApiKeywordController {
 
     @DeleteMapping("/{keyword}")
     public ResponseEntity removeMyKeyword(@LoginUser Member loginUser, @PathVariable String keyword) {
-        MyKeyword myKeyword = keywordService.findMyKeyword(loginUser, keyword);
+        keywordService.deleteMyKeyword(loginUser, keyword);
 
         return ResponseEntity
-                .noContent()
+                .ok()
                 .build();
     }
 }

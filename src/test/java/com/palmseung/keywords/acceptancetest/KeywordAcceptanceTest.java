@@ -70,23 +70,17 @@ public class KeywordAcceptanceTest extends BaseAcceptanceTest {
         assertThat(responseViews).hasSize(3);
     }
 
-//    @DisplayName("My Keyword 삭제")
-//    @Test
-//    public void removeMyKeyword() {
-//        //given
-//        keywordHttpTest.addMyKeyword("queendom", accessToken);
-//
-//        //when
-//        webTestClient.delete().uri(BASE_URI_KEYWORD_API + "/" + responseView.getId())
-//                .header(HttpHeaders.AUTHORIZATION, accessToken)
-//                .exchange()
-//                .expectStatus().isOk();
-//
-//        //then
-//        webTestClient.delete().uri(BASE_URI_KEYWORD_API + "/" + responseView.getId())
-//                .header(HttpHeaders.AUTHORIZATION, accessToken)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .exchange()
-//                .expectStatus().isNoContent();
-//    }
+    @DisplayName("My Keyword 삭제")
+    @Test
+    public void removeMyKeyword() {
+        //given
+        String keyword = "queendom";
+        keywordHttpTest.addMyKeyword(keyword, accessToken);
+
+        //when, then
+        webTestClient.delete().uri(BASE_URI_KEYWORD_API + "/" + keyword)
+                .header(HttpHeaders.AUTHORIZATION, accessToken)
+                .exchange()
+                .expectStatus().isOk();
+    }
 }

@@ -16,16 +16,22 @@ import static java.util.stream.Collectors.toList;
 @Setter
 public class MyKeywordResponseView implements Serializable {
     private Long id;
+    private String email;
     private String keyword;
 
     @Builder
-    public MyKeywordResponseView(Long id, String keyword) {
+    public MyKeywordResponseView(Long id, String email, String keyword) {
         this.id = id;
+        this.email = email;
         this.keyword = keyword;
     }
 
     public static MyKeywordResponseView of(MyKeyword myKeyword) {
-        return new MyKeywordResponseView(myKeyword.getId(), myKeyword.getKeyword().getKeyword());
+        return MyKeywordResponseView.builder()
+                .id(myKeyword.getId())
+                .email(myKeyword.getMember().getEmail())
+                .keyword(myKeyword.getStringKeyword())
+                .build();
     }
 
     public static List<MyKeywordResponseView> listOf(List<MyKeyword> myKeywords) {
