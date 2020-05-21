@@ -9,13 +9,10 @@ function home() {
             localStorage.getItem('accessToken').replace(/^"(.*)"$/, '$1'));
         }},
         success: function(response) {
-          alert('success');
           window.location.href = '/';
-          window.location.reload();
         },
         error: function() {
-          alert("Sorry, you are not logged in.");
+          window.location.href = '/';
         }
     });
 };
-

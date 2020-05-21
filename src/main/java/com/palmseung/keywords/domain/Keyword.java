@@ -18,7 +18,7 @@ public class Keyword {
     @Column(name = "keyword_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String keyword;
 
     @OneToMany(mappedBy = "keyword")
@@ -28,6 +28,12 @@ public class Keyword {
     public Keyword(Long id, String keyword) {
         this.id = id;
         this.keyword = keyword;
+    }
+
+    public static Keyword of(String keyword){
+        return Keyword.builder()
+                .keyword(keyword)
+                .build();
     }
 
     @Override

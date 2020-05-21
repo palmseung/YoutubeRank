@@ -1,9 +1,5 @@
 package com.palmseung.members.service;
 
-import com.palmseung.keywords.domain.Keyword;
-import com.palmseung.keywords.domain.KeywordRepository;
-import com.palmseung.keywords.domain.MyKeyword;
-import com.palmseung.keywords.domain.MyKeywordRepository;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;
 import com.palmseung.members.dto.CreateMemberRequestView;
@@ -16,18 +12,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
-import static com.palmseung.common.Messages.*;
+import static com.palmseung.common.Messages.WARNING_MEMBER_EXISTING_EMAIL;
+import static com.palmseung.common.Messages.WARNING_MEMBER_INVALID_MEMBER;
 
 @RequiredArgsConstructor
 @Service
 public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final MyKeywordRepository myKeywordRepository;
-    private final KeywordRepository keywordRepository;
 
     public Member create(CreateMemberRequestView requestView) {
         validateEmail(requestView.getEmail());
@@ -65,64 +59,10 @@ public class MemberService implements UserDetailsService {
         return oldMember;
     }
 
-    @Transactional
-    public MyKeyword addKeyword(Member member, Keyword keyword) {
-        Member savedMember = memberRepository.findByEmail(member.getEmail()).orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
-        Keyword savedKeyword = saveKeyword(keyword);
-        MyKeyword myKeyword = myKeywordRepository.save(buildMyKeyword(member, savedKeyword));
-        savedMember.addKeyword(savedKeyword);
-        return myKeyword;
-    }
-
-    @Transactional
-    public List<MyKeyword> findAllKeywords(Member member) {
-        return myKeywordRepository.findAllByMemberId(member.getId());
-    }
-
-    @Transactional
-    public void deleteMyKeywordById(Member loginUser, Long id) {
-        MyKeyword myKeyword = myKeywordRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(WARNING_MYKEYWORD_INVALID_MYKEYWORD));
-
-        if (!loginUser.equals(myKeyword.getMember())) {
-            throw new IllegalArgumentException(WARNING_MYKEYWORD_UNAUTHORIZED_TO_DELETE);
-        }
-
-        myKeywordRepository.deleteById(id);
-    }
-
-    public Optional<MyKeyword> findMyKeywordById(Long id) {
-        return myKeywordRepository.findById(id);
-    }
-
-    @Transactional
-    public MyKeyword findMyKeywordByMyKeywordId(Member loginUser, Long id) {
-        MyKeyword myKeyword = findMyKeywordById(id)
-                .orElseThrow(() -> new IllegalArgumentException(WARNING_MYKEYWORD_INVALID_MYKEYWORD));
-
-        if (!loginUser.equals(myKeyword.getMember())) {
-            throw new IllegalArgumentException(WARNING_MYKEYWORD_UNAUTHORIZED_TO_READ);
-        }
-
-        return myKeyword;
-    }
-
     @Override
     public UserDetails loadUserByUsername(String email) {
         Member member = findByEmail(email);
         return new UserMember(member);
-    }
-
-    private MyKeyword buildMyKeyword(Member member, Keyword keyword) {
-        return MyKeyword.builder()
-                .member(member)
-                .keyword(keyword)
-                .build();
-    }
-
-    private Keyword saveKeyword(Keyword keyword) {
-        return keywordRepository.findByKeyword(keyword.getKeyword())
-                .orElseGet(() -> keywordRepository.save(keyword));
     }
 
     private void validateEmail(String email) {

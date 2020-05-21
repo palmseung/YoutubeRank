@@ -2,6 +2,7 @@ package com.palmseung.keywords.docs;
 
 import com.palmseung.BaseDocumentationTest;
 import com.palmseung.keywords.dto.MyKeywordRequestView;
+import com.palmseung.keywords.service.KeywordService;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.service.MemberService;
 import com.palmseung.members.support.JwtTokenProvider;
@@ -17,12 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 import static com.palmseung.keywords.KeywordConstant.*;
 import static com.palmseung.members.MemberConstant.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -44,6 +42,9 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
     @MockBean
     private MemberService memberService;
 
+    @MockBean
+    private KeywordService keywordService;
+
     @DisplayName("[문서화] My Keyword 추가")
     @Test
     public void addMyKeyword() throws Exception {
@@ -51,8 +52,7 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
         String keyword = "queendom";
         Member member = createMember(TEST_EMAIL);
         MyKeywordRequestView requestView = MyKeywordRequestView.builder().keyword(keyword).build();
-        given(memberService.addKeyword(any(), any())).willReturn(TEST_MY_KEYWORD);
-        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(keywordService.addMyKeyword(member, keyword)).willReturn(TEST_MY_KEYWORD);
         given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
 
         //when, then
@@ -61,7 +61,7 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
                 .header(HttpHeaders.AUTHORIZATION, createToken(TEST_EMAIL))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestView)))
-                .andExpect(status().isOk())
+                .andExpect(status().is3xxRedirection())
                 .andDo(print())
                 .andDo(document("keywords-add-my-keyword",
                         requestHeaders(
@@ -76,16 +76,8 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
                                         .description("The keyword to search in youtube that the user wants to add my keyword")
                         ),
                         responseHeaders(
-                                headerWithName(HttpHeaders.CONTENT_TYPE)
-                                        .description(MediaType.APPLICATION_JSON)
-                        ),
-                        responseFields(
-                                fieldWithPath("id")
-                                        .type(JsonFieldType.NUMBER)
-                                        .description("The intrinsic myKeyword id"),
-                                fieldWithPath("keyword")
-                                        .type(JsonFieldType.STRING)
-                                        .description("The keyword added to member's my-keyword")
+                                headerWithName(HttpHeaders.LOCATION)
+                                        .description("The url for redirect to search on YouTube")
                         )
                 ));
     }
@@ -94,13 +86,13 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
     @Test
     public void retrieveMyKeyword() throws Exception {
         //given
-        Member member = createMember(TEST_EMAIL);
-        given(memberService.findMyKeywordByMyKeywordId(any(), anyLong())).willReturn(TEST_MY_KEYWORD);
-        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
-        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
+        Member loginUser = createMember(TEST_EMAIL);
+        String keyword = TEST_KEYWORD.getKeyword();
+        given(keywordService.findMyKeyword(loginUser, keyword)).willReturn(TEST_MY_KEYWORD);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(loginUser));
 
         //when, then
-        mockMvc.perform(get(BASE_URI_KEYWORD_API + "/" + TEST_MY_KEYWORD.getId())
+        mockMvc.perform(get(BASE_URI_KEYWORD_API + "/" + keyword)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION, createToken(TEST_EMAIL)))
                 .andExpect(status().isOk())
@@ -120,9 +112,12 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
                                 fieldWithPath("id")
                                         .type(JsonFieldType.NUMBER)
                                         .description("The intrinsic myKeyword id to retrieve"),
+                                fieldWithPath("email")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The email address of an user who added the keyword"),
                                 fieldWithPath("keyword")
                                         .type(JsonFieldType.STRING)
-                                        .description("The keyword added to member's my-keyword to retrieve")
+                                        .description("The keyword added to loginUser's my-keyword to retrieve")
                         )
                 ));
     }
@@ -131,11 +126,10 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
     @Test
     public void retrieveAllMyKeywords() throws Exception {
         //given
-        Member member = createMember(TEST_EMAIL);
-        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
-        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
-        given(memberService.findAllKeywords(any()))
+        Member loginUser = createMember(TEST_EMAIL);
+        given(keywordService.findAllMyKeyword(loginUser))
                 .willReturn(Arrays.asList(TEST_MY_KEYWORD, TEST_MY_KEYWORD_2, TEST_MY_KEYWORD_3));
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(loginUser));
 
         //when, then
         mockMvc.perform(get(BASE_URI_KEYWORD_API)
@@ -158,9 +152,12 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
                                 fieldWithPath("[].id")
                                         .type(JsonFieldType.NUMBER)
                                         .description("The intrinsic myKeyword id to retrieve"),
+                                fieldWithPath("[].email")
+                                        .type(JsonFieldType.STRING)
+                                        .description("The email address of an user who added the keyword"),
                                 fieldWithPath("[].keyword")
                                         .type(JsonFieldType.STRING)
-                                        .description("The keyword added to member's my-keyword to retrieve")
+                                        .description("The keyword added to loginUser's my-keyword to retrieve")
                         )
                 ));
     }
@@ -169,13 +166,13 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
     @Test
     public void deleteMyKeyword() throws Exception {
         //given
-        Member member = createMember(TEST_EMAIL);
-        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
-        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
-        given(memberService.findMyKeywordById(anyLong())).willReturn(Optional.of(TEST_MY_KEYWORD));
+        String keyword = TEST_KEYWORD.getKeyword();
+        Member loginUser = createMember(TEST_EMAIL);
+        given(keywordService.findMyKeyword(loginUser, keyword)).willReturn(TEST_MY_KEYWORD);
+        given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(loginUser));
 
         //when, then
-        mockMvc.perform(delete(BASE_URI_KEYWORD_API + "/" + TEST_MY_KEYWORD.getId())
+        mockMvc.perform(delete(BASE_URI_KEYWORD_API + "/" + keyword)
                 .header(HttpHeaders.AUTHORIZATION, createToken(TEST_EMAIL))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
