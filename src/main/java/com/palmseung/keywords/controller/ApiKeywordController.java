@@ -25,14 +25,12 @@ import static com.palmseung.keywords.KeywordConstant.BASE_URI_KEYWORD_API;
 @RestController
 @RequestMapping(value = BASE_URI_KEYWORD_API)
 public class ApiKeywordController {
-    private final MemberService memberService;
     private final KeywordService keywordService;
 
     @PostMapping
     public ResponseEntity addKeyword(@LoginUser Member loginUser,
                                      @RequestBody MyKeywordRequestView requestView) {
-        MyKeyword myKeyword
-                = memberService.addKeyword(loginUser, Keyword.builder().keyword(requestView.getKeyword()).build());
+        MyKeyword myKeyword = keywordService.addMyKeyword(loginUser, requestView.getKeyword());
 
         return ResponseEntity
                 .status(HttpStatus.MOVED_PERMANENTLY)

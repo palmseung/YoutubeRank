@@ -18,12 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 import static com.palmseung.keywords.KeywordConstant.*;
 import static com.palmseung.members.MemberConstant.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -55,8 +52,7 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
         String keyword = "queendom";
         Member member = createMember(TEST_EMAIL);
         MyKeywordRequestView requestView = MyKeywordRequestView.builder().keyword(keyword).build();
-        given(memberService.addKeyword(any(), any())).willReturn(TEST_MY_KEYWORD);
-        given(memberService.findByEmail(TEST_EMAIL)).willReturn(member);
+        given(keywordService.addMyKeyword(member, keyword)).willReturn(TEST_MY_KEYWORD);
         given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(member));
 
         //when, then
@@ -96,7 +92,7 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
         given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(loginUser));
 
         //when, then
-        mockMvc.perform(get(BASE_URI_KEYWORD_API+ "/" + keyword)
+        mockMvc.perform(get(BASE_URI_KEYWORD_API + "/" + keyword)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION, createToken(TEST_EMAIL)))
                 .andExpect(status().isOk())
@@ -172,6 +168,7 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
         //given
         String keyword = TEST_KEYWORD.getKeyword();
         Member loginUser = createMember(TEST_EMAIL);
+        given(keywordService.findMyKeyword(loginUser, keyword)).willReturn(TEST_MY_KEYWORD);
         given(memberService.loadUserByUsername(TEST_EMAIL)).willReturn(new UserMember(loginUser));
 
         //when, then

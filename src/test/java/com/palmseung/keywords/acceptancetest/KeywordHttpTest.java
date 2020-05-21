@@ -5,7 +5,6 @@ import com.palmseung.keywords.dto.MyKeywordResponseView;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class KeywordHttpTest {
     }
 
     public MyKeywordResponseView findMyKeyword(String keyword, String accessToken) {
-        return webTestClient.get().uri(BASE_URI_KEYWORD_API +"/" + keyword)
+        return webTestClient.get().uri(BASE_URI_KEYWORD_API + "/" + keyword)
                 .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
@@ -48,7 +47,7 @@ public class KeywordHttpTest {
                 .returnResult().getResponseBody();
     }
 
-    private MyKeywordRequestView createRequest(String keyword){
+    private MyKeywordRequestView createRequest(String keyword) {
         return MyKeywordRequestView.builder()
                 .keyword(keyword)
                 .build();
