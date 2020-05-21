@@ -18,15 +18,13 @@ public class KeywordHttpTest {
         this.webTestClient = webTestClient;
     }
 
-    public MyKeywordResponseView addMyKeyword(String keyword, String accessToken) {
-        return webTestClient.post().uri(BASE_URI_KEYWORD_API)
+    public void addMyKeyword(String keyword, String accessToken) {
+        webTestClient.post().uri(BASE_URI_KEYWORD_API)
                 .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .accept(MediaType.APPLICATION_JSON)
                 .bodyValue(createRequest(keyword))
                 .exchange()
-                .expectStatus().isOk()
-                .expectBody(MyKeywordResponseView.class)
-                .returnResult().getResponseBody();
+                .expectStatus().is3xxRedirection();
     }
 
     public MyKeywordResponseView findMyKeyword(Long id, String accessToken) {

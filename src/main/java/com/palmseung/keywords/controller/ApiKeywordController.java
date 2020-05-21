@@ -32,15 +32,9 @@ public class ApiKeywordController {
         MyKeyword myKeyword
                 = memberService.addKeyword(loginUser, Keyword.builder().keyword(requestView.getKeyword()).build());
 
-        MyKeywordResponseView responseView = MyKeywordResponseView.of(myKeyword);
-
-//        return ResponseEntity
-//                .ok()
-//                .body(responseView);
-
         return ResponseEntity
                 .status(HttpStatus.MOVED_PERMANENTLY)
-                .header(HttpHeaders.LOCATION, "/api/youtube?keyword="+responseView.getKeyword())
+                .header(HttpHeaders.LOCATION, "/api/youtube?keyword="+myKeyword.getStringKeyword())
                 .build();
     }
 

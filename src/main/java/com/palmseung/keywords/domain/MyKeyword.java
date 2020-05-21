@@ -31,4 +31,8 @@ public class MyKeyword extends BaseTimeEntity {
         this.member = member;
         this.keyword = keyword;
     }
+
+    public String getStringKeyword(){
+        return this.keyword.getKeyword();
+    }
 }

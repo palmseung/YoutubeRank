@@ -30,6 +30,12 @@ public class Keyword {
         this.keyword = keyword;
     }
 
+    public static Keyword of(String keyword){
+        return Keyword.builder()
+                .keyword(keyword)
+                .build();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
