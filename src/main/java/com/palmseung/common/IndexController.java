@@ -23,7 +23,7 @@ public class IndexController {
         model.addAttribute("youTubeVideos", youTubeVideos.getYouTubeVideos());
         model.addAttribute("loginUser", loginUser);
 
-        return "index";
+        return "layout/search-result";
     }
 
 }

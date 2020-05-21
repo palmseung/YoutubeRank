@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search-Result</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/common/nav-bar.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/common/search-result.css"/>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+</head>
+<body>
+{{>layout/nav-bar}}
+
+{{#youTubeVideos}}
+    <div class="team-section">
+        <div class="person">
+            <img src="{{thumbnailUrl}}" alt="" class="person-pic" />
+            <div class="person-info">
+                <h2>{{title}}</h2>
+                <p>{{viewCount}}</p>
+                <div class="socialmedia">
+                    <a href="{{url}}" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/youTubeVideos}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="/js/common/nav-bar.js"></script>
+</body>
+</html>
