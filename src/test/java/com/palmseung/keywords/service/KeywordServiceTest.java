@@ -3,6 +3,7 @@ package com.palmseung.keywords.service;
 import com.palmseung.keywords.domain.KeywordRepository;
 import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.keywords.domain.MyKeywordRepository;
+import com.palmseung.members.domain.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +18,7 @@ import java.util.Optional;
 import static com.palmseung.keywords.KeywordConstant.*;
 import static com.palmseung.members.MemberConstant.TEST_MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -32,6 +33,28 @@ public class KeywordServiceTest {
 
     @Mock
     private MyKeywordRepository myKeywordRepository;
+
+    @Mock
+    private MemberRepository memberRepository;
+
+    @DisplayName("MyKeyword 등록")
+    @Test
+    void addMyKeyword() {
+        //given
+        String keyword = TEST_KEYWORD.getKeyword();
+        String email = TEST_MEMBER.getEmail();
+        given(keywordRepository.save(any())).willReturn(TEST_KEYWORD);
+        given(memberRepository.findByEmail(email)).willReturn(Optional.of(TEST_MEMBER));
+        given(myKeywordRepository.save(any())).willReturn(TEST_MY_KEYWORD);
+
+        //when
+        MyKeyword myKeyword = keywordService.addMyKeyword(TEST_MEMBER, keyword);
+
+        //then
+        assertThat(myKeyword.getId()).isNotNull();
+        assertThat(myKeyword.getStringKeyword()).isEqualTo(keyword);
+        assertThat(myKeyword.getMember().getEmail()).isEqualTo(email);
+    }
 
     @DisplayName("MyKeyword 조회")
     @Test
