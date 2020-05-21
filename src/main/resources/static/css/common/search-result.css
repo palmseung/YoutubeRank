@@ -2,6 +2,14 @@
 	margin: 0;
 	padding: 0;
 	font-family: 'Open Sans', sans-serif;
+	background : black;
+}
+
+img{
+    width: auto;
+
+
+    max-height: 450px;
 }
 
 .team-section {
@@ -76,6 +84,6 @@
 
 .socialmedia a:hover {
 	color: #b8e994;
-	background-color: transparent;
+	background-color: white;
 	transform: scale(1.5);
 }
