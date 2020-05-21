@@ -9,10 +9,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
-import static com.palmseung.keywords.KeywordConstant.TEST_KEYWORD;
-import static com.palmseung.keywords.KeywordConstant.TEST_MY_KEYWORD;
+import static com.palmseung.keywords.KeywordConstant.*;
 import static com.palmseung.members.MemberConstant.TEST_MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -44,5 +45,18 @@ public class KeywordServiceTest {
         //then
         assertThat(myKeyword.getStringKeyword()).isEqualTo(keyword);
         assertThat(myKeyword.getMember().getEmail()).isEqualTo(email);
+    }
+
+    @Test
+    void findAllMyKeywords() {
+        //given
+        given(myKeywordRepository.findAllByMemberId(TEST_MEMBER.getId()))
+                .willReturn(Arrays.asList(TEST_MY_KEYWORD, TEST_MY_KEYWORD_2, TEST_MY_KEYWORD_3));
+
+        //when
+        List<MyKeyword> allMyKeyword = keywordService.findAllMyKeyword(TEST_MEMBER);
+
+        //then
+        assertThat(allMyKeyword.size()).isEqualTo(3);
     }
 }

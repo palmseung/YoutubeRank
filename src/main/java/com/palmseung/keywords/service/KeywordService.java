@@ -24,9 +24,9 @@ public class KeywordService {
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find MyKeyword!"));
     }
 
-//    public List<MyKeyword> findAllMyKeyword(Member loginUser){
-//        return
-//    }
+    public List<MyKeyword> findAllMyKeyword(Member loginUser){
+        return myKeywordRepository.findAllByMemberId(loginUser.getId());
+    }
 
     private Keyword findKeyword(String keyword){
         return keywordRepository

@@ -78,6 +78,7 @@ public class MyKeywordRepositoryTest {
         //then
         assertThat(allByMemberId.size()).isEqualTo(2);
         assertThat(allByMemberId.get(0).getMember()).isEqualTo(loginUser);
+        assertThat(allByMemberId.get(1).getMember()).isEqualTo(loginUser);
     }
 
     private Keyword saveKeyword(String keyword) {
