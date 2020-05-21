@@ -61,7 +61,7 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
                 .header(HttpHeaders.AUTHORIZATION, createToken(TEST_EMAIL))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestView)))
-                .andExpect(status().isOk())
+                .andExpect(status().is3xxRedirection())
                 .andDo(print())
                 .andDo(document("keywords-add-my-keyword",
                         requestHeaders(
@@ -76,16 +76,8 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
                                         .description("The keyword to search in youtube that the user wants to add my keyword")
                         ),
                         responseHeaders(
-                                headerWithName(HttpHeaders.CONTENT_TYPE)
-                                        .description(MediaType.APPLICATION_JSON)
-                        ),
-                        responseFields(
-                                fieldWithPath("id")
-                                        .type(JsonFieldType.NUMBER)
-                                        .description("The intrinsic myKeyword id"),
-                                fieldWithPath("keyword")
-                                        .type(JsonFieldType.STRING)
-                                        .description("The keyword added to member's my-keyword")
+                                headerWithName(HttpHeaders.LOCATION)
+                                        .description("The url for redirect to search on YouTube")
                         )
                 ));
     }
