@@ -60,20 +60,6 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
                 .expectStatus().isOk();
     }
 
-    @DisplayName("로그인")
-    @Test
-    public void login() {
-        //given
-        createMember();
-
-        //when
-        LoginResponseView response = doLogin();
-
-        //then
-        assertThat(response.getAccessToken()).isNotEmpty();
-        assertThat(response.getTokenType()).isEqualTo("Bearer ");
-    }
-
     @DisplayName("회원 정보 조회")
     @Test
     public void retrieveMyInfo() {
@@ -111,6 +97,31 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
         assertThat(responseBody.getPassword()).isNotEqualTo(passwordEncoder.encode(TEST_PASSWORD));
 
     }
+
+    @DisplayName("로그인")
+    @Test
+    public void login() {
+        //given
+        createMember();
+
+        //when
+        LoginResponseView response = doLogin();
+
+        //then
+        assertThat(response.getAccessToken()).isNotEmpty();
+        assertThat(response.getTokenType()).isEqualTo("Bearer ");
+    }
+
+//    @DisplayName("로그아웃")
+//    @Test
+//    public void logout(){
+//        //given
+//        createMember();
+//        doLogin();
+//
+//        //when
+//        webTestClient.get()
+//    }
 
     private CreateMemberResponseView createMember() {
         return memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD).getResponseBody();

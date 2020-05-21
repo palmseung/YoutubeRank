@@ -16,3 +16,19 @@ function home() {
         }
     });
 };
+
+function logout() {
+    $.ajax({
+        type: 'GET',
+        url: '/logout',
+        async : false,
+        success: function(response) {
+          localStorage.clear();
+          window.location.href = '/login';
+        },
+        error: function() {
+          window.location.href = '/';
+        }
+    });
+};
+
