@@ -33,7 +33,7 @@
                             </li>
                             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger " data-toggle="modal" data-target="#profileModal">Profile</a>
                             </li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" >Logout</a>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="javascript:logout()">Logout</a>
                             </li>
                         {{/loginUser}}
                     </ul>
@@ -413,6 +413,8 @@
                 </div>
             </div>
         </div>
+        {{#loginUser}}
+
 
         <div class="portfolio-modal modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal0Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
@@ -435,11 +437,11 @@
                                         <div class="divider-custom-line"></div>
                                     </div>
                                    
-                                    <p class="mb-1">name</p>
-                                    <p class="mb-1">email@email.com</p>
+                                    <p class="mb-1">{{name}}</p>
+                                    <p class="mb-1">{{email}}</p>
                                     <br/>
                                     <br/>
-                                    <button class="btn btn-primary" href="#"><i class="fas fa-pencil-alt"></i> Edit password</button>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#editPasswordModal"><i class="fas fa-pencil-alt"></i> Edit password</button>
                                   
                                 </div>
                             </div>
@@ -448,7 +450,7 @@
                 </div>
             </div>
         </div>
-
+        {{/loginUser}}
         <div class="portfolio-modal modal fade" id="search-result-modal" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal0Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
@@ -537,6 +539,60 @@
             </div>
         </div>
 
+        <div class="portfolio-modal modal fade" id="editPasswordModal" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal0Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary mb-0">Edit Password</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-7 col-lg-7 col-lg-5 mx-auto">
+                                                <div class="card card-signin my-5">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-center">Edit your password</h5>
+                                                        <form class="form-signin">
+                                                            <div class="form-label-group">
+                                                                {{#loginUser}}
+                                                                    <input type="hidden" id="editId" value="{{id}}">
+                                                                    <input type="email" id="editEmail" class="form-control" placeholder="Email address" readonly="readonly" value="{{email}}">
+                                                                <br/>
+                                                                {{/loginUser}}
+                                                            </div>
+
+                                                            <div class="form-label-group">
+                                                                <input type="password" id="editPassword" class="form-control" placeholder="Password" required autofocus>
+                                                                <br/>
+                                                            </div>
+
+                                                            <button id="editPasswordBtn" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Edit</button>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="portfolio-modal modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal0Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
@@ -561,16 +617,16 @@
                                                 <h5 class="card-title text-center">Login</h5>
                                                 <form class="form-signin">
                                                   <div class="form-label-group">
-                                                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                                                    <input type="email" id="loginEmail" class="form-control" placeholder="Email address" required autofocus>
                                                     <br/>
                                                   </div>
                                     
                                                   <div class="form-label-group">
-                                                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                                                    <input type="password" id="loginPassword" class="form-control" placeholder="Password" required>
                                                     <br/>
                                                   </div>
                                 
-                                                  <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+                                                  <button id="loginBtn" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
                                                 
                                                 </form>
                                               </div>
@@ -710,6 +766,8 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
         <script src="js/sign-up.js"></script>
-
+        <script src="js/login.js"></script>
+        <script src="js/logout.js"></script>
+        <script src="js/edit-password.js"></script>
     </body>
 </html>
