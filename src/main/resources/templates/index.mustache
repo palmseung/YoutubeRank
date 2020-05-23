@@ -59,11 +59,11 @@
                     <form>
                       <div class="form-row">
                         <div class="col-12 col-md-9 mb-2 mb-md-0">
-                          <input type="email" class="form-control form-control-lg" placeholder="">
+                          <input type="text" id="search" class="form-control form-control-lg" placeholder="">
                         </div>
                      
                         <div class="col-12 col-md-3">
-                          <button type="submit" class="btn btn-block btn-lg btn-primary"><a data-toggle="modal" data-target="#search-result-modal">Search</a></button>
+                          <button type="submit" id="searchBtn" class="btn btn-block btn-lg btn-primary"><a data-toggle="modal" data-target="#search-result-modal">Search</a></button>
                         </div>
                       </div>
                     </form>
@@ -200,6 +200,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <!-- Portfolio Modal - Title-->
+                                    {{#youTubeVideos}}
                                     <h2 class="portfolio-modal-title text-secondary mb-0">Rank for 'Queendom'</h2>
                                     <!-- Icon Divider-->
                                     <div class="divider-custom">
@@ -215,61 +216,16 @@
                                                     <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                                                 </div>
                                                 
-                                                <img class="img-fluid" src="../img/portfolio/cake.png" alt="Tasty Cake"/>
+                                                <img class="img-fluid" src="{{thumbnailUrl}}" alt="Tasty Cake"/>
                                                 
-                                                <p class="mb-0">[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연 커버곡 대결 컴백전쟁 : 퀸덤 4화</p>
+                                                <p class="mb-0">{{title}}</p>
                                                 <br/>
-                                                <p class="mb-2">views : 20000</p>
-                                                <a href="https://www.youtube.com/watch?v=Og_X5gTXTF0&list=RD-MFUsqDFqyU&index=4" target="_blank"><i class="fab fa-youtube"></i></a>
+                                                <p class="mb-2">views : {{viewCount}}</p>
+                                                <a href="{{url}}" target="_blank"><i class="fab fa-youtube"></i></a>
                                             </div>
                                         </div>
-                                        
-                                        <div class="col-md-6 col-lg-4 mb-5">
-                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
-                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                                </div><img class="img-fluid" src="../img/portfolio/circus.png" alt="Circus Tent"/>
-                                                <p class="mb-0">[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연 커버곡 대결 컴백전쟁 : 퀸덤 4화</p>
-                                                <br/>
-                                                <p class="mb-2">views : 20000</p>
-                                                <a href="https://www.youtube.com/watch?v=Og_X5gTXTF0&list=RD-MFUsqDFqyU&index=4" target="_blank"><i class="fab fa-youtube"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4 mb-5">
-                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
-                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                                </div><img class="img-fluid" src="../img/portfolio/game.png" alt="Controller"/>
-                                                <p class="mb-0">[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연 커버곡 대결 컴백전쟁 : 퀸덤 4화</p>
-                                                <br/>
-                                                <p class="mb-2">views : 20000</p>
-                                                <a href="https://www.youtube.com/watch?v=Og_X5gTXTF0&list=RD-MFUsqDFqyU&index=4" target="_blank"><i class="fab fa-youtube"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4 mb-5">
-                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
-                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                                </div><img class="img-fluid" src="../img/portfolio/safe.png" alt="Locked Safe"/>
-                                                <p class="mb-0">[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연 커버곡 대결 컴백전쟁 : 퀸덤 4화</p>
-                                                <br/>
-                                                <p class="mb-2">views : 20000</p>
-                                                <a href="https://www.youtube.com/watch?v=Og_X5gTXTF0&list=RD-MFUsqDFqyU&index=4" target="_blank"><i class="fab fa-youtube"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4 mb-5">
-                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
-                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                                </div><img class="img-fluid" src="../img/portfolio/submarine.png" alt="Submarine"/>
-                                                <p class="mb-0">[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연 커버곡 대결 컴백전쟁 : 퀸덤 4화</p>
-                                                <br/>
-                                                <p class="mb-2">views : 20000</p>
-                                                <a href="https://www.youtube.com/watch?v=Og_X5gTXTF0&list=RD-MFUsqDFqyU&index=4" target="_blank"><i class="fab fa-youtube"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
+
+                                    {{/youTubeVideos}}
                                     <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
                                 </div>
                             </div>
@@ -460,76 +416,80 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Rank for 'Queendom'</h2>
+                                    <h2 class="portfolio-modal-title text-secondary mb-0">Rank for '<span id="keyword"></span>'</h2>
                                     <!-- Icon Divider-->
                                     <div class="divider-custom">
                                         <div class="divider-custom-line"></div>
                                         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                                         <div class="divider-custom-line"></div>
                                     </div>
-
                                     <div class="d-flex align-items-center justify-content-center">
                                         <div class="col-md-6 col-lg-4 mb-5">
                                             <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
                                                 <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                                     <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                                                 </div>
+                                                <img class="img-fluid" id="first_thumbnail" />
+                                                <br/>
+                                                <p class="mb-0" id="first_title"></p>
+                                                <br/>
+                                                <p class="mb-2">views : <span id="first_viewCount"></span></p>
+                                                <a target="_blank" id="first_url"><i class="fab fa-youtube"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 mb-5">
+                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                                </div>
+                                                <img class="img-fluid" id="second_thumbnail" />
+                                                <br/>
+                                                <p class="mb-0" id="second_title"></p>
+                                                <br/>
+                                                <p class="mb-2">views : <span id="second_viewCount"></span></p>
+                                                <a target="_blank" id="second_url"><i class="fab fa-youtube"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 mb-5">
+                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                                </div>
+                                                <img class="img-fluid" id="third_thumbnail" />
+                                                <br/>
+                                                <p class="mb-0" id="third_title"></p>
+                                                <br/>
+                                                <p class="mb-2">views : <span id="third_viewCount"></span></p>
+                                                <a target="_blank" id="third_url"><i class="fab fa-youtube"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 mb-5">
+                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                                </div>
+                                                <img class="img-fluid" id="fourth_thumbnail" />
+                                                <br/>
+                                                <p class="mb-0" id="fourth_title"></p>
+                                                <br/>
+                                                <p class="mb-2">views : <span id="fourth_viewCount"></span></p>
+                                                <a target="_blank" id="fourth_url"><i class="fab fa-youtube"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 mb-5">
+                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                                </div>
+                                                <img class="img-fluid mb-2" id="fifth_thumbnail" />
 
-                                                <img class="img-fluid" src="../img/portfolio/cake.png" alt="Tasty Cake"/>
-
-                                                <p class="mb-0">[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연 커버곡 대결 컴백전쟁 : 퀸덤 4화</p>
+                                                <p class="mb-0" id="fifth_title"></p>
                                                 <br/>
-                                                <p class="mb-2">views : 20000</p>
-                                                <a href="https://www.youtube.com/watch?v=Og_X5gTXTF0&list=RD-MFUsqDFqyU&index=4" target="_blank"><i class="fab fa-youtube"></i></a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 col-lg-4 mb-5">
-                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
-                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                                </div><img class="img-fluid" src="../img/portfolio/circus.png" alt="Circus Tent"/>
-                                                <p class="mb-0">[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연 커버곡 대결 컴백전쟁 : 퀸덤 4화</p>
-                                                <br/>
-                                                <p class="mb-2">views : 20000</p>
-                                                <a href="https://www.youtube.com/watch?v=Og_X5gTXTF0&list=RD-MFUsqDFqyU&index=4" target="_blank"><i class="fab fa-youtube"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4 mb-5">
-                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
-                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                                </div><img class="img-fluid" src="../img/portfolio/game.png" alt="Controller"/>
-                                                <p class="mb-0">[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연 커버곡 대결 컴백전쟁 : 퀸덤 4화</p>
-                                                <br/>
-                                                <p class="mb-2">views : 20000</p>
-                                                <a href="https://www.youtube.com/watch?v=Og_X5gTXTF0&list=RD-MFUsqDFqyU&index=4" target="_blank"><i class="fab fa-youtube"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4 mb-5">
-                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
-                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                                </div><img class="img-fluid" src="../img/portfolio/safe.png" alt="Locked Safe"/>
-                                                <p class="mb-0">[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연 커버곡 대결 컴백전쟁 : 퀸덤 4화</p>
-                                                <br/>
-                                                <p class="mb-2">views : 20000</p>
-                                                <a href="https://www.youtube.com/watch?v=Og_X5gTXTF0&list=RD-MFUsqDFqyU&index=4" target="_blank"><i class="fab fa-youtube"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4 mb-5">
-                                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
-                                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                                </div><img class="img-fluid" src="../img/portfolio/submarine.png" alt="Submarine"/>
-                                                <p class="mb-0">[ENG sub] [4회] ♬ Fire - (여자)아이들 @2차 경연 커버곡 대결 컴백전쟁 : 퀸덤 4화</p>
-                                                <br/>
-                                                <p class="mb-2">views : 20000</p>
-                                                <a href="https://www.youtube.com/watch?v=Og_X5gTXTF0&list=RD-MFUsqDFqyU&index=4" target="_blank"><i class="fab fa-youtube"></i></a>
+                                                <p class="mb-2">views : <span id="fifth_viewCount"></span></p>
+                                                <a target="_blank" id="fifth_url"><i class="fab fa-youtube"></i></a>
                                             </div>
                                         </div>
                                     </div>
-
                                     <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
                                 </div>
                             </div>
@@ -769,5 +729,7 @@
         <script src="js/login.js"></script>
         <script src="js/logout.js"></script>
         <script src="js/edit-password.js"></script>
+        <script src="js/search.js"></script>
+
     </body>
 </html>

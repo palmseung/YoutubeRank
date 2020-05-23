@@ -1,20 +1,15 @@
 package com.palmseung.keywords.controller;
 
-import com.palmseung.keywords.domain.Keyword;
 import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.keywords.dto.MyKeywordRequestView;
 import com.palmseung.keywords.dto.MyKeywordResponseView;
 import com.palmseung.keywords.service.KeywordService;
 import com.palmseung.members.domain.Member;
-import com.palmseung.members.service.MemberService;
 import com.palmseung.members.support.LoginUser;
-import com.palmseung.members.support.UserMember;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +29,7 @@ public class ApiKeywordController {
 
         return ResponseEntity
                 .status(HttpStatus.MOVED_PERMANENTLY)
-                .header(HttpHeaders.LOCATION, "/api/youtube?keyword="+myKeyword.getStringKeyword())
+                .header(HttpHeaders.LOCATION, "/api/youtube?keyword=" + myKeyword.getStringKeyword())
                 .build();
     }
 
