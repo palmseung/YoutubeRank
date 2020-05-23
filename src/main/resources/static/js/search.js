@@ -10,13 +10,12 @@ function search(){
 
     $.ajax({
           type: 'POST',
-          url: '/api/keywords',
+          url: '/api/keywords?keyword='+data.keyword,
           dataType: 'json',
           async : false,
-          contentType: 'application/json',
+          contentType: 'application/json;charset=utf-8',
           data: JSON.stringify(data)
       }).done(function(response){
-          alert('search success');
           $('#first_title').text(response[0].title);
           $('#first_viewCount').text(response[0].viewCount);
           $('#first_thumbnail').attr('src', response[0].thumbnailUrl);

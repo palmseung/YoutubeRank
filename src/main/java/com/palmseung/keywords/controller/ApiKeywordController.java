@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 import static com.palmseung.keywords.KeywordConstant.BASE_URI_KEYWORD_API;
@@ -24,12 +27,12 @@ public class ApiKeywordController {
 
     @PostMapping
     public ResponseEntity addKeyword(@LoginUser Member loginUser,
-                                     @RequestBody MyKeywordRequestView requestView) {
+                                     @RequestBody MyKeywordRequestView requestView) throws UnsupportedEncodingException {
         MyKeyword myKeyword = keywordService.addMyKeyword(loginUser, requestView.getKeyword());
 
         return ResponseEntity
                 .status(HttpStatus.MOVED_PERMANENTLY)
-                .header(HttpHeaders.LOCATION, "/api/youtube?keyword=" + myKeyword.getStringKeyword())
+                .header(HttpHeaders.LOCATION, "/api/youtube?keyword=" + URLEncoder.encode(myKeyword.getStringKeyword(), "utf-8"))
                 .build();
     }
 
