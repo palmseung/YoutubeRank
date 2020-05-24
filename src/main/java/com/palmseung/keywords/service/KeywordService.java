@@ -4,6 +4,8 @@ import com.palmseung.keywords.domain.Keyword;
 import com.palmseung.keywords.domain.KeywordRepository;
 import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.keywords.domain.MyKeywordRepository;
+import com.palmseung.keywords.dto.KeywordResponseView;
+import com.palmseung.keywords.dto.MyKeywordResponseView;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +13,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -38,7 +44,14 @@ public class KeywordService {
     }
 
     public List<MyKeyword> findAllMyKeyword(Member loginUser){
-        return myKeywordRepository.findAllByMemberId(loginUser.getId());
+        List<MyKeyword> allByMemberId
+                = myKeywordRepository.findAllByMemberId(loginUser.getId());
+
+        if(allByMemberId != null){
+            return allByMemberId;
+        }
+
+        return Collections.emptyList();
     }
 
     public void deleteMyKeyword(Member loginUser, String keyword){
@@ -68,5 +81,18 @@ public class KeywordService {
                 .member(member)
                 .keyword(keyword)
                 .build();
+    }
+
+    public List<KeywordResponseView> getKeywords(Member loginUser){
+        List<MyKeyword> allMyKeyword = findAllMyKeyword(loginUser);
+
+        if(allMyKeyword.isEmpty()){
+            return Collections.emptyList();
+        }
+
+        List<MyKeywordResponseView> myKeywordResponseViews = MyKeywordResponseView.listOf(allMyKeyword);
+        return myKeywordResponseViews.stream()
+                .map(o -> new KeywordResponseView(o.getKeyword()))
+                .collect(Collectors.toList());
     }
 }

@@ -28,8 +28,8 @@ public class ApiYouTubeController {
 
     @GetMapping
     public ResponseEntity search(@RequestParam String keyword) throws IOException {
-        YouTubeVideos searchResults = youTubeService.search(keyword);
-//        YouTubeVideos searchResults = TEST_YOUTUBE_VIDEOS;
+//        YouTubeVideos searchResults = youTubeService.search(keyword);
+        YouTubeVideos searchResults = TEST_YOUTUBE_VIDEOS;
         List<YouTubeVideo> youTubeVideos = searchResults.getYouTubeVideos();
 
         return ResponseEntity

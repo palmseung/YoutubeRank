@@ -7,3 +7,5 @@ spring:
   h2:
     console:
       enabled : true
+  jpa:
+    open-session-in-view: true
