@@ -3,6 +3,7 @@ package com.palmseung.members.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.palmseung.keywords.domain.Keyword;
 import com.palmseung.keywords.domain.MyKeyword;
+import com.palmseung.members.dto.CreateMemberRequestView;
 import com.palmseung.members.dto.UpdateMemberRequestView;
 import com.palmseung.common.BaseTimeEntity;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,12 +30,15 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(name = "user_id")
     private Long id;
 
+    @NotEmpty
     @Column(nullable = false, unique = true)
     private String email;
 
+    @NotEmpty
     @Column(nullable = false)
     private String name;
 
+    @NotEmpty
     @Column(nullable = false)
     private String password;
 
@@ -58,7 +63,6 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     public static Member of(UpdateMemberRequestView requestView) {
         return Member.builder()
-//                .name(requestView.getNewName())
                 .password(requestView.getNewPassword())
                 .build();
     }
@@ -93,6 +97,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void changePassword(String encodedPassword) {
+        this.password = encodedPassword;
     }
 
     public void updatePassword(Member loginUser, String newEncodedPassword) {

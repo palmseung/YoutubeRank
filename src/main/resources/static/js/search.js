@@ -64,7 +64,6 @@ function searchKeyword(keyword){
           dataType: 'json',
           async : false,
       }).done(function(response){
-          alert('success');
           $('#first_title').text(response[0].title);
           $('#first_viewCount').text(response[0].viewCount);
           $('#first_thumbnail').attr('src', response[0].thumbnailUrl);

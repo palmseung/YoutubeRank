@@ -45,7 +45,7 @@ public class MemberServiceTest {
 
         //when, then
         assertThatCode(() -> {
-            memberService.create(requestView);
+            memberService.create(requestView.toEntity());
         }).doesNotThrowAnyException();
     }
 
@@ -56,7 +56,7 @@ public class MemberServiceTest {
         CreateMemberRequestView requestView = createRequestView();
 
         //when
-        memberService.create(requestView);
+        memberService.create(requestView.toEntity());
 
         //then
         verify(memberRepository, times(1))
@@ -70,14 +70,14 @@ public class MemberServiceTest {
         CreateMemberRequestView requestView = createRequestView();
 
         //when
-        memberService.create(requestView);
+        memberService.create(requestView.toEntity());
 
         //then
         verify(passwordEncoder, times(1))
                 .encode(TEST_PASSWORD);
     }
 
-    @DisplayName("회원 가입 - 이미 존재 하는 이메일 검증")
+    @DisplayName("회원 가입 - 이미 가입된 이메일 검증")
     @Test
     public void validateEmail() {
         //given
@@ -85,7 +85,7 @@ public class MemberServiceTest {
 
         //when, then
         assertThatIllegalArgumentException().isThrownBy(() -> {
-            memberService.create(createRequestView());
+            memberService.create(createRequestView().toEntity());
         });
     }
 
