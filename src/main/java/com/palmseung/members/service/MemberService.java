@@ -23,13 +23,15 @@ public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Member create(CreateMemberRequestView requestView) {
-        validateEmail(requestView.getEmail());
+    public Member create(Member member) {
+        if(findMemberByEmail(member.getEmail()).isPresent()){
+            throw new IllegalArgumentException("이미 등록된 이메일입니다.");
+        }
 
-        String encodedPassword = passwordEncoder.encode(requestView.getPassword());
-        requestView.changePassword(encodedPassword);
+        String encodedPassword = passwordEncoder.encode(member.getPassword());
+        member.changePassword(encodedPassword);
 
-        return memberRepository.save(requestView.toEntity());
+        return memberRepository.save(member);
     }
 
     public void delete(Member member) {
@@ -63,14 +65,6 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         Member member = findByEmail(email);
         return new UserMember(member);
-    }
-
-    private void validateEmail(String email) {
-        Optional<Member> member = findMemberByEmail(email);
-
-        if (member.isPresent()) {
-            throw new IllegalArgumentException(WARNING_MEMBER_EXISTING_EMAIL);
-        }
     }
 
     private Optional<Member> findMemberByEmail(String email) {

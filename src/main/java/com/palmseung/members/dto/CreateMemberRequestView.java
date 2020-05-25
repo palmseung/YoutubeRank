@@ -28,11 +28,6 @@ public class CreateMemberRequestView {
                 .build();
     }
 
-    public CreateMemberRequestView changePassword(String encodedPassword) {
-        this.password = encodedPassword;
-        return this;
-    }
-
     public Member toEntity() {
         return Member.builder()
                 .email(email)

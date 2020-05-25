@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RequiredArgsConstructor
@@ -22,8 +23,8 @@ public class ApiMemberController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping()
-    public ResponseEntity create(@RequestBody CreateMemberRequestView request) {
-        Member createdMember = memberService.create(request);
+    public ResponseEntity create(@RequestBody @Valid CreateMemberRequestView request) {
+        Member createdMember = memberService.create(request.toEntity());
         CreateMemberResponseView response = CreateMemberResponseView.of(createdMember);
 
         return ResponseEntity
