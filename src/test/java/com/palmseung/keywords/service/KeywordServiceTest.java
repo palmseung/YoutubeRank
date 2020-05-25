@@ -3,6 +3,7 @@ package com.palmseung.keywords.service;
 import com.palmseung.keywords.domain.KeywordRepository;
 import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.keywords.domain.MyKeywordRepository;
+import com.palmseung.keywords.dto.KeywordResponseView;
 import com.palmseung.members.domain.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import static com.palmseung.keywords.KeywordConstant.*;
 import static com.palmseung.members.MemberConstant.TEST_MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -103,5 +105,16 @@ public class KeywordServiceTest {
 
         //then
         verify(myKeywordRepository, times(1)).deleteById(TEST_MY_KEYWORD.getId());
+    }
+
+    @Test
+    void name() {
+        String keyword = TEST_KEYWORD.getKeyword();
+        String email = TEST_MEMBER.getEmail();
+        given(myKeywordRepository.findAllByMemberId(anyLong())).willReturn(Arrays.asList(TEST_MY_KEYWORD));
+
+        List<KeywordResponseView> keywords = keywordService.getKeywords(TEST_MEMBER);
+
+        assertThat(keywords.size()).isEqualTo(1);
     }
 }

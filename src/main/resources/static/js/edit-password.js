@@ -1,15 +1,15 @@
-$('#edit-password-btn').on('click', function () {
+$('#editPasswordBtn').on('click', function () {
     editPassword();
 });
 
 editPassword = function () {
     var data = {
-        newPassword : $('#newPassword').val()
+        newPassword : $('#editPassword').val()
     };
 
     $.ajax({
         type: 'PUT',
-        url: '/api/members/my-info/' + $('#id').val(),
+        url: '/api/members/my-info/' + $('#editId').val(),
         dataType: 'json',
         async : false,
         contentType: 'application/json',

@@ -13,11 +13,11 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @GetMapping("/")
-    public String index(@LoginUser Member loginUser, Model model) {
-        model.addAttribute("loginUser", loginUser);
-        return "index";
-    }
+//    @GetMapping("/")
+//    public String index(@LoginUser Member loginUser, Model model) {
+//        model.addAttribute("loginUser", loginUser);
+//        return "index";
+//    }
 
     @GetMapping("/sign-up")
     public String signUpPage(@LoginUser Member loginUser, Model model) {

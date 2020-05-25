@@ -4,8 +4,8 @@ $('#loginBtn').on('click', function () {
 
 login = function () {
     var data = {
-        email: $('#email').val(),
-        password: $('#password').val(),
+        email: $('#loginEmail').val(),
+        password: $('#loginPassword').val(),
     };
 
     $.ajax({
@@ -29,7 +29,7 @@ login = function () {
                     localStorage.getItem('accessToken').replace(/^"(.*)"$/, '$1'));
                 }},
                 success: function(response) {
-                  alert('success');
+                  alert('login success');
                   window.location.href = '/';
                 },
                 error: function() {

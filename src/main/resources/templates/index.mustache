@@ -1,42 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" media="screen" href="../../css/common/search-box.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="../../css/common/nav-bar.css"/>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>YouTubeRank</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+        <link href="../css/styles.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/heading.css">
+        <link rel="stylesheet" href="../css/body.css">
+    </head>
+    <body id="page-top">
+        {{>layout/nav-bar}}
+        {{>layout/header}}
+        {{>layout/keywords-list}}
 
-    <link
-            rel="stylesheet"
-            href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    />
-    <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
-            rel="stylesheet"
-    />
+        {{>modal/my-profile}}
+        {{>modal/search-result}}
+        {{>modal/edit-password}}
+        {{>modal/login}}
+        {{>modal/sign-up}}
 
-    <title>Index</title>
-</head>
-<body>
-    {{>layout/nav-bar}}
-    {{#loginUser}}
-        {{>layout/search-box}}
-    {{/loginUser}}
-    {{^loginUser}}
-        <script>
-            window.location.href = "/login";
-        </script>
-    {{/loginUser}}
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="/js/common/nav-bar.js"></script>
-    <script src="/js/common/search-box.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
+        {{>layout/about}}
+        {{>layout/footer}}
+        {{>layout/script}}
+    </body>
 </html>

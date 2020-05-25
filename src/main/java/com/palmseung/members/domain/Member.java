@@ -1,5 +1,6 @@
 package com.palmseung.members.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.palmseung.keywords.domain.Keyword;
 import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.members.dto.UpdateMemberRequestView;
@@ -36,6 +37,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
