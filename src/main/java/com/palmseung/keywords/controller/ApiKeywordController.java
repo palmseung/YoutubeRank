@@ -5,7 +5,7 @@ import com.palmseung.keywords.dto.MyKeywordRequestView;
 import com.palmseung.keywords.dto.MyKeywordResponseView;
 import com.palmseung.keywords.service.KeywordService;
 import com.palmseung.members.domain.Member;
-import com.palmseung.members.support.LoginUser;
+import com.palmseung.members.jwt.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 

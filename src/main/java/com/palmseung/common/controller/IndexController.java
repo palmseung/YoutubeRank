@@ -1,9 +1,9 @@
-package com.palmseung.common;
+package com.palmseung.common.controller;
 
 import com.palmseung.keywords.dto.KeywordResponseView;
 import com.palmseung.keywords.service.KeywordService;
 import com.palmseung.members.domain.Member;
-import com.palmseung.members.support.LoginUser;
+import com.palmseung.members.jwt.LoginUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

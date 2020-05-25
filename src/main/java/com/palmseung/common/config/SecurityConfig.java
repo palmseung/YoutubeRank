@@ -1,7 +1,7 @@
-package com.palmseung.config;
+package com.palmseung.common.config;
 
-import com.palmseung.members.support.JwtAuthenticationFilter;
-import com.palmseung.members.support.JwtTokenProvider;
+import com.palmseung.members.jwt.JwtAuthenticationFilter;
+import com.palmseung.members.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

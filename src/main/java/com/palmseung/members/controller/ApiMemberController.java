@@ -4,12 +4,11 @@ import com.palmseung.members.MemberConstant;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.dto.*;
 import com.palmseung.members.service.MemberService;
-import com.palmseung.members.support.JwtTokenProvider;
-import com.palmseung.members.support.LoginUser;
+import com.palmseung.members.jwt.JwtTokenProvider;
+import com.palmseung.members.jwt.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

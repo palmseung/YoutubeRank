@@ -2,8 +2,7 @@ package com.palmseung.members.service;
 
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;
-import com.palmseung.members.dto.CreateMemberRequestView;
-import com.palmseung.members.support.UserMember;
+import com.palmseung.members.jwt.UserMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-import static com.palmseung.common.Messages.WARNING_MEMBER_EXISTING_EMAIL;
 import static com.palmseung.common.Messages.WARNING_MEMBER_INVALID_MEMBER;
 
 @RequiredArgsConstructor

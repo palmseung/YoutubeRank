@@ -13,10 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -27,7 +25,7 @@ public class KeywordService {
     private final MyKeywordRepository myKeywordRepository;
     private final MemberRepository memberRepository;
 
-    public MyKeyword addMyKeyword(Member loginUser, String keyword){
+    public MyKeyword addMyKeyword(Member loginUser, String keyword) {
         Member savedMember = findMember(loginUser);
         Keyword savedKeyword = saveKeyword(keyword);
         savedMember.addKeyword(savedKeyword);
@@ -43,34 +41,34 @@ public class KeywordService {
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find MyKeyword!"));
     }
 
-    public List<MyKeyword> findAllMyKeyword(Member loginUser){
+    public List<MyKeyword> findAllMyKeyword(Member loginUser) {
         List<MyKeyword> allByMemberId
                 = myKeywordRepository.findAllByMemberId(loginUser.getId());
 
-        if(allByMemberId != null){
+        if (allByMemberId != null) {
             return allByMemberId;
         }
 
         return Collections.emptyList();
     }
 
-    public void deleteMyKeyword(Member loginUser, String keyword){
+    public void deleteMyKeyword(Member loginUser, String keyword) {
         MyKeyword myKeyword = findMyKeyword(loginUser, keyword);
         myKeywordRepository.deleteById(myKeyword.getId());
     }
 
-    private Member findMember(Member member){
+    private Member findMember(Member member) {
         return memberRepository
                 .findByEmail(member.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
     }
 
-    private Keyword saveKeyword(String keyword){
+    private Keyword saveKeyword(String keyword) {
         return keywordRepository.findByKeyword(keyword)
                 .orElseGet(() -> keywordRepository.save(Keyword.of(keyword)));
     }
 
-    private Keyword findKeyword(String keyword){
+    private Keyword findKeyword(String keyword) {
         return keywordRepository
                 .findByKeyword(keyword)
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find Keyword!"));
@@ -83,10 +81,10 @@ public class KeywordService {
                 .build();
     }
 
-    public List<KeywordResponseView> getKeywords(Member loginUser){
+    public List<KeywordResponseView> getKeywords(Member loginUser) {
         List<MyKeyword> allMyKeyword = findAllMyKeyword(loginUser);
 
-        if(allMyKeyword.isEmpty()){
+        if (allMyKeyword.isEmpty()) {
             return Collections.emptyList();
         }
 

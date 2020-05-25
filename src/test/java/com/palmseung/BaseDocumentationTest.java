@@ -2,7 +2,7 @@ package com.palmseung;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.palmseung.config.RestDocsConfig;
+import com.palmseung.common.config.RestDocsConfig;
 import com.palmseung.members.domain.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.extension.ExtendWith;

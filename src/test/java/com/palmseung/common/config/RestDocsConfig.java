@@ -1,4 +1,4 @@
-package com.palmseung.config;
+package com.palmseung.common.config;
 
 import org.springframework.boot.test.autoconfigure.restdocs.RestDocsMockMvcConfigurationCustomizer;
 import org.springframework.boot.test.context.TestConfiguration;
