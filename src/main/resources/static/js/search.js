@@ -45,6 +45,7 @@ function search(){
           $('#search-result-modal').modal('show');
       }).fail(function(error){
           alert('이미 입력된 키워드입니다.');
+          location.reload();
      });
 }
 
