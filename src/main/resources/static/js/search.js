@@ -1,5 +1,5 @@
-$('#searchBtn').on('click', function () {
-    alert('search');
+$('#searchBtn').on('click', function (event) {
+    event.preventDefault();
     search();
 });
 
@@ -44,6 +44,10 @@ function search(){
           $('#keyword').text($('#search').val());
           $('#search-result-modal').modal('show');
       }).fail(function(error){
-          alert(JSON.stringify(error));
+          alert('이미 입력된 키워드입니다.');
      });
 }
+
+$('#search-result-modal').on('hidden.bs.modal', function () {
+    location.reload();
+})

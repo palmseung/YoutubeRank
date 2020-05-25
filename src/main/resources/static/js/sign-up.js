@@ -1,6 +1,5 @@
 $('#signUpBtn').on('click', function (event) {
     event.preventDefault();
-    alert('click btn');
     create();
 });
 
