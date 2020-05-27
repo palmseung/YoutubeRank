@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 public class MyKeyword extends BaseTimeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "memberkeyword_id")
     private Long id;
 

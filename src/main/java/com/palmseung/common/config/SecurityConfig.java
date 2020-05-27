@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/*").permitAll()
                 .mvcMatchers("/api/members/my-info/**").hasRole("USER")
                 .mvcMatchers(HttpMethod.GET, "/api/members/**").hasRole("USER")
+//                .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll();
 
         http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),

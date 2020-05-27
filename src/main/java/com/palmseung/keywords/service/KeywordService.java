@@ -95,4 +95,13 @@ public class KeywordService {
                 .map(o -> new KeywordResponseView(o.getKeyword()))
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public List<KeywordResponseView> getAllKeywords(Member loginUser){
+        List<Keyword> all = keywordRepository.findAll();
+
+        return all.stream()
+                .map(k -> new KeywordResponseView(k.getId(), k.getKeyword()))
+                .collect(Collectors.toList());
+    }
 }
