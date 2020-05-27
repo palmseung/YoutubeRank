@@ -12,11 +12,15 @@
     <link rel="stylesheet" href="../css/body.css">
 </head>
 <body id="page-top">
-    {{>layout/nav-bar}}
+    {{>admin/layout/nav-bar}}
     {{>admin/layout/admin-keyword-list}}
 
-    {{>modal/my-profile}}
-    {{>modal/edit-password}}
+    {{>admin/modal/admin-my-profile}}
+    {{>admin/modal/admin-search-result}}
+    {{>admin/modal/admin-my-keyword-result}}
+    {{>admin/modal/admin-edit-password}}
+    {{>admin/modal/admin-login}}
+    {{>admin/modal/admin-sign-up}}
 
     {{>layout/footer}}
     {{>layout/script}}
