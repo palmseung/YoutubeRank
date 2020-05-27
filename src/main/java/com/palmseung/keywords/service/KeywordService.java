@@ -11,8 +11,9 @@ import com.palmseung.members.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,6 +82,7 @@ public class KeywordService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
     public List<KeywordResponseView> getKeywords(Member loginUser) {
         List<MyKeyword> allMyKeyword = findAllMyKeyword(loginUser);
 

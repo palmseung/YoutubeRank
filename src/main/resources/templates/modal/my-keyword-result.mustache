@@ -1,4 +1,5 @@
-<div class="portfolio-modal modal fade" id="search-result-modal" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal0Label" aria-hidden="true">
+{{#keywords}}
+<div class="portfolio-modal modal fade" id="my-keyword-result-modal" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal0Label" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
@@ -6,7 +7,8 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
-                            <h2 class="portfolio-modal-title text-secondary mb-0">Rank for '<span id="keyword"></span>'</h2>
+                            <h2 class="portfolio-modal-title text-secondary mb-0">Rank for '<span id="my_keyword"></span>'</h2>
+                            <input type="hidden" id="hidden_my_keyword">
                             <div class="divider-custom">
                                 <div class="divider-custom-line"></div>
                                 <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
@@ -19,12 +21,12 @@
                                         <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                             <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                                         </div>
-                                        <img class="img-fluid" id="first_thumbnail" />
+                                        <img class="img-fluid" id="my_first_thumbnail" />
                                         <br/>
-                                        <p class="mb-0" id="first_title"></p>
+                                        <p class="mb-0" id="my_first_title"></p>
                                         <br/>
-                                        <p class="mb-2">views : <span id="first_viewCount"></span></p>
-                                        <a target="_blank" id="first_url"><i class="fab fa-youtube"></i></a>
+                                        <p class="mb-2">views : <span id="my_first_viewCount"></span></p>
+                                        <a target="_blank" id="my_first_url"><i class="fab fa-youtube"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4 mb-5">
@@ -33,12 +35,12 @@
                                         <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                             <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                                         </div>
-                                        <img class="img-fluid" id="second_thumbnail" />
+                                        <img class="img-fluid" id="my_second_thumbnail" />
                                         <br/>
-                                        <p class="mb-0" id="second_title"></p>
+                                        <p class="mb-0" id="my_second_title"></p>
                                         <br/>
-                                        <p class="mb-2">views : <span id="second_viewCount"></span></p>
-                                        <a target="_blank" id="second_url"><i class="fab fa-youtube"></i></a>
+                                        <p class="mb-2">views : <span id="my_second_viewCount"></span></p>
+                                        <a target="_blank" id="my_second_url"><i class="fab fa-youtube"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4 mb-5">
@@ -47,12 +49,12 @@
                                         <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                             <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                                         </div>
-                                        <img class="img-fluid" id="third_thumbnail" />
+                                        <img class="img-fluid" id="my_third_thumbnail" />
                                         <br/>
-                                        <p class="mb-0" id="third_title"></p>
+                                        <p class="mb-0" id="my_third_title"></p>
                                         <br/>
-                                        <p class="mb-2">views : <span id="third_viewCount"></span></p>
-                                        <a target="_blank" id="third_url"><i class="fab fa-youtube"></i></a>
+                                        <p class="mb-2">views : <span id="my_third_viewCount"></span></p>
+                                        <a target="_blank" id="my_third_url"><i class="fab fa-youtube"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4 mb-5">
@@ -61,12 +63,12 @@
                                         <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                             <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                                         </div>
-                                        <img class="img-fluid" id="fourth_thumbnail" />
+                                        <img class="img-fluid" id="my_fourth_thumbnail" />
                                         <br/>
-                                        <p class="mb-0" id="fourth_title"></p>
+                                        <p class="mb-0" id="my_fourth_title"></p>
                                         <br/>
-                                        <p class="mb-2">views : <span id="fourth_viewCount"></span></p>
-                                        <a target="_blank" id="fourth_url"><i class="fab fa-youtube"></i></a>
+                                        <p class="mb-2">views : <span id="my_fourth_viewCount"></span></p>
+                                        <a target="_blank" id="my_fourth_url"><i class="fab fa-youtube"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4 mb-5">
@@ -75,21 +77,24 @@
                                         <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                             <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                                         </div>
-                                        <img class="img-fluid mb-2" id="fifth_thumbnail" />
+                                        <img class="img-fluid mb-2" id="my_fifth_thumbnail" />
 
-                                        <p class="mb-0" id="fifth_title"></p>
+                                        <p class="mb-0" id="my_fifth_title"></p>
                                         <br/>
-                                        <p class="mb-2">views : <span id="fifth_viewCount"></span></p>
-                                        <a target="_blank" id="fifth_url"><i class="fab fa-youtube"></i></a>
+                                        <p class="mb-2">views : <span id="my_fifth_viewCount"></span></p>
+                                        <a target="_blank" id="my_fifth_url"><i class="fab fa-youtube"></i></a>
                                     </div>
                                 </div>
                             </div>
                             <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                            <button class="btn btn-warning" id="remove-my-keyword" onclick="javascript:removeMyKeyword();">
+                                <i class="far fa-trash-alt"></i>Remove From My List
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
+{{/keywords}}

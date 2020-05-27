@@ -21,11 +21,26 @@ public class IndexController {
     @GetMapping("/")
     public String indexPage(@LoginUser Member loginUser, Model model) {
         model.addAttribute("loginUser", loginUser);
-        if(loginUser !=null){
+        if (loginUser != null) {
             List<KeywordResponseView> keywords = keywordService.getKeywords(loginUser);
             model.addAttribute("keywords", keywords);
         }
 
         return "index";
     }
+
+    @GetMapping("/admin/member")
+    public String adminMemberPage(@LoginUser Member loginUser, Model model){
+        model.addAttribute("loginUser", loginUser);
+
+        return "admin/admin-member";
+    }
+
+    @GetMapping("/admin/keyword")
+    public String adminKeywordPage(@LoginUser Member loginUser, Model model){
+        model.addAttribute("loginUser", loginUser);
+
+        return "admin/admin-keyword";
+    }
+
 }

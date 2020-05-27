@@ -2,7 +2,10 @@ package com.palmseung.members.acceptancetest;
 
 import com.palmseung.BaseAcceptanceTest;
 import com.palmseung.members.domain.MemberRepository;
-import com.palmseung.members.dto.*;
+import com.palmseung.members.dto.CreateMemberResponseView;
+import com.palmseung.members.dto.LoginResponseView;
+import com.palmseung.members.dto.MyInfoResponseView;
+import com.palmseung.members.dto.UpdateMemberResponseView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -67,7 +70,7 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
         Long id = createMember().getId();
         LoginResponseView responseView = doLogin();
 
-        //when, then
+        //when
         MyInfoResponseView response
                 = memberHttpTest.retrieveMyInfo(id, responseView).getResponseBody();
 
@@ -111,17 +114,6 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
         assertThat(response.getAccessToken()).isNotEmpty();
         assertThat(response.getTokenType()).isEqualTo("Bearer ");
     }
-
-//    @DisplayName("로그아웃")
-//    @Test
-//    public void logout(){
-//        //given
-//        createMember();
-//        doLogin();
-//
-//        //when
-//        webTestClient.get()
-//    }
 
     private CreateMemberResponseView createMember() {
         return memberHttpTest.createMember(TEST_EMAIL, TEST_NAME, TEST_PASSWORD).getResponseBody();
