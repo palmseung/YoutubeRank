@@ -1,7 +1,7 @@
 package com.palmseung.config;
 
-import com.palmseung.members.support.JwtAuthenticationFilter;
-import com.palmseung.members.support.JwtTokenProvider;
+import com.palmseung.members.jwt.JwtAuthenticationFilter;
+import com.palmseung.members.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,17 +36,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
         http.formLogin()
-                .loginPage("/login")
-                .permitAll();
+                .loginPage("/");
 
         http.logout()
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/");
 
         http.authorizeRequests()
                 .antMatchers("/h2-console/*").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/resources/**").permitAll()
                 .mvcMatchers("/api/members/my-info/**").hasRole("USER")
+                .mvcMatchers(HttpMethod.GET,"/").permitAll()
+                .mvcMatchers(HttpMethod.POST, "/api/members/**").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/members/**").hasRole("USER")
-                .anyRequest().permitAll();
+                .mvcMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .mvcMatchers(HttpMethod.POST, "/api/admin").permitAll()
+                .anyRequest().authenticated();
 
         http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                 UsernamePasswordAuthenticationFilter.class);
@@ -55,6 +61,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/resources/**");
+                .antMatchers("/resources/**")
+                .antMatchers("/css/**")
+                .antMatchers("/js/**")
+                .antMatchers("/admin/**");
     }
 }

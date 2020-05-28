@@ -8,4 +8,8 @@ spring:
     console:
       enabled : true
   jpa:
-    open-session-in-view: true
+    open-session-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true

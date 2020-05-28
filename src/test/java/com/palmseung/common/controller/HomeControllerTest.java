@@ -1,4 +1,4 @@
-package com.palmseung.common;
+package com.palmseung.common.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class IndexControllerTest {
+public class HomeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 

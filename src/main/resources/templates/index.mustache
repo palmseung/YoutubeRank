@@ -13,16 +13,23 @@
     </head>
     <body id="page-top">
         {{>layout/nav-bar}}
-        {{>layout/header}}
-        {{>layout/keywords-list}}
+        <div id="insert">
+            {{>layout/header}}
+            {{>layout/keywords-list}}
+            {{>layout/about}}
+        </div>
+
+
+
 
         {{>modal/my-profile}}
         {{>modal/search-result}}
+        {{>modal/my-keyword-result}}
         {{>modal/edit-password}}
         {{>modal/login}}
         {{>modal/sign-up}}
 
-        {{>layout/about}}
+
         {{>layout/footer}}
         {{>layout/script}}
     </body>

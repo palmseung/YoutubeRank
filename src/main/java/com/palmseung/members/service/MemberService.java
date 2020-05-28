@@ -2,21 +2,23 @@ package com.palmseung.members.service;
 
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;
-import com.palmseung.members.dto.CreateMemberRequestView;
-import com.palmseung.members.support.UserMember;
+import com.palmseung.members.dto.AdminMemberResponseView;
+import com.palmseung.members.jwt.UserMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-import static com.palmseung.common.Messages.WARNING_MEMBER_EXISTING_EMAIL;
-import static com.palmseung.common.Messages.WARNING_MEMBER_INVALID_MEMBER;
+import static com.palmseung.common.support.Messages.WARNING_MEMBER_INVALID_MEMBER;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class MemberService implements UserDetailsService {
@@ -24,7 +26,7 @@ public class MemberService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     public Member create(Member member) {
-        if(findMemberByEmail(member.getEmail()).isPresent()){
+        if (findMemberByEmail(member.getEmail()).isPresent()) {
             throw new IllegalArgumentException("이미 등록된 이메일입니다.");
         }
 
@@ -65,6 +67,17 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         Member member = findByEmail(email);
         return new UserMember(member);
+    }
+
+    @Transactional(readOnly = true)
+    public List<AdminMemberResponseView> getAllMembers() {
+        return findAll().stream()
+                .map(m -> AdminMemberResponseView.of(m))
+                .collect(Collectors.toList());
+    }
+
+    private List<Member> findAll() {
+        return memberRepository.findAll();
     }
 
     private Optional<Member> findMemberByEmail(String email) {

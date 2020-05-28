@@ -1,0 +1,49 @@
+<div class="card text-center" id="insert-admin-member-list">
+    <section class="page-section" id="member-list">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="javascript:adminMember()">Members</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:adminKeyword()">Keywords</a>
+                </li>
+            </ul>
+        </div>
+        <br/>
+        <div class="container">
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Member List</h2>
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <div class="divider-custom">
+                {{#memberCount}}
+                    <div>
+                        총 회원 : {{memberCount}}명
+                    </div>
+                {{/memberCount}}
+            </div>
+            <br/>
+            <div class="d-flex justify-content-center">
+                <ul class="d-flex list-group col-md-8 justify-content-center center">
+                {{#allMembers}}
+                    <div class="center justify-content-center">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="text-left">
+                                <div>id    : {{id}}</div>
+                                <div>name  : {{name}}</div>
+                                <div>email : {{email}}</div>
+                            </div>
+                            <div>
+                                <span class="badge badge-primary badge-pill">저장한 키워드 개수: {{keywordCount}}</span>
+                            </div>
+                        </li>
+                    </div>
+                {{/allMembers}}
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>

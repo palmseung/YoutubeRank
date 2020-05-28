@@ -14,7 +14,7 @@ import java.util.Objects;
 @Entity
 public class Keyword {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "keyword_id")
     private Long id;
 

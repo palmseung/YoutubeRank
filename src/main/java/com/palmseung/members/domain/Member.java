@@ -1,11 +1,9 @@
 package com.palmseung.members.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.palmseung.common.support.BaseTimeEntity;
 import com.palmseung.keywords.domain.Keyword;
 import com.palmseung.keywords.domain.MyKeyword;
-import com.palmseung.members.dto.CreateMemberRequestView;
 import com.palmseung.members.dto.UpdateMemberRequestView;
-import com.palmseung.common.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.palmseung.common.Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE;
+import static com.palmseung.common.support.Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE;
 
 @Getter
 @Entity(name = "member")
@@ -42,7 +40,6 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
@@ -69,9 +66,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
+        List<SimpleGrantedAuthority> collect = roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+        return collect;
     }
 
     @Override
@@ -99,12 +97,16 @@ public class Member extends BaseTimeEntity implements UserDetails {
         return true;
     }
 
+    public boolean isAdmin() {
+        return this.roles.contains("ROLE_ADMIN");
+    }
+
     public void changePassword(String encodedPassword) {
         this.password = encodedPassword;
     }
 
     public void updatePassword(Member loginUser, String newEncodedPassword) {
-        if(!matchEmailAndId(loginUser)){
+        if (!matchEmailAndId(loginUser)) {
             throw new IllegalArgumentException(WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE);
         }
         this.password = newEncodedPassword;

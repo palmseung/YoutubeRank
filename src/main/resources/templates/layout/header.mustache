@@ -15,8 +15,20 @@
                     </div>
 
                     <div class="col-12 col-md-3">
-                        <button type="submit" id="searchBtn" class="btn btn-block btn-lg btn-primary">
-                            <a data-toggle="modal" data-target="#search-result-modal">Search</a></button>
+                        {{#loginUser}}
+                            <button type="submit" id="searchBtn" class="btn btn-block btn-lg btn-primary">
+                                <a data-toggle="modal" data-target="#search-result-modal" class="text-white">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </button>
+                        {{/loginUser}}
+                        {{^loginUser}}
+                            <button type="submit" id="requireLoginBtn" class="btn btn-lg btn-primary">
+                                <a href="javascript:requireLogin();" class="text-white">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </button>
+                        {{/loginUser}}
                     </div>
                 </div>
             </form>

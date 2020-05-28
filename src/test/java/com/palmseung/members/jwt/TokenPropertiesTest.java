@@ -1,6 +1,5 @@
-package com.palmseung.members.support;
+package com.palmseung.members.jwt;
 
-import com.palmseung.members.support.TokenProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.palmseung.keywords.domain;
 
 import com.palmseung.members.domain.Member;
-import com.palmseung.common.BaseTimeEntity;
+import com.palmseung.common.support.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 public class MyKeyword extends BaseTimeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "memberkeyword_id")
     private Long id;
 

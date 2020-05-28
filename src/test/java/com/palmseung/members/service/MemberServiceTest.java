@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.annotation.Commit;
 
 import java.util.Optional;
 
@@ -26,7 +25,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-@Commit
 public class MemberServiceTest {
     @InjectMocks
     MemberService memberService;
@@ -163,7 +161,6 @@ public class MemberServiceTest {
 
         //then
         assertThat(member.getEmail()).isEqualTo(TEST_EMAIL);
-        assertThat(member.getPassword()).isEqualTo(TEST_PASSWORD);
     }
 
     @DisplayName("로그인 - 비밀 번호 불일치")

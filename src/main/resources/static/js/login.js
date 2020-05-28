@@ -2,6 +2,12 @@ $('#loginBtn').on('click', function () {
     login();
 });
 
+$('#sign-up-btn').on('click', function (e) {
+    e.preventDefault();
+    $('#loginModal')
+    $('#signUpModal').modal('show');
+});
+
 login = function () {
     var data = {
         email: $('#loginEmail').val(),

@@ -1,16 +1,16 @@
-$('#remove-my-keyword').on('click', function (event, keyword) {
+$('#remove-my-keyword').on('click', function (event) {
     event.preventDefault();
     confirm('정말로 삭제 하시겠습니까?');
-    removeMyKeyword(keyword);
+    removeMyKeyword();
 });
 
 $('#search-result-modal').on('hidden.bs.modal', function () {
     location.reload();
 })
 
-function removeMyKeyword(keyword){
+function removeMyKeyword(){
     var data = {
-        keyword: encodeURIComponent(keyword)
+        keyword: encodeURIComponent($('#hidden_my_keyword').text())
     };
 
     $.ajax({
