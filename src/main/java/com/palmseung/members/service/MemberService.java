@@ -70,7 +70,7 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public List<AdminMemberResponseView> getAllMembers(Member loginUser) {
+    public List<AdminMemberResponseView> getAllMembers() {
         return findAll().stream()
                 .map(m -> AdminMemberResponseView.of(m))
                 .collect(Collectors.toList());

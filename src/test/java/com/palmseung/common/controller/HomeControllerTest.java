@@ -1,4 +1,4 @@
-package com.palmseung.common;
+package com.palmseung.common.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -24,7 +24,7 @@ public class AdminController {
 
     @GetMapping("/admin/members")
     public String adminMemberPage(@LoginUser Member loginUser, Model model) {
-        List<AdminMemberResponseView> allMembers = memberService.getAllMembers(loginUser);
+        List<AdminMemberResponseView> allMembers = memberService.getAllMembers();
         model.addAttribute("allMembers", allMembers);
         model.addAttribute("memberCount", allMembers.size());
 
