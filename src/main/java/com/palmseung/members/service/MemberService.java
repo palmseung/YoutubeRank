@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.palmseung.common.Messages.WARNING_MEMBER_INVALID_MEMBER;
+import static com.palmseung.common.support.Messages.WARNING_MEMBER_INVALID_MEMBER;
 
 @Transactional
 @RequiredArgsConstructor

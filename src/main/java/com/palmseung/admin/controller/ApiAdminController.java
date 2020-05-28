@@ -1,5 +1,7 @@
-package com.palmseung.admin;
+package com.palmseung.admin.controller;
 
+import com.palmseung.admin.support.AdminProperties;
+import com.palmseung.admin.service.AdminService;
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.dto.AdminMemberRequestView;
 import com.palmseung.members.dto.AdminMemberResponseView;

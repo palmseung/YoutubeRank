@@ -1,4 +1,4 @@
-package com.palmseung.admin;
+package com.palmseung.admin.service;
 
 import com.palmseung.members.domain.Member;
 import com.palmseung.members.domain.MemberRepository;

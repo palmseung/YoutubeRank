@@ -3,6 +3,11 @@ $('#searchBtn').on('click', function (event) {
     search();
 });
 
+$('#requireLoginBtn').on('click', function (event) {
+    event.preventDefault();
+    requireLogin();
+});
+
 $('#search-result-modal').on('hidden.bs.modal', function () {
     location.reload();
 })
@@ -95,4 +100,9 @@ function searchKeyword(keyword){
       }).fail(function(error){
           location.reload();
      });
+}
+
+function requireLogin(){
+    alert('로그인 페이지로 이동합니다.');
+    $('#loginModal').modal('show');
 }

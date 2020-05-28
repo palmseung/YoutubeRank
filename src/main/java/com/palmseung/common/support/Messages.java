@@ -1,4 +1,4 @@
-package com.palmseung.common;
+package com.palmseung.common.support;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

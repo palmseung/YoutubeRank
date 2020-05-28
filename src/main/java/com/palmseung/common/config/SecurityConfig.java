@@ -67,8 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**")
                 .antMatchers("/css/**")
                 .antMatchers("/js/**")
-                .antMatchers("/admin/**")
-                .antMatchers("/admin/css/**")
-                .antMatchers("/admin/js/**");
+                .antMatchers("/admin/**");
     }
 }

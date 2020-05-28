@@ -1,6 +1,6 @@
 package com.palmseung.members.domain;
 
-import com.palmseung.common.BaseTimeEntity;
+import com.palmseung.common.support.BaseTimeEntity;
 import com.palmseung.keywords.domain.Keyword;
 import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.members.dto.UpdateMemberRequestView;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.palmseung.common.Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE;
+import static com.palmseung.common.support.Messages.WARNING_MEMBER_UNAUTHORIZED_TO_UPDATE;
 
 @Getter
 @Entity(name = "member")
@@ -95,6 +95,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean isAdmin() {
+        return this.roles.contains("ROLE_ADMIN");
     }
 
     public void changePassword(String encodedPassword) {

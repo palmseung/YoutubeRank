@@ -1,4 +1,4 @@
-package com.palmseung.admin;
+package com.palmseung.admin.support;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
