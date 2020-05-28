@@ -57,6 +57,8 @@ public class AdminControllerTest {
         given(keywordRepository.findAll()).willReturn(Arrays.asList(TEST_KEYWORD, TEST_KEYWORD_2));
 
         mockMvc.perform(get("/admin/keywords"))
+                .andExpect(model().attributeExists("allKeywords"))
+                .andExpect(model().attribute("keywordCount", 2))
                 .andExpect(view().name("admin/layout/admin-keyword-list"));
     }
 }
