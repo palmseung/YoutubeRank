@@ -25,32 +25,41 @@ public class IndexController {
     @GetMapping("/")
     public String indexPage(@LoginUser Member loginUser, Model model) {
         model.addAttribute("loginUser", loginUser);
+
         if (loginUser != null) {
             List<KeywordResponseView> keywords = keywordService.getKeywords(loginUser);
             model.addAttribute("keywords", keywords);
+
+            if(loginUser.getRoles().contains("ROLE_ADMIN")){
+                model.addAttribute("admin", loginUser);
+            }
         }
 
         return "index";
     }
 
-    @GetMapping("/admin/member")
+    @GetMapping("/admin/members")
     public String adminMemberPage(@LoginUser Member loginUser, Model model){
         model.addAttribute("loginUser", loginUser);
         List<AdminMemberResponseView> allMembers = memberService.getAllMembers(loginUser);
         model.addAttribute("allMembers", allMembers);
         model.addAttribute("memberCount", allMembers.size());
+//
+//        if(loginUser.getRoles().contains("ROLE_ADMIN")){
+//            model.addAttribute("admin", loginUser);
+//        }
 
-        return "admin/admin-member";
+        return "admin/layout/admin-member-list";
     }
 
-    @GetMapping("/admin/keyword")
+    @GetMapping("/admin/keywords")
     public String adminKeywordPage(@LoginUser Member loginUser, Model model){
         model.addAttribute("loginUser", loginUser);
         List<KeywordResponseView> allKeywords = keywordService.getAllKeywords(loginUser);
         model.addAttribute("allKeywords", allKeywords);
         model.addAttribute("keywordCount", allKeywords.size());
 
-        return "admin/admin-keyword";
+        return "admin/layout/admin-keyword-list";
     }
 
 }

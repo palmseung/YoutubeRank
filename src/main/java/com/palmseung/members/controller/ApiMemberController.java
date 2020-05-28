@@ -21,7 +21,7 @@ public class ApiMemberController {
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity create(@RequestBody @Valid CreateMemberRequestView request) {
         Member createdMember = memberService.create(request.toEntity());
         CreateMemberResponseView response = CreateMemberResponseView.of(createdMember);

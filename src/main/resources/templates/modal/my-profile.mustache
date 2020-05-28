@@ -17,7 +17,14 @@
                                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                                     <div class="divider-custom-line"></div>
                                 </div>
-                                <p class="mb-1">{{name}}</p>
+                                <p class="mb-1">{{name}}
+                                    {{#admin}}
+                                    <span class="badge badge-success">Admin</span>
+                                    {{/admin}}
+                                    {{^admin}}
+                                    <span class="badge badge-info">Member</span>
+                                    {{/admin}}
+                                </p>
                                 <p class="mb-1">{{email}}</p>
                                 <br/>
                                 <br/>

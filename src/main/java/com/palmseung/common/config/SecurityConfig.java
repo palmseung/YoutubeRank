@@ -7,12 +7,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 
 @Component
 @Configuration
@@ -36,18 +40,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
         http.formLogin()
-                .loginPage("/login")
-                .permitAll();
+                .loginPage("/");
 
         http.logout()
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/");
 
         http.authorizeRequests()
                 .antMatchers("/h2-console/*").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/resources/**").permitAll()
                 .mvcMatchers("/api/members/my-info/**").hasRole("USER")
+                .mvcMatchers(HttpMethod.GET,"/").permitAll()
+                .mvcMatchers(HttpMethod.POST, "/api/members/**").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/members/**").hasRole("USER")
-//                .mvcMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().permitAll();
+                .mvcMatchers("/admin/**").hasRole("ADMIN")
+                .mvcMatchers(HttpMethod.POST, "/api/admin").permitAll()
+                .anyRequest().authenticated();
 
         http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                 UsernamePasswordAuthenticationFilter.class);
@@ -56,6 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/resources/**");
+                .antMatchers("/resources/**")
+                .antMatchers("/css/**")
+                .antMatchers("/js/**")
+                .antMatchers("/admin/**")
+                .antMatchers("/admin/css/**")
+                .antMatchers("/admin/js/**");
     }
 }

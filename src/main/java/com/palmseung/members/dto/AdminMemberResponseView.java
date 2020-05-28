@@ -4,12 +4,12 @@ import com.palmseung.keywords.domain.MyKeyword;
 import com.palmseung.keywords.dto.MyKeywordResponseView;
 import com.palmseung.members.domain.Member;
 import lombok.Builder;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
+@Data
 public class AdminMemberResponseView {
     private Long id;
     private String email;
@@ -28,7 +28,7 @@ public class AdminMemberResponseView {
         this.memberKeywords = memberKeywords;
     }
 
-    public static AdminMemberResponseView of(Member member){
+    public static AdminMemberResponseView of(Member member) {
         return AdminMemberResponseView.builder()
                 .id(member.getId())
                 .name(member.getName())
@@ -39,7 +39,7 @@ public class AdminMemberResponseView {
                 .build();
     }
 
-    private static List<MyKeywordResponseView> convertToView(List<MyKeyword> myKeywords){
+    private static List<MyKeywordResponseView> convertToView(List<MyKeyword> myKeywords) {
         return MyKeywordResponseView.listOf(myKeywords);
     }
 }
