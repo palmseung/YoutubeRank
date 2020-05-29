@@ -17,7 +17,7 @@ import java.util.List;
 
 import static com.palmseung.modules.members.MemberConstant.TEST_EMAIL;
 import static com.palmseung.modules.members.MemberConstant.TEST_MEMBER;
-import static com.palmseung.modules.youtube.support.YoutubeConstant.*;
+import static com.palmseung.modules.youtube.YoutubeConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 

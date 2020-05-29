@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static com.palmseung.modules.members.MemberConstant.TEST_EMAIL;
 import static com.palmseung.modules.members.MemberConstant.TEST_MEMBER;
-import static com.palmseung.modules.youtube.support.YoutubeConstant.BASE_URI_YOUTUBE_API;
-import static com.palmseung.modules.youtube.support.YoutubeConstant.TEST_YOUTUBE_VIDEOS;
+import static com.palmseung.modules.youtube.YoutubeConstant.BASE_URI_YOUTUBE_API;
+import static com.palmseung.modules.youtube.YoutubeConstant.TEST_YOUTUBE_VIDEOS;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;

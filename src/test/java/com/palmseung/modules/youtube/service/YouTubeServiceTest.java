@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 
-import static com.palmseung.modules.youtube.support.YoutubeConstant.YOUTUBE_NUMBER_OF_RESULT;
+import static com.palmseung.modules.youtube.YoutubeConstant.YOUTUBE_NUMBER_OF_RESULT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest

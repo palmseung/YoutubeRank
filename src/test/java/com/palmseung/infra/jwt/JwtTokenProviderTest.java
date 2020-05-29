@@ -1,5 +1,6 @@
 package com.palmseung.infra.jwt;
 
+import com.palmseung.modules.members.UserMember;
 import com.palmseung.modules.members.domain.Member;
 import com.palmseung.modules.members.domain.MemberRepository;
 import com.palmseung.modules.members.service.MemberService;

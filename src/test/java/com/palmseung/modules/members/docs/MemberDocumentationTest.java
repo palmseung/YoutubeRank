@@ -1,13 +1,13 @@
 package com.palmseung.modules.members.docs;
 
 import com.palmseung.BaseDocumentationTest;
+import com.palmseung.infra.jwt.JwtTokenProvider;
+import com.palmseung.modules.members.UserMember;
 import com.palmseung.modules.members.domain.Member;
 import com.palmseung.modules.members.dto.CreateMemberRequestView;
 import com.palmseung.modules.members.dto.LoginRequestView;
 import com.palmseung.modules.members.dto.UpdateMemberRequestView;
 import com.palmseung.modules.members.service.MemberService;
-import com.palmseung.infra.jwt.JwtTokenProvider;
-import com.palmseung.infra.jwt.UserMember;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

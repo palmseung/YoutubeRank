@@ -1,5 +1,6 @@
 package com.palmseung.infra.jwt;
 
+import com.palmseung.infra.properties.TokenProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

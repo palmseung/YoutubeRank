@@ -1,12 +1,12 @@
 package com.palmseung.modules.keywords.docs;
 
 import com.palmseung.BaseDocumentationTest;
+import com.palmseung.infra.jwt.JwtTokenProvider;
 import com.palmseung.modules.keywords.dto.MyKeywordRequestView;
 import com.palmseung.modules.keywords.service.KeywordService;
+import com.palmseung.modules.members.UserMember;
 import com.palmseung.modules.members.domain.Member;
 import com.palmseung.modules.members.service.MemberService;
-import com.palmseung.infra.jwt.JwtTokenProvider;
-import com.palmseung.infra.jwt.UserMember;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
