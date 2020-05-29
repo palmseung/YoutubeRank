@@ -22,8 +22,9 @@ public class AdminService {
         this.keywordService = keywordService;
     }
 
-    public Member createAdmin(Member adminMember) {
-        return memberService.create(adminMember);
+    public AdminMemberResponseView createAdmin(Member adminMember) {
+        Member admin = memberService.create(adminMember);
+        return AdminMemberResponseView.of(admin);
     }
 
     @Transactional(readOnly = true)
@@ -34,7 +35,7 @@ public class AdminService {
     }
 
     @Transactional(readOnly = true)
-    public List<KeywordResponseView> getAllKeywords(Member loginUser){
+    public List<KeywordResponseView> getAllKeywords() {
         List<Keyword> all = keywordService.findAll();
 
         return all.stream()

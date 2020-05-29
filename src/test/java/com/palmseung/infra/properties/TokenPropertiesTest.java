@@ -1,13 +1,14 @@
-package com.palmseung.infra.jwt;
+package com.palmseung.infra.properties;
 
-import com.palmseung.infra.properties.TokenProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles("test")
 @SpringBootTest
 public class TokenPropertiesTest {
     @Autowired

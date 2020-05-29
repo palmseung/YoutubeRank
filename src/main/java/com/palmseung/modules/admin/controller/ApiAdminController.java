@@ -5,6 +5,7 @@ import com.palmseung.modules.admin.service.AdminService;
 import com.palmseung.modules.members.domain.Member;
 import com.palmseung.modules.admin.dto.AdminMemberRequestView;
 import com.palmseung.modules.admin.dto.AdminMemberResponseView;
+import com.palmseung.modules.members.dto.MemberResponseView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,9 +30,9 @@ public class ApiAdminController {
                     .build();
         }
 
-        Member admin = adminService.createAdmin(requestView.toEntity());
+        AdminMemberResponseView admin = adminService.createAdmin(requestView.toEntity());
         return ResponseEntity
                 .ok()
-                .body(AdminMemberResponseView.of(admin));
+                .body(admin);
     }
 }

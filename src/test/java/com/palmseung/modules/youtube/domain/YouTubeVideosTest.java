@@ -1,7 +1,5 @@
-package com.palmseung.modules.youtube;
+package com.palmseung.modules.youtube.domain;
 
-import com.palmseung.modules.youtube.domain.YouTubeVideo;
-import com.palmseung.modules.youtube.domain.YouTubeVideos;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

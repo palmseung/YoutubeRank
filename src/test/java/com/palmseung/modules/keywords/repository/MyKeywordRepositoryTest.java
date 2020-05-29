@@ -35,7 +35,7 @@ public class MyKeywordRepositoryTest {
     private MemberRepository memberRepository;
 
     @AfterEach
-    void cleanDataBase(){
+    void cleanDataBase() {
         myKeywordRepository.deleteAll();
         keywordRepository.deleteAll();
         memberRepository.deleteAll();

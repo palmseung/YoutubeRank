@@ -1,10 +1,11 @@
 package com.palmseung.modules.admin.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.palmseung.modules.admin.service.AdminService;
 import com.palmseung.infra.properties.AdminProperties;
-import com.palmseung.modules.members.domain.Member;
 import com.palmseung.modules.admin.dto.AdminMemberRequestView;
+import com.palmseung.modules.admin.dto.AdminMemberResponseView;
+import com.palmseung.modules.admin.service.AdminService;
+import com.palmseung.modules.members.domain.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class ApiAdminControllerTest {
     void createAccount() throws Exception {
         //given
         given(adminProperties.canBeAdmin(anyString(), anyString())).willReturn(true);
-        given(adminService.createAdmin(any(Member.class))).willReturn(TEST_MEMBER);
+        given(adminService.createAdmin(any(Member.class))).willReturn(AdminMemberResponseView.of(TEST_MEMBER));
 
         //when, then
         mockMvc.perform(post("/api/admin")

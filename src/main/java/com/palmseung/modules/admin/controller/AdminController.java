@@ -3,8 +3,6 @@ package com.palmseung.modules.admin.controller;
 import com.palmseung.modules.admin.dto.AdminMemberResponseView;
 import com.palmseung.modules.admin.service.AdminService;
 import com.palmseung.modules.keywords.dto.KeywordResponseView;
-import com.palmseung.modules.members.LoginUser;
-import com.palmseung.modules.members.domain.Member;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +18,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/members")
-    public String adminMemberPage(@LoginUser Member loginUser, Model model) {
+    public String adminMemberPage(Model model) {
         List<AdminMemberResponseView> allMembers = adminService.getAllMembers();
         model.addAttribute("allMembers", allMembers);
         model.addAttribute("memberCount", allMembers.size());
@@ -29,8 +27,8 @@ public class AdminController {
     }
 
     @GetMapping("/admin/keywords")
-    public String adminKeywordPage(@LoginUser Member loginUser, Model model) {
-        List<KeywordResponseView> allKeywords = adminService.getAllKeywords(loginUser);
+    public String adminKeywordPage(Model model) {
+        List<KeywordResponseView> allKeywords = adminService.getAllKeywords();
         model.addAttribute("allKeywords", allKeywords);
         model.addAttribute("keywordCount", allKeywords.size());
 

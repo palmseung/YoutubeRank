@@ -3,7 +3,6 @@ package com.palmseung.modules.members.domain;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.palmseung.modules.members.MemberConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MemberTest {

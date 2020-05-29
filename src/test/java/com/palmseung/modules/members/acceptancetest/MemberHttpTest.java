@@ -62,8 +62,8 @@ public class MemberHttpTest {
     }
 
     public EntityExchangeResult<UpdateMemberResponseView> updateMyInfo(Member loginUser,
-                                                                 LoginResponseView responseView,
-                                                                 String newPassword) {
+                                                                       LoginResponseView responseView,
+                                                                       String newPassword) {
         UpdateMemberRequestView requestView = UpdateMemberRequestView.builder()
                 .newPassword(newPassword)
                 .build();
