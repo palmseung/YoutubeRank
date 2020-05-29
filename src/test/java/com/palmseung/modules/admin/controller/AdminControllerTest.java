@@ -1,5 +1,6 @@
 package com.palmseung.modules.admin.controller;
 
+import com.palmseung.BaseContainerTest;
 import com.palmseung.modules.keywords.domain.KeywordRepository;
 import com.palmseung.modules.members.domain.MemberRepository;
 import com.palmseung.modules.members.service.MemberService;
@@ -8,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,9 +22,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@SpringBootTest
 @AutoConfigureMockMvc
-public class AdminControllerTest {
+public class AdminControllerTest extends BaseContainerTest {
     @Autowired
     private MockMvc mockMvc;
 

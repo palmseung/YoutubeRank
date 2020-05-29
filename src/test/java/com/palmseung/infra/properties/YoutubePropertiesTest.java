@@ -1,5 +1,6 @@
 package com.palmseung.infra.properties;
 
+import com.palmseung.BaseContainerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("test")
 @SpringBootTest
-public class YoutubePropertiesTest {
+public class YoutubePropertiesTest extends BaseContainerTest {
     @Autowired
     private YoutubeProperties youtubeProperties;
 

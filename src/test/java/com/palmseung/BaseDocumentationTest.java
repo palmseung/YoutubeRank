@@ -20,7 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @Import(RestDocsConfig.class)
-public class BaseDocumentationTest {
+public abstract class BaseDocumentationTest extends BaseContainerTest {
     @Autowired
     public ObjectMapper objectMapper;
 

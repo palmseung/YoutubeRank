@@ -8,6 +8,7 @@ import com.palmseung.modules.keywords.dto.KeywordResponseView;
 import com.palmseung.modules.keywords.dto.MyKeywordResponseView;
 import com.palmseung.modules.members.domain.Member;
 import com.palmseung.modules.members.domain.MemberRepository;
+import com.palmseung.modules.members.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,10 @@ public class KeywordService {
     private final KeywordRepository keywordRepository;
     private final MyKeywordRepository myKeywordRepository;
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     public MyKeyword addMyKeyword(Member loginUser, String keyword) {
-        Member savedMember = findMember(loginUser);
+        Member savedMember = memberService.findByEmail(loginUser.getEmail());
         Keyword savedKeyword = saveKeyword(keyword);
         savedMember.addKeyword(savedKeyword);
 

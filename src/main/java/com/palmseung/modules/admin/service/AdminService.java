@@ -24,6 +24,7 @@ public class AdminService {
 
     public AdminMemberResponseView createAdmin(Member adminMember) {
         Member admin = memberService.create(adminMember);
+
         return AdminMemberResponseView.of(admin);
     }
 

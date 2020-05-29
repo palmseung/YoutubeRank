@@ -1,5 +1,6 @@
 package com.palmseung.modules.keywords.repository;
 
+import com.palmseung.BaseContainerTest;
 import com.palmseung.modules.keywords.domain.Keyword;
 import com.palmseung.modules.keywords.domain.KeywordRepository;
 import com.palmseung.modules.keywords.domain.MyKeyword;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
@@ -22,9 +22,9 @@ import static com.palmseung.modules.keywords.KeywordConstant.TEST_KEYWORD;
 import static com.palmseung.modules.members.MemberConstant.TEST_MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 @ExtendWith(SpringExtension.class)
-@DataJpaTest
-public class MyKeywordRepositoryTest {
+public class MyKeywordRepositoryTest extends BaseContainerTest {
     @Autowired
     private MyKeywordRepository myKeywordRepository;
 
