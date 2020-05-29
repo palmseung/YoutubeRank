@@ -2,8 +2,8 @@ package com.palmseung;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.palmseung.config.RestDocsConfig;
-import com.palmseung.members.domain.MemberRepository;
+import com.palmseung.infra.config.RestDocsConfig;
+import com.palmseung.modules.members.domain.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
