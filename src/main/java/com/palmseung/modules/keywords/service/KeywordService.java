@@ -10,7 +10,6 @@ import com.palmseung.modules.members.domain.Member;
 import com.palmseung.modules.members.domain.MemberRepository;
 import com.palmseung.modules.members.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,9 +29,8 @@ public class KeywordService {
     public MyKeyword addMyKeyword(Member loginUser, String keyword) {
         Member savedMember = memberService.findByEmail(loginUser.getEmail());
         Keyword savedKeyword = saveKeyword(keyword);
-        savedMember.addKeyword(savedKeyword);
 
-        return myKeywordRepository.save(buildMyKeyword(loginUser, savedKeyword));
+        return saveMyKeyword(loginUser, savedKeyword);
     }
 
     public MyKeyword findMyKeyword(Member loginUser, String keyword) {
@@ -59,10 +57,20 @@ public class KeywordService {
         myKeywordRepository.deleteById(myKeyword.getId());
     }
 
-    private Member findMember(Member member) {
-        return memberRepository
-                .findByEmail(member.getEmail())
-                .orElseThrow(() -> new UsernameNotFoundException(member.getEmail()));
+    private MyKeyword saveMyKeyword(Member loginUser, Keyword keyword) {
+        validateMyKeyword(loginUser, keyword);
+
+        return myKeywordRepository.save(buildMyKeyword(loginUser, keyword));
+    }
+
+    private void validateMyKeyword(Member loginUser, Keyword keyword) {
+        boolean isRegisteredMyKeyword = myKeywordRepository.findAllByMemberId(loginUser.getId())
+                .stream()
+                .anyMatch(m -> keyword.getKeyword().equals(m.getStringKeyword()));
+
+        if (isRegisteredMyKeyword) {
+            throw new IllegalArgumentException("Already registered!");
+        }
     }
 
     private Keyword saveKeyword(String keyword) {

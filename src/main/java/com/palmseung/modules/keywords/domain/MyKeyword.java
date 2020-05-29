@@ -22,7 +22,7 @@ public class MyKeyword extends BaseTimeEntity {
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "keyword_id", unique = true)
+    @JoinColumn(name = "keyword_id")
     private Keyword keyword;
 
     @Builder
