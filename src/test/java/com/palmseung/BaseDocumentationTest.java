@@ -2,8 +2,8 @@ package com.palmseung;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.palmseung.config.RestDocsConfig;
-import com.palmseung.members.domain.MemberRepository;
+import com.palmseung.infra.config.RestDocsConfig;
+import com.palmseung.modules.members.domain.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @Import(RestDocsConfig.class)
-public class BaseDocumentationTest {
+public abstract class BaseDocumentationTest extends BaseContainerTest {
     @Autowired
     public ObjectMapper objectMapper;
 

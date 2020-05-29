@@ -6,7 +6,11 @@ spring:
     cache: false
   h2:
     console:
-      enabled : true
+      enabled : false
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/testdb
+#    username: testuser
+#    password: testpass
   jpa:
     open-session-in-view: false
     show-sql: true
