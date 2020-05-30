@@ -5,17 +5,13 @@ import com.palmseung.modules.keywords.domain.KeywordRepository;
 import com.palmseung.modules.keywords.domain.MyKeyword;
 import com.palmseung.modules.keywords.domain.MyKeywordRepository;
 import com.palmseung.modules.keywords.dto.KeywordResponseView;
-import com.palmseung.modules.keywords.dto.MyKeywordResponseView;
 import com.palmseung.modules.members.domain.Member;
-import com.palmseung.modules.members.domain.MemberRepository;
-import com.palmseung.modules.members.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -23,16 +19,15 @@ import java.util.stream.Collectors;
 public class KeywordService {
     private final KeywordRepository keywordRepository;
     private final MyKeywordRepository myKeywordRepository;
-    private final MemberRepository memberRepository;
-    private final MemberService memberService;
+    private final KeywordQueryService keywordQueryService;
 
     public MyKeyword addMyKeyword(Member loginUser, String keyword) {
-        Member savedMember = memberService.findByEmail(loginUser.getEmail());
         Keyword savedKeyword = saveKeyword(keyword);
 
         return saveMyKeyword(loginUser, savedKeyword);
     }
 
+    @Transactional(readOnly = true)
     public MyKeyword findMyKeyword(Member loginUser, String keyword) {
         Keyword savedKeyword = findKeyword(keyword);
 
@@ -41,9 +36,9 @@ public class KeywordService {
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find MyKeyword!"));
     }
 
+    @Transactional(readOnly = true)
     public List<MyKeyword> findAllMyKeyword(Member loginUser) {
-        List<MyKeyword> allByMemberId
-                = myKeywordRepository.findAllByMemberId(loginUser.getId());
+        List<MyKeyword> allByMemberId = myKeywordRepository.findAllByMemberId(loginUser.getId());
 
         if (allByMemberId != null) {
             return allByMemberId;
@@ -55,6 +50,16 @@ public class KeywordService {
     public void deleteMyKeyword(Member loginUser, String keyword) {
         MyKeyword myKeyword = findMyKeyword(loginUser, keyword);
         myKeywordRepository.deleteById(myKeyword.getId());
+    }
+
+    @Transactional(readOnly = true)
+    public List<KeywordResponseView> getKeywords(Member loginUser) {
+        return keywordQueryService.getKeywords(loginUser);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Keyword> findAll() {
+        return keywordRepository.findAll();
     }
 
     private MyKeyword saveMyKeyword(Member loginUser, Keyword keyword) {
@@ -89,23 +94,5 @@ public class KeywordService {
                 .member(member)
                 .keyword(keyword)
                 .build();
-    }
-
-    @Transactional(readOnly = true)
-    public List<KeywordResponseView> getKeywords(Member loginUser) {
-        List<MyKeyword> allMyKeyword = findAllMyKeyword(loginUser);
-
-        if (allMyKeyword.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        List<MyKeywordResponseView> myKeywordResponseViews = MyKeywordResponseView.listOf(allMyKeyword);
-        return myKeywordResponseViews.stream()
-                .map(o -> new KeywordResponseView(o.getKeyword()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Keyword> findAll() {
-        return keywordRepository.findAll();
     }
 }
