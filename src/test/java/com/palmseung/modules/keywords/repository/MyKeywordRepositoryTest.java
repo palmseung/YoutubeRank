@@ -10,9 +10,7 @@ import com.palmseung.modules.members.domain.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +21,6 @@ import static com.palmseung.modules.members.MemberConstant.TEST_MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@ExtendWith(SpringExtension.class)
 public class MyKeywordRepositoryTest extends BaseContainerTest {
     @Autowired
     private MyKeywordRepository myKeywordRepository;
