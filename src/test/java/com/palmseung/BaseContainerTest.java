@@ -6,7 +6,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class BaseContainerTest {
+public abstract class BaseContainerTest {
     static final PostgreSQLContainer POSTGRE_SQL_CONTAINER;
 
     static {
