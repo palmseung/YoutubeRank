@@ -64,7 +64,6 @@ YouTubeRank
 
 #### 테스트는 [TestContainer](https://www.testcontainers.org)를 이용하여 진행합니다.
 >- 운영과 동일한 형태의 개발 환경에서 테스트 하기 위해 TestContainers(PostgreSQL)를 이용하여 테스트를 진행합니다.
-<br/>
 >- TestContainers를 실행시키는 추상클래스(BaseContainerTest)를 생성한 후, 각각의 테스트 클래스가 BaseContainerTest를 상속받도록 구현하였습니다.
 
 #### Acceptance Test는 아래와 같이 진행합니다.
@@ -115,11 +114,11 @@ YouTubeRank
 >- MyKeyword 엔티티와 Keyword 엔티티는 OneToMany 관계입니다. (MyKeyword가 Many, Keyword가 One)
 
 
->> ##### 예시) 인증된 사용자가 '퀸덤' 이라는 키워드로 검색을 한다면, 아래와 같은 프로세스를 거쳐 나의 검색 키워드(My Keyword)로 저장됩니다.
->> 1. 인증된 사용자가 '퀸덤'이라는 키워드 입력합니다.
->> 2. 데이터베이스의 keyword 테이블에 저장된 키워드가 아니라면, Keyword 객체를 생성합니다.
->> (데이터베이스의 keyword 테이블에 저장된 키워드라면, 저장된 Keyword 정보를 불러옵니다)
->> 3. Member 정보와 Keyword 정보를 바탕으로, MyKeyword 객체를 생성합니다.
+#### 예시) 인증된 사용자가 '퀸덤' 이라는 키워드로 검색을 한다면, 아래와 같은 프로세스를 거쳐 나의 검색 키워드(My Keyword)로 저장됩니다.
+> 1. 인증된 사용자가 '퀸덤'이라는 키워드 입력합니다.
+> 2. 데이터베이스의 keyword 테이블에 저장된 키워드가 아니라면, Keyword 객체를 생성합니다.
+> (데이터베이스의 keyword 테이블에 저장된 키워드라면, 저장된 Keyword 정보를 불러옵니다)
+> 3. Member 정보와 Keyword 정보를 바탕으로, MyKeyword 객체를 생성합니다.
 
 
 #### YouTubeRank의 API는 Controller와 View 레이어에서 준영속 상태가 되는 엔티티의 데이터를 확보하기 위해 별도의 QueryService 를 구현하고 있습니다. 
