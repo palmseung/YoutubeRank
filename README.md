@@ -81,18 +81,18 @@ YouTubeRank
 
 ##  🎈 YouTubeRank with Spring Security & JWT
 #### YouTubeRank의 인증(Authentication)과 인가(Authorization)는 Spring Security와 JWT(Json Web Token)을 이용해 진행됩니다. 프로세스는 아래와 같습니다.
->1. 사용자가 로그인을 요청하면, 서버는 사용자의 이메일 정보를 기반으로 한 AccessToken을 발급하여 로그인 응답 본문에 실어 보냅니다. [로그인 컨트롤러 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/members/controller/ApiMemberController.java) , [JWT 생성 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/infra/jwt/JwtTokenProvider.java)
->2. 클라이언트 단에서 발급된 AccessToken을 브라우저의 LocalStorage에 저장합니다.  [코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/resources/static/js/login.js)
+>1. 사용자가 로그인을 요청하면, 서버는 사용자의 이메일 정보를 기반으로 한 AccessToken을 발급하여 로그인 응답 본문에 실어 보냅니다.
+>2. 클라이언트 단에서 발급된 AccessToken을 브라우저의 LocalStorage에 저장합니다.  
 >3. 이후 사용자가 서버에 요청할 때마다 LocalStorage에 저장된 AccessToken을 가져와 요청 헤더에 포함하여 전달합니다.
 >4. 요청에 함께 보내진 AccessToken은 (요청을 처리할) 컨트롤러로 전달되기 전 JwtAuthenticationFilter를 통해 유효성을 검증받습니다. 
->5. AccessToken이 유효하다면, 해당 토큰에서 사용자 정보를 추출하여 SecurityContextHolder에 해당 사용자 정보를 주입합니다. [코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/infra/jwt/JwtAuthenticationFilter.java)
->5. 이후 UserNamePasswordAuthenticationFilter을 거치면서 사용자 정보를 확인해 인증 여부를 결정합니다. (JwtAuthenticationFilter는 UserNamePasswordAuthenticationFilter보다 먼저 실행되도록 설정합니다) [코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/infra/config/SecurityConfig.java)
->6. 맵핑된 컨트롤러로 요청이 전달되어 서버가 요청을 처리합니다.
+>5. AccessToken이 유효하다면, 해당 토큰에서 사용자 정보를 추출하여 SecurityContextHolder에 해당 사용자 정보를 주입합니다.
+>6. 이후 UserNamePasswordAuthenticationFilter을 거치면서 사용자 정보를 확인해 인증 여부를 결정합니다.
+>7. 맵핑된 컨트롤러로 요청이 전달되어 서버가 요청을 처리합니다.
 
 #### YouTubeRank의 관리자 계정은 지정된 이메일과 비밀번호로 회원가입을 요청할 경우에만 가입 가능합니다. 관리자 계정 가입 요청 처리 절차는 다음과 같습니다.
 >1. 관리자 회원가입 요청(이름/이메일/비밀번호)
->2. admin.properties에 담긴 이메일 주소와 비밀번호 정보를 가져옵니다. [코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/infra/properties/AdminProperties.java)
->3. 회원가입 요청 정보와 admin.properites에 지정된 정보가 일치하면 관리자 회원가입 요청을 처리합니다.[코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/admin/controller/ApiAdminController.java)
+>2. admin.properties에 담긴 이메일 주소와 비밀번호 정보를 가져옵니다. 
+>3. 회원가입 요청 정보와 admin.properites에 지정된 정보가 일치하면 관리자 회원가입 요청을 처리합니다.
 
 <br/>
 
@@ -147,8 +147,8 @@ YouTubeRank
 
 ##  🎈 YouTubeRank with YouTube Data API
 #### 특정 키워드에 대한 YouTube 영상 데이터를 불러오기 위해 YouTube Data API 를 이용합니다. 이 과정은 아래와 같은 프로세스로 진행됩니다.
->1. youtube.properties 파일([코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/infra/properties/YoutubeProperties.java))에서 Google API Key 값을 불러옵니다.
->2. YouTube Data API 를 통해 특정 키워드에 대해 조회수가 가장 높은 비디오 5개에 대한 데이터를 응답받습니다. [코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/youtube/service/YouTubeService.java)
+>1. youtube.properties 파일에서 Google API Key 값을 불러옵니다.
+>2. YouTube Data API 를 통해 특정 키워드에 대해 조회수가 가장 높은 비디오 5개에 대한 데이터를 응답받습니다. 
 
 #### YouTubeRank에서 YouTube API를 통해 불러온 데이터는 아래와 같은 규칙을 가진 일급컬렉션(YouTubeVideos) 형태로 사용됩니다.
 >- 각각의 영상에 대한 정보(videoId, title, thumbnail URL, description)는 YouTubeVideo (DTO, [코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/youtube/domain/YouTubeVideo.java))를 통해 전달됩니다.
