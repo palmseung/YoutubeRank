@@ -7,12 +7,15 @@ import com.palmseung.modules.members.domain.Member;
 import com.palmseung.modules.members.dto.*;
 import com.palmseung.modules.members.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.Link;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,14 +29,23 @@ public class ApiMemberController {
         Member createdMember = memberService.create(request.toEntity());
         CreateMemberResponseView response = CreateMemberResponseView.of(createdMember);
 
+        CreateMemberResponseResource resource = new CreateMemberResponseResource(response);
+        resource.add(new Link("/docs/api-guide.html#resources-members-create")
+                .withRel("profile"));
+        resource.add(linkTo(ApiMemberController.class)
+                .withSelfRel());
+        resource.add(linkTo(ApiMemberController.class)
+                .slash("login")
+                .withRel("login"));
+
         return ResponseEntity
                 .created(URI.create(MemberConstant.BASE_URI_MEMBER_API + "/" + createdMember.getId()))
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(response);
+                .body(resource);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MemberResponseView> deleteById(@PathVariable Long id) {
+    public ResponseEntity deleteById(@PathVariable Long id) {
         memberService.delete(memberService.findById(id));
 
         return ResponseEntity
@@ -42,32 +54,59 @@ public class ApiMemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseView> login(@RequestBody LoginRequestView request) {
+    public ResponseEntity login(@RequestBody LoginRequestView request) {
         Member member = memberService.login(request.getEmail(), request.getPassword());
         String token = jwtTokenProvider.createToken(member.getEmail());
 
+        LoginResponseResource resource = new LoginResponseResource(LoginResponseView.of(token));
+        resource.add(new Link("/docs/api-guide.html#resources-members-login").withRel("profile"));
+        resource.add(linkTo(ApiMemberController.class)
+                .slash("login")
+                .withSelfRel());
+        resource.add(linkTo(ApiMemberController.class)
+                .slash("my-info")
+                .slash(member.getId())
+                .withRel("retrieve-myInfo"));
+
         return ResponseEntity
                 .created(URI.create("/oauth/token"))
-                .body(LoginResponseView.of(token));
+                .body(resource);
     }
 
     @GetMapping("/my-info/{id}")
-    public ResponseEntity<MyInfoResponseView> retrieveMyInfo(@PathVariable Long id) {
+    public ResponseEntity retrieveMyInfo(@PathVariable Long id) {
         Member member = memberService.findById(id);
+
+        MyInfoResponseResource resource = new MyInfoResponseResource(MyInfoResponseView.of(member));
+        resource.add(new Link("/docs/api-guide.html#resources-members-myInfo")
+                .withRel("profile"));
+        resource.add(linkTo(ApiMemberController.class)
+                .slash("/my-info")
+                .slash(id)
+                .withSelfRel());
+        resource.add(linkTo(ApiMemberController.class)
+                .slash("my-info")
+                .slash(id)
+                .withRel("update-myInfo"));
 
         return ResponseEntity
                 .ok()
-                .body(MyInfoResponseView.of(member));
+                .body(resource);
     }
 
     @PutMapping("/my-info/{id}")
-    public ResponseEntity<UpdateMemberResponseView> updateMyInfo(@LoginUser Member loginUser,
-                                                                 @PathVariable Long id,
-                                                                 @RequestBody UpdateMemberRequestView requestView) {
+    public ResponseEntity updateMyInfo(@LoginUser Member loginUser,
+                                       @PathVariable Long id,
+                                       @RequestBody UpdateMemberRequestView requestView) {
         Member updatedMember = memberService.updateInfo(loginUser, id, requestView.getNewPassword());
+
+        UpdateMemberResponseResource resource
+                = new UpdateMemberResponseResource(UpdateMemberResponseView.of(updatedMember));
+        resource.add(linkTo(ApiMemberController.class).slash("my-info").slash(id).withSelfRel());
+        resource.add(new Link("/docs/api-guide.html#resources-members-update-myInfo").withRel("profile"));
 
         return ResponseEntity
                 .ok()
-                .body(UpdateMemberResponseView.of(updatedMember));
+                .body(resource);
     }
 }
