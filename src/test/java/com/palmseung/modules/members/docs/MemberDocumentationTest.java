@@ -24,6 +24,7 @@ import static com.palmseung.modules.members.MemberConstant.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -61,6 +62,14 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                 .andExpect(status().isCreated())
                 .andDo(print())
                 .andDo(document("members-create",
+                        links(halLinks(),
+                                linkWithRel("self")
+                                    .description("link to self"),
+                                linkWithRel("profile")
+                                    .description("link to profile"),
+                                linkWithRel("login")
+                                        .description("link to login")
+                        ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.ACCEPT)
                                         .description(MediaType.APPLICATION_JSON),
@@ -94,8 +103,18 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                                         .description("The name of a valid member in the server"),
                                 fieldWithPath("password")
                                         .type(JsonFieldType.STRING)
-                                        .description("The password of a valid member in the server and it is bcrypt encoded")
-                        )));
+                                        .description("The password of a valid member in the server and it is bcrypt encoded"),
+                                fieldWithPath("_links.self.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to self"),
+                                fieldWithPath("_links.profile.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to profile"),
+                                fieldWithPath("_links.login.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to login")
+
+                                )));
     }
 
     @DisplayName("[문서화] 로그인")
@@ -116,6 +135,14 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                 .andExpect(status().isCreated())
                 .andDo(print())
                 .andDo(document("members-login",
+                        links(halLinks(),
+                                linkWithRel("self")
+                                        .description("link to self"),
+                                linkWithRel("profile")
+                                        .description("link to profile"),
+                                linkWithRel("retrieve-myInfo")
+                                        .description("link to retrieve my information")
+                        ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.ACCEPT)
                                         .description(MediaType.APPLICATION_JSON),
@@ -148,7 +175,16 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                                         .description("The accessToken produced by the server when login is successful"),
                                 fieldWithPath("tokenType")
                                         .type(JsonFieldType.STRING)
-                                        .description("It should be Bearer type in this application")
+                                        .description("It should be Bearer type in this application"),
+                                fieldWithPath("_links.self.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to self"),
+                                fieldWithPath("_links.profile.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to profile"),
+                                fieldWithPath("_links.retrieve-myInfo.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to retrieve my information")
                         )
                 ));
     }
@@ -171,6 +207,14 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(document("members-myInfo",
+                        links(halLinks(),
+                                linkWithRel("self")
+                                        .description("link to self"),
+                                linkWithRel("profile")
+                                        .description("link to profile"),
+                                linkWithRel("update-myInfo")
+                                        .description("link to update my information")
+                        ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.ACCEPT)
                                         .description(MediaType.APPLICATION_JSON),
@@ -190,7 +234,16 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                                         .description("The member's name to retrieve member information"),
                                 fieldWithPath("password")
                                         .type(JsonFieldType.STRING)
-                                        .description("The member's bcrypt encoded password")
+                                        .description("The member's bcrypt encoded password"),
+                                fieldWithPath("_links.self.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to self"),
+                                fieldWithPath("_links.profile.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to profile"),
+                                fieldWithPath("_links.update-myInfo.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to update my information")
                         )
                 ));
     }
@@ -268,7 +321,13 @@ public class MemberDocumentationTest extends BaseDocumentationTest {
                                         .description("The updated name of a valid member in the server"),
                                 fieldWithPath("password")
                                         .type(JsonFieldType.STRING)
-                                        .description("The updated password of a valid member in the server and it is bcrypt encoded")
+                                        .description("The updated password of a valid member in the server and it is bcrypt encoded"),
+                                fieldWithPath("_links.self.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to self"),
+                                fieldWithPath("_links.profile.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to profile")
                         )
                 ));
     }

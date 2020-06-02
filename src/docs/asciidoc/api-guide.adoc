@@ -38,6 +38,7 @@ operation::members-login[snippets='http-response']
 operation::members-login[snippets='response-headers']
 operation::members-login[snippets='response-fields']
 
+
 [[resources-members-myInfo]]
 === Retrieve member information
 
