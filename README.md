@@ -6,7 +6,7 @@ YouTubeRank
 <h4 align="center">YouTube 영상 검색 웹 어플리케이션, YouTubeRank 입니다.</h4>
 
 
-## 서비스 소개
+## 🎈 서비스 소개
 -  사용자가 YouTube 검색 키워드를 입력하면, 해당 키워드에 대해 조회수가 가장 높은 YouTube 영상 5개를 알려드립니다.
 -   한 번 검색한 키워드는 나만의 키워드 리스트에 저장되므로, 이후에는 단 한 번의 클릭으로 YouTube 영상 순위를 확인할 수 있습니다.
 -   나만의 키워드 리스트에 저장된 키워드는 언제든 삭제할 수 있습니다.
@@ -14,7 +14,7 @@ YouTubeRank
 
 <br/>
 
-## 개발 배경
+## 🎈 개발 배경
 
 #### YouTubeRank 는 Mnet 의 음악경연 프로그램 <컴백전쟁: 퀸덤>을 시청하던 도중 열🔥 받아서 구상한 프로젝트입니다.
 
@@ -23,7 +23,7 @@ YouTubeRank
 
 <br/>
 
-## 기술 스택
+## 🎈 기술 스택
 
 #### Back-end는 다음의 기술로 구성됩니다.
 
@@ -45,7 +45,7 @@ YouTubeRank
 
 <br/>
 
-##  프로젝트 관리
+##  🎈 프로젝트 관리
 #### Github의 이슈 관리 및 PR(Pull Request) 기능을 이용해 프로젝트를 관리하고 있습니다.
 
 - 개발 인원 : 1명 
@@ -55,7 +55,7 @@ YouTubeRank
 <br/>
 
 
-##  YouTubeRank with TDD
+##  🎈 YouTubeRank with TDD
 #### Back-end는 TDD를 지향합니다. YouTubeRank에서 수행된 테스트는 아래와 같습니다. 
 >- 인수테스트 (Acceptance Test) 
 >- 컨트롤러 테스트 (Controller Test)
@@ -79,7 +79,7 @@ YouTubeRank
 
 <br/>
 
-##  YouTubeRank with Spring Security & JWT
+##  🎈 YouTubeRank with Spring Security & JWT
 #### YouTubeRank의 인증(Authentication)과 인가(Authorization)는 Spring Security와 JWT(Json Web Token)을 이용해 진행됩니다. 프로세스는 아래와 같습니다.
 >1. 사용자가 로그인을 요청하면, 서버는 사용자의 이메일 정보를 기반으로 한 AccessToken을 발급하여 로그인 응답 본문에 실어 보냅니다. [로그인 컨트롤러 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/members/controller/ApiMemberController.java) , [JWT 생성 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/infra/jwt/JwtTokenProvider.java)
 >2. 클라이언트 단에서 발급된 AccessToken을 브라우저의 LocalStorage에 저장합니다.  [코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/resources/static/js/login.js)
@@ -97,7 +97,7 @@ YouTubeRank
 <br/>
 
 
-##  YouTubeRank with JPA
+##  🎈 YouTubeRank with JPA
 #### 회원 관리는 Member 엔티티에서 담당합니다. 
 >- [엔티티 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/members/domain/Member.java)
 >- Member 엔티티는 Spring Security에서 인증 및 인가처리를 위해 UserDetails 인터페이스를 구현(implement)합니다.
@@ -130,7 +130,7 @@ YouTubeRank
 <br/>
 
 
-##  YouTubeRank as a Rest API 
+##  🎈 YouTubeRank as a Rest API 
 #### YouTubeRank의 API는 Stateless를 지향합니다.
 > YouTubeRank는 JWT을 이용함으로써,  서버가 Client의 status를 따로 저장하지 않도록 구현하였습니다. YouTubeRank의 서버는 클라이언트측에서 들어오는 요청만으로만 작업을 처리합니다. Stateless한 서버는 클라이언트와의 연결고리가 없기 때문에 확장성 (Scalability) 이 높아집니다.
 
@@ -145,7 +145,7 @@ YouTubeRank
 <br/>
 
 
-##  YouTubeRank with YouTube Data API
+##  🎈 YouTubeRank with YouTube Data API
 #### 특정 키워드에 대한 YouTube 영상 데이터를 불러오기 위해 YouTube Data API 를 이용합니다. 이 과정은 아래와 같은 프로세스로 진행됩니다.
 >1. youtube.properties 파일([코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/infra/properties/YoutubeProperties.java))에서 Google API Key 값을 불러옵니다.
 >2. YouTube Data API 를 통해 특정 키워드에 대해 조회수가 가장 높은 비디오 5개에 대한 데이터를 응답받습니다. [코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/youtube/service/YouTubeService.java)
