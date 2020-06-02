@@ -71,7 +71,7 @@
 - TestContainers와 @DataJpaTest가 호환되지 않아 @SpringBootTest 어노테이션을 사용하여 진행하였습니다.
 - BaseContainerTest를 상속받지 않고, Repository 테스트 클래스 내부에 TestConatiners를 실행할 수 있도록 별도로 구현하였습니다.
 #### 마지막 커밋 기준으로 Test Coverage는 다음과 같습니다.
-- Test Coverage : 93% classes, 86% lines covered
+- 93% classes, 86% lines covered
 
 <br/>
 
@@ -96,12 +96,10 @@
 - [엔티티 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/members/domain/Member.java)
 - Member 엔티티는 Spring Security에서 인증 및 인가처리를 위해 UserDetails 인터페이스를 구현(implement)합니다.
 - Member 엔티티는 회원가입 일자와 최근 정보 수정 일자를 기록하기 위해 BaseTimeEntity를 상속(extends)받습니다. 
+
 #### 검색 키워드는 Keyword 엔티티에서 담당합니다.
 - [엔티티 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/keywords/domain/Keyword.java)
 - 향후 키워드 데이터를 활용하기 위해 엔티티로 설정하였습니다.
-
-<br/>
-
 
 #### 나의 검색 키워드는 MyKeyword 엔티티에서 별도로 관리합니다.
 - [엔티티 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/keywords/domain/MyKeyword.java)
