@@ -101,7 +101,7 @@ YouTubeRank
 #### 회원 관리는 Member 엔티티에서 담당합니다. 
 >- [엔티티 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/members/domain/Member.java)
 >- Member 엔티티는 Spring Security에서 인증 및 인가처리를 위해 UserDetails 인터페이스를 구현(implement)합니다.
->- Member 엔티티는 회원가입 일자와 최근 정보 수정 일자를 기록하기 위해 BaseTimeEntity를 상속(extends)받습니다. [BaseTimeEntity 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/infra/BaseTimeEntity.java)
+>- Member 엔티티는 회원가입 일자와 최근 정보 수정 일자를 기록하기 위해 BaseTimeEntity를 상속(extends)받습니다. 
 
 #### 검색 키워드는 Keyword 엔티티에서 담당합니다.
 >- [엔티티 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/keywords/domain/Keyword.java)
