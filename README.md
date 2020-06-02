@@ -2,7 +2,6 @@
 YouTubeRank
   <br>
 </h1>
---
 
 <h4 align="center">YouTube 영상 검색 웹 어플리케이션, YouTubeRank 입니다.</h4>
 
