@@ -69,14 +69,16 @@ public class ApiKeywordController {
     @GetMapping
     public ResponseEntity findAllMyKeywords(@LoginUser Member loginUser) {
         List<MyKeyword> allMyKeyword = keywordService.findAllMyKeyword(loginUser);
+        MyKeywordListResponseView responseView = MyKeywordListResponseView.of(allMyKeyword);
 
-//        MyKeywordListResponseResource resource
-//                = new MyKeywordResponseResource(MyKeywordResponseView.listOf(allMyKeyword));
-//        resource.add(linkTo(ApiKeywordController.class).withSelfRel());
+        MyKeywordListResponseResource resource = new MyKeywordListResponseResource(responseView);
+        resource.add(linkTo(ApiKeywordController.class)
+                .withSelfRel());
+        resource.add(new Link("/docs/api-guide.html#resources-keywords-retrieve-all-my-keywords")
+                .withRel("profile"));
 
         return ResponseEntity
-                .ok()
-                .body(MyKeywordResponseView.listOf(allMyKeyword));
+                .ok(resource);
     }
 
     @DeleteMapping("/{keyword}")

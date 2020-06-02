@@ -24,7 +24,6 @@ import static com.palmseung.modules.members.MemberConstant.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.*;
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -190,10 +189,12 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(document("keywords-retrieve-all-my-keywords",
-//                        links(halLinks(),
-//                                linkWithRel("self")
-//                                        .description("link to self")
-//                        ),
+                        links(halLinks(),
+                                linkWithRel("self")
+                                        .description("link to self"),
+                                linkWithRel("profile")
+                                        .description("link to profile")
+                        ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.ACCEPT)
                                         .description(MediaType.APPLICATION_JSON),
@@ -205,18 +206,21 @@ public class KeywordDocumentationTest extends BaseDocumentationTest {
                                         .description(MediaType.APPLICATION_JSON)
                         ),
                         responseFields(
-                                fieldWithPath("[].id")
+                                fieldWithPath("myKeywords[].id")
                                         .type(JsonFieldType.NUMBER)
                                         .description("The intrinsic myKeyword id to retrieve"),
-                                fieldWithPath("[].email")
+                                fieldWithPath("myKeywords[].email")
                                         .type(JsonFieldType.STRING)
                                         .description("The email address of an user who added the keyword"),
-                                fieldWithPath("[].keyword")
+                                fieldWithPath("myKeywords[].keyword")
                                         .type(JsonFieldType.STRING)
-                                        .description("The keyword added to loginUser's my-keyword to retrieve")
-//                                fieldWithPath("_links.self.href")
-//                                        .type(JsonFieldType.STRING)
-//                                        .description("link to self")
+                                        .description("The keyword added to loginUser's my-keyword to retrieve"),
+                                fieldWithPath("_links.self.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to self"),
+                                fieldWithPath("_links.profile.href")
+                                        .type(JsonFieldType.STRING)
+                                        .description("link to profile")
                         )
                 ));
     }
