@@ -70,7 +70,7 @@
 #### Repository Test는 아래와 같은 환경에서 진행하였습니다.
 - TestContainers와 @DataJpaTest가 호환되지 않아 @SpringBootTest 어노테이션을 사용하여 진행하였습니다.
 - BaseContainerTest를 상속받지 않고, Repository 테스트 클래스 내부에 TestConatiners를 실행할 수 있도록 별도로 구현하였습니다.
-#### 마지막 커밋 기준으로 Test Coverage는 다음과 같습니다.
+#### 마지막 커밋을 기준으로 Test Coverage는 다음과 같습니다.
 - 93% classes, 86% lines covered
 
 <br/>
@@ -114,7 +114,7 @@
 
 #### Controller와 View 레이어에서 준영속 상태가 되는 엔티티의 데이터를 확보하기 위해 별도의 QueryService 를 구현하고 있습니다. 
 - 기존의 Service 클래스 외에 QueryService 클래스를 별도로 생성하였습니다.
-- 이를 통해, OSIV(Open Session In View) 설정을 false로 설정하더라도 Lazy Loading으로 설정된 데이터를 Controllerd와 View에서도 사용 가능하도록 구성하였습니다.
+- 이를 통해, OSIV(Open Session In View) 설정을 false로 설정하더라도 Lazy Loading으로 설정된 데이터를 Controllerd와 View에서 할용할 수 있도록 구성하였습니다.
 - [MemberQueryService 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/members/service/MemberService.java)
 - [KeywordQueryService 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/keywords/service/KeywordQueryService.java)
 
@@ -123,6 +123,9 @@
 
 
 ##  🎈 YouTubeRank as a Rest API 
+#### YouTubeRank는 Spring RestDocs를 이용하여 API를 문서화 하고 있습니다.
+- API Documentation : [YouTubeRank의 API 문서 살펴보러 가기](https://github.com/palmseung/YoutubeRank/blob/master/src/docs/asciidoc/api-guide.pdf)
+
 #### YouTubeRank의 API는 Stateless를 지향합니다.
 - YouTubeRank는 JWT을 이용함으로써,  서버가 Client의 status를 따로 저장하지 않도록 구현하였습니다. 
 - YouTubeRank의 서버는 클라이언트측에서 들어오는 요청만으로만 작업을 처리합니다. 
@@ -135,21 +138,18 @@
 
 > <img src="https://github.com/palmseung/YoutubeRank/blob/master/src/main/resources/static/img/response-example.png" width="450"/>
 
-#### YouTubeRank는 Spring RestDocs를 이용하여 API를 문서화 하고 있습니다.
-- API Documentation : [YouTubeRank의 API 문서 살펴보러 가기](https://github.com/palmseung/YoutubeRank/blob/master/src/docs/asciidoc/api-guide.pdf)
-
 <br/>
 
 
 ##  🎈 YouTubeRank with YouTube Data API
-#### 특정 키워드에 대한 YouTube 영상 데이터를 불러오기 위해 YouTube Data API 를 이용합니다. 이 과정은 아래와 같은 프로세스로 진행됩니다.
+#### YouTube Data API 를 이용해 YouTube 영상 데이터를 아래와 같이 불러옵니다.
 1. youtube.properties 파일에서 Google API Key 값을 불러옵니다.
 2. YouTube Data API 를 통해 특정 키워드에 대해 조회수가 가장 높은 비디오 5개에 대한 데이터를 응답받습니다. 
 
-#### YouTubeRank에서 YouTube API를 통해 불러온 데이터는 아래와 같은 규칙을 가진 일급컬렉션(YouTubeVideos) 형태로 사용됩니다.
+#### YouTube API를 통해 불러온 데이터는 다음과 같은 규칙을 가진 일급컬렉션(YouTubeVideos) 형태로 사용됩니다.
 - 각각의 영상에 대한 정보(videoId, title, thumbnail URL, description)는 YouTubeVideo (DTO, [코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/youtube/domain/YouTubeVideo.java))를 통해 전달됩니다.
 - 5개의 YouTubeVideo가 모여 YouTubeVideos(일급 컬렉션, [코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/youtube/domain/YouTubeVideos.java))을 이루게 됩니다.
-- YouTubeVidoes 에서는 YouTubeVideo의 사이즈가 5인지를 확인한 후, 각각의 조회수가 내림차순으로 되어있는지를 검증합니다.
+- YouTubeVidoes에서는 YouTubeVideo의 사이즈가 5인지를 확인한 후, 각각의 조회수가 내림차순으로 되어있는지를 검증합니다.
 
 <br/>
 
