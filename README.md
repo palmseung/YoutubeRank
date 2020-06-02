@@ -132,8 +132,8 @@
 - Stateless한 서버는 클라이언트와의 연결고리가 없기 때문에 확장성 (Scalability) 이 높아집니다.
 
 #### YouTubeRank의 API는 Self-descriptive와 HATEOAS를 지향합니다.
-- API의 JSON 응답 안에 키와 밸류가 어떤 의미를 가지는지 해석할 수 있는 API 문서(Profile)를 첨부함으로써 Self-Descriptive 조건을 충족합니다. 
-- 각 어플리케이션의 상태도 하이퍼링크로 함께 전달함으로써 HATEOAS를 지향하도록 API를 구현하였습니다. 
+- API의 JSON 응답을 해석할 수 있는 API 문서 경로(Profile)를 첨부함으로써 Self-Descriptive한 메시지를 구현하였습니다. 
+- API의 JSON 응답에 각 어플리케이션의 상태를 하이퍼링크를 이용해 전달함으로써 HATEOAS를 지향하도록 구현하였습니다. 
 - YouTubeRank의 회원가입 요청에 대한 API 응답 예시  
 
 > <img src="https://github.com/palmseung/YoutubeRank/blob/master/src/main/resources/static/img/response-example.png" width="450"/>
