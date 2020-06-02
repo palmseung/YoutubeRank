@@ -1,12 +1,12 @@
 package com.palmseung.modules.keywords.controller;
 
 import com.palmseung.modules.keywords.domain.MyKeyword;
-import com.palmseung.modules.keywords.dto.MyKeywordRequestView;
-import com.palmseung.modules.keywords.dto.MyKeywordResponseView;
+import com.palmseung.modules.keywords.dto.*;
 import com.palmseung.modules.keywords.service.KeywordService;
 import com.palmseung.modules.members.LoginUser;
 import com.palmseung.modules.members.domain.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +17,7 @@ import java.net.URLEncoder;
 import java.util.List;
 
 import static com.palmseung.modules.keywords.KeywordConstant.BASE_URI_KEYWORD_API;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RequiredArgsConstructor
 @RestController
@@ -29,36 +30,69 @@ public class ApiKeywordController {
                                      @RequestBody MyKeywordRequestView requestView) throws UnsupportedEncodingException {
         MyKeyword myKeyword = keywordService.addMyKeyword(loginUser, requestView.getKeyword());
 
+        MyKeywordResource resource = new MyKeywordResource(MyKeywordResponseView.of(myKeyword));
+        resource.add(linkTo(ApiKeywordController.class).
+                withSelfRel());
+        resource.add(new Link("/docs/api-guide.html#resources-keywords-add-my-keyword")
+                .withRel("profile"));
+        resource.add(linkTo(ApiKeywordController.class)
+                .slash(myKeyword.getStringKeyword())
+                .withRel("delete-my-keyword"));
+        resource.add(linkTo(ApiKeywordController.class)
+                .slash(myKeyword.getStringKeyword())
+                .withRel("retrieve-my-keyword"));
+
         return ResponseEntity
                 .status(HttpStatus.MOVED_PERMANENTLY)
                 .header(HttpHeaders.LOCATION, "/api/youtube?keyword=" + URLEncoder.encode(myKeyword.getStringKeyword(), "utf-8"))
-                .build();
+                .body(resource);
     }
 
     @GetMapping("/{keyword}")
     public ResponseEntity findMyKeyword(@LoginUser Member loginUser, @PathVariable String keyword) {
         MyKeyword myKeyword = keywordService.findMyKeyword(loginUser, keyword);
 
+        MyKeywordResponseResource resource = new MyKeywordResponseResource(MyKeywordResponseView.of(myKeyword));
+        resource.add(linkTo(ApiKeywordController.class).slash(keyword)
+                .withSelfRel());
+        resource.add(new Link("/docs/api-guide.html#resources-keywords-retrieve-my-keyword")
+                .withRel("profile"));
+        resource.add(linkTo(ApiKeywordController.class)
+                .slash(myKeyword.getStringKeyword())
+                .withRel("delete-my-keyword"));
+
         return ResponseEntity
                 .ok()
-                .body(MyKeywordResponseView.of(myKeyword));
+                .body(resource);
     }
 
     @GetMapping
     public ResponseEntity findAllMyKeywords(@LoginUser Member loginUser) {
         List<MyKeyword> allMyKeyword = keywordService.findAllMyKeyword(loginUser);
+        MyKeywordListResponseView responseView = MyKeywordListResponseView.of(allMyKeyword);
+
+        MyKeywordListResponseResource resource = new MyKeywordListResponseResource(responseView);
+        resource.add(linkTo(ApiKeywordController.class)
+                .withSelfRel());
+        resource.add(new Link("/docs/api-guide.html#resources-keywords-retrieve-all-my-keywords")
+                .withRel("profile"));
 
         return ResponseEntity
-                .ok()
-                .body(MyKeywordResponseView.listOf(allMyKeyword));
+                .ok(resource);
     }
 
     @DeleteMapping("/{keyword}")
     public ResponseEntity removeMyKeyword(@LoginUser Member loginUser, @PathVariable String keyword) {
         keywordService.deleteMyKeyword(loginUser, keyword);
 
+        MyKeywordResponseResource resource = new MyKeywordResponseResource(new MyKeywordResponseView());
+        resource.add(linkTo(ApiKeywordController.class).slash(keyword)
+                .withSelfRel());
+        resource.add(new Link("/docs/api-guide.html#resources-keywords-delete-my-keyword")
+                .withRel("profile"));
+
         return ResponseEntity
                 .ok()
-                .build();
+                .body(resource);
     }
 }

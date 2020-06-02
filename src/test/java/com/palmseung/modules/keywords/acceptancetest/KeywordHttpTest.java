@@ -1,5 +1,6 @@
 package com.palmseung.modules.keywords.acceptancetest;
 
+import com.palmseung.modules.keywords.dto.MyKeywordListResponseView;
 import com.palmseung.modules.keywords.dto.MyKeywordRequestView;
 import com.palmseung.modules.keywords.dto.MyKeywordResponseView;
 import org.springframework.http.HttpHeaders;
@@ -43,8 +44,9 @@ public class KeywordHttpTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBodyList(MyKeywordResponseView.class)
-                .returnResult().getResponseBody();
+                .expectBody(MyKeywordListResponseView.class)
+                .returnResult().getResponseBody()
+                .getMyKeywords();
     }
 
     private MyKeywordRequestView createRequest(String keyword) {
