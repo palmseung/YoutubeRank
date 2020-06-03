@@ -30,6 +30,7 @@
 - Spring boot 2.2.4.
 - Spring Security / JWT 
 - Spring Data JPA / PostgreSQL
+- JUnit5, Mockito
 - Spring RestDocs
 
 #### Front-end는 다음의 기술로 구성됩니다.
@@ -80,7 +81,7 @@
 1. 사용자가 로그인을 요청하면, 서버는 사용자의 이메일 정보를 기반으로 AccessToken을 발급하여 로그인 응답 본문에 실어 보냅니다.
 2. 발급된 AccessToken은 브라우저의 LocalStorage에 저장합니다.  
 3. 이후 사용자가 서버에 요청할 때 LocalStorage에 저장된 AccessToken을 가져와 요청 헤더에 포함하여 전달합니다.
-4. 요청이 맵핑된 컨트롤러로 전달되기 전, AccessToken은 JwtAuthenticationFilter를 통해 유효성을 검증받습니다. 
+4. 맵핑된 컨트롤러로 요청이 전달되기 전, AccessToken은 JwtAuthenticationFilter를 통해 유효성을 검증받습니다. 
 5. AccessToken이 유효하다면, 해당 토큰에서 사용자 정보를 추출하여 SecurityContextHolder에 해당 사용자 정보를 주입합니다.
 6. 이후 UserNamePasswordAuthenticationFilter을 거치면서 사용자 정보를 확인해 인증 여부를 결정합니다.
 7. 맵핑된 컨트롤러로 요청이 전달되어 서버가 요청을 처리합니다.
@@ -128,7 +129,7 @@
 
 #### YouTubeRank의 API는 Stateless를 지향합니다.
 - YouTubeRank는 JWT을 이용함으로써,  서버가 Client의 status를 따로 저장하지 않도록 구현하였습니다. 
-- YouTubeRank의 서버는 클라이언트측에서 들어오는 요청만으로만 작업을 처리합니다. 
+- YouTubeRank의 서버는 클라이언트측에서 들어오는 요청으로만 작업을 처리합니다. 
 - Stateless한 서버는 클라이언트와의 연결고리가 없기 때문에 확장성 (Scalability) 이 높아집니다.
 
 #### YouTubeRank의 API는 Self-descriptive와 HATEOAS를 지향합니다.
