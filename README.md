@@ -69,7 +69,7 @@
 - 인수테스트 단계에서는 'API를 호출하는 클라이언트 측의 요구사항을 충족하는가'에 중점을 두고 테스트를 진행하였습니다.
 #### Repository Test는 아래와 같은 환경에서 진행하였습니다.
 - TestContainers와 @DataJpaTest가 호환되지 않아 @SpringBootTest 어노테이션을 사용하여 진행하였습니다.
-- Repository Test는 BaseContainerTest를 상속받지 않고, 클래스 내부에 TestConatiners를 실행할 수 있도록 별도로 구현하였습니다.
+- Repository Test는 앞서서 정의한 BaseContainerTest를 상속받지 않고, 클래스 내부에 TestConatiners를 실행할 수 있도록 별도로 구현하였습니다.
 #### 마지막 커밋을 기준으로 Test Coverage는 다음과 같습니다.
 - 93% classes, 86% lines covered
 
@@ -85,8 +85,8 @@
 6. 이후 UserNamePasswordAuthenticationFilter을 거치면서 사용자 정보를 확인해 인증 여부를 결정합니다.
 7. 맵핑된 컨트롤러로 요청이 전달되어 서버가 요청을 처리합니다.
 #### 관리자 계정은 지정된 이메일과 비밀번호로 회원가입을 요청할 경우에만 아래의 절차를 거쳐 가입할 수 있습니다.
-1. 관리자 회원가입 요청(이름/이메일/비밀번호)
-2. admin.properties에 서버에서 지정한 이메일 주소와 비밀번호 정보를 가져옵니다. 
+1. 사용자가 관리자계정으로 회원가입을 요청합니다 (이름/이메일/비밀번호)
+2. admin.properties에 서버에서 지정한 이메일 주소와 비밀번호 정보를 가져옵니다. (이메일/비밀번호)
 3. 회원가입 요청 정보와 admin.properites에 지정된 정보가 일치하면 관리자 회원가입 요청을 처리합니다.
 
 <br/>
