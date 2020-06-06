@@ -29,7 +29,45 @@ public class ApiKeywordController {
     public ResponseEntity addKeyword(@LoginUser Member loginUser,
                                      @RequestBody MyKeywordRequestView requestView) throws UnsupportedEncodingException {
         MyKeyword myKeyword = keywordService.addMyKeyword(loginUser, requestView.getKeyword());
+        MyKeywordResource resource = applyHateoasToAdd(myKeyword);
 
+        return ResponseEntity
+                .status(HttpStatus.MOVED_PERMANENTLY)
+                .header(HttpHeaders.LOCATION, "/api/youtube?keyword=" + URLEncoder.encode(myKeyword.getStringKeyword(), "utf-8"))
+                .body(resource);
+    }
+
+    @GetMapping("/{keyword}")
+    public ResponseEntity findMyKeyword(@LoginUser Member loginUser, @PathVariable String keyword) {
+        MyKeyword myKeyword = keywordService.findMyKeyword(loginUser, keyword);
+        MyKeywordResponseResource resource = applyHateoasToFind(myKeyword, keyword);
+
+        return ResponseEntity
+                .ok()
+                .body(resource);
+    }
+
+    @GetMapping
+    public ResponseEntity findAllMyKeywords(@LoginUser Member loginUser) {
+        List<MyKeyword> allMyKeyword = keywordService.findAllMyKeyword(loginUser);
+        MyKeywordListResponseView responseView = MyKeywordListResponseView.of(allMyKeyword);
+        MyKeywordListResponseResource resource = applyHateoasToFindAll(responseView);
+
+        return ResponseEntity
+                .ok(resource);
+    }
+
+    @DeleteMapping("/{keyword}")
+    public ResponseEntity removeMyKeyword(@LoginUser Member loginUser, @PathVariable String keyword) {
+        keywordService.deleteMyKeyword(loginUser, keyword);
+        MyKeywordResponseResource resource = applyHateoasToDelete(keyword);
+
+        return ResponseEntity
+                .ok()
+                .body(resource);
+    }
+
+    private MyKeywordResource applyHateoasToAdd(MyKeyword myKeyword) {
         MyKeywordResource resource = new MyKeywordResource(MyKeywordResponseView.of(myKeyword));
         resource.add(linkTo(ApiKeywordController.class).
                 withSelfRel());
@@ -41,17 +79,10 @@ public class ApiKeywordController {
         resource.add(linkTo(ApiKeywordController.class)
                 .slash(myKeyword.getStringKeyword())
                 .withRel("retrieve-my-keyword"));
-
-        return ResponseEntity
-                .status(HttpStatus.MOVED_PERMANENTLY)
-                .header(HttpHeaders.LOCATION, "/api/youtube?keyword=" + URLEncoder.encode(myKeyword.getStringKeyword(), "utf-8"))
-                .body(resource);
+        return resource;
     }
 
-    @GetMapping("/{keyword}")
-    public ResponseEntity findMyKeyword(@LoginUser Member loginUser, @PathVariable String keyword) {
-        MyKeyword myKeyword = keywordService.findMyKeyword(loginUser, keyword);
-
+    private MyKeywordResponseResource applyHateoasToFind(MyKeyword myKeyword, String keyword) {
         MyKeywordResponseResource resource = new MyKeywordResponseResource(MyKeywordResponseView.of(myKeyword));
         resource.add(linkTo(ApiKeywordController.class).slash(keyword)
                 .withSelfRel());
@@ -60,39 +91,24 @@ public class ApiKeywordController {
         resource.add(linkTo(ApiKeywordController.class)
                 .slash(myKeyword.getStringKeyword())
                 .withRel("delete-my-keyword"));
-
-        return ResponseEntity
-                .ok()
-                .body(resource);
+        return resource;
     }
 
-    @GetMapping
-    public ResponseEntity findAllMyKeywords(@LoginUser Member loginUser) {
-        List<MyKeyword> allMyKeyword = keywordService.findAllMyKeyword(loginUser);
-        MyKeywordListResponseView responseView = MyKeywordListResponseView.of(allMyKeyword);
-
+    private MyKeywordListResponseResource applyHateoasToFindAll(MyKeywordListResponseView responseView) {
         MyKeywordListResponseResource resource = new MyKeywordListResponseResource(responseView);
         resource.add(linkTo(ApiKeywordController.class)
                 .withSelfRel());
         resource.add(new Link("/docs/api-guide.html#resources-keywords-retrieve-all-my-keywords")
                 .withRel("profile"));
-
-        return ResponseEntity
-                .ok(resource);
+        return resource;
     }
 
-    @DeleteMapping("/{keyword}")
-    public ResponseEntity removeMyKeyword(@LoginUser Member loginUser, @PathVariable String keyword) {
-        keywordService.deleteMyKeyword(loginUser, keyword);
-
+    private MyKeywordResponseResource applyHateoasToDelete(String keyword) {
         MyKeywordResponseResource resource = new MyKeywordResponseResource(new MyKeywordResponseView());
         resource.add(linkTo(ApiKeywordController.class).slash(keyword)
                 .withSelfRel());
         resource.add(new Link("/docs/api-guide.html#resources-keywords-delete-my-keyword")
                 .withRel("profile"));
-
-        return ResponseEntity
-                .ok()
-                .body(resource);
+        return resource;
     }
 }
