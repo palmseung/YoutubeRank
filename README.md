@@ -75,7 +75,7 @@
 - TestContainers와 @DataJpaTest가 호환되지 않아 @SpringBootTest 어노테이션을 사용하여 진행하였습니다.
 - Repository Test는 앞서서 정의한 BaseContainerTest를 상속받지 않고, 클래스 내부에 TestConatiners를 실행할 수 있도록 별도로 구현하였습니다.
 #### 마지막 커밋을 기준으로 Test Coverage는 다음과 같습니다.
-- 93% classes, 86% lines covered
+- 94% classes, 88% lines covered
 
 <br/>
 
