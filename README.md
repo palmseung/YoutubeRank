@@ -5,7 +5,7 @@
 <h4 align="center">YouTube 영상 검색 웹 어플리케이션, YouTubeRank 입니다.</h4>
 
 
-![YouTubeRank](demo_search.gif)
+![YouTubeRank](src/main/resources/demo/demo_search.gif)
 
 
 ## 🎈 서비스 소개
