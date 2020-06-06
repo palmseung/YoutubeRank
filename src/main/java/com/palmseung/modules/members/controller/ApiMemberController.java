@@ -27,16 +27,8 @@ public class ApiMemberController {
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid CreateMemberRequestView request) {
         Member createdMember = memberService.create(request.toEntity());
-        CreateMemberResponseView response = CreateMemberResponseView.of(createdMember);
-
-        CreateMemberResponseResource resource = new CreateMemberResponseResource(response);
-        resource.add(new Link("/docs/api-guide.html#resources-members-create")
-                .withRel("profile"));
-        resource.add(linkTo(ApiMemberController.class)
-                .withSelfRel());
-        resource.add(linkTo(ApiMemberController.class)
-                .slash("login")
-                .withRel("login"));
+        CreateMemberResponseView responseView = CreateMemberResponseView.of(createdMember);
+        CreateMemberResponseResource resource = applyHateoasToCreate(responseView);
 
         return ResponseEntity
                 .created(URI.create(MemberConstant.BASE_URI_MEMBER_API + "/" + createdMember.getId()))
@@ -57,16 +49,7 @@ public class ApiMemberController {
     public ResponseEntity login(@RequestBody LoginRequestView request) {
         Member member = memberService.login(request.getEmail(), request.getPassword());
         String token = jwtTokenProvider.createToken(member.getEmail());
-
-        LoginResponseResource resource = new LoginResponseResource(LoginResponseView.of(token));
-        resource.add(new Link("/docs/api-guide.html#resources-members-login").withRel("profile"));
-        resource.add(linkTo(ApiMemberController.class)
-                .slash("login")
-                .withSelfRel());
-        resource.add(linkTo(ApiMemberController.class)
-                .slash("my-info")
-                .slash(member.getId())
-                .withRel("retrieve-myInfo"));
+        LoginResponseResource resource = applyHateoasToLogin(token, member);
 
         return ResponseEntity
                 .created(URI.create("/oauth/token"))
@@ -76,18 +59,7 @@ public class ApiMemberController {
     @GetMapping("/my-info/{id}")
     public ResponseEntity retrieveMyInfo(@PathVariable Long id) {
         Member member = memberService.findById(id);
-
-        MyInfoResponseResource resource = new MyInfoResponseResource(MyInfoResponseView.of(member));
-        resource.add(new Link("/docs/api-guide.html#resources-members-myInfo")
-                .withRel("profile"));
-        resource.add(linkTo(ApiMemberController.class)
-                .slash("/my-info")
-                .slash(id)
-                .withSelfRel());
-        resource.add(linkTo(ApiMemberController.class)
-                .slash("my-info")
-                .slash(id)
-                .withRel("update-myInfo"));
+        MyInfoResponseResource resource = applyHateoasToFind(member, id);
 
         return ResponseEntity
                 .ok()
@@ -99,14 +71,58 @@ public class ApiMemberController {
                                        @PathVariable Long id,
                                        @RequestBody UpdateMemberRequestView requestView) {
         Member updatedMember = memberService.updateInfo(loginUser, id, requestView.getNewPassword());
-
-        UpdateMemberResponseResource resource
-                = new UpdateMemberResponseResource(UpdateMemberResponseView.of(updatedMember));
-        resource.add(linkTo(ApiMemberController.class).slash("my-info").slash(id).withSelfRel());
-        resource.add(new Link("/docs/api-guide.html#resources-members-update-myInfo").withRel("profile"));
+        UpdateMemberResponseResource resource = applyHateoasToUpdate(updatedMember, id);
 
         return ResponseEntity
                 .ok()
                 .body(resource);
+    }
+
+    private CreateMemberResponseResource applyHateoasToCreate(CreateMemberResponseView responseView) {
+        CreateMemberResponseResource resource = new CreateMemberResponseResource(responseView);
+        resource.add(new Link("/docs/api-guide.html#resources-members-create")
+                .withRel("profile"));
+        resource.add(linkTo(ApiMemberController.class)
+                .withSelfRel());
+        resource.add(linkTo(ApiMemberController.class)
+                .slash("login")
+                .withRel("login"));
+        return resource;
+    }
+
+    private LoginResponseResource applyHateoasToLogin(String token, Member member) {
+        LoginResponseResource resource = new LoginResponseResource(LoginResponseView.of(token));
+        resource.add(new Link("/docs/api-guide.html#resources-members-login").withRel("profile"));
+        resource.add(linkTo(ApiMemberController.class)
+                .slash("login")
+                .withSelfRel());
+        resource.add(linkTo(ApiMemberController.class)
+                .slash("my-info")
+                .slash(member.getId())
+                .withRel("retrieve-myInfo"));
+        return resource;
+    }
+
+    private MyInfoResponseResource applyHateoasToFind(Member member, Long id) {
+        MyInfoResponseResource resource = new MyInfoResponseResource(MyInfoResponseView.of(member));
+        resource.add(new Link("/docs/api-guide.html#resources-members-myInfo")
+                .withRel("profile"));
+        resource.add(linkTo(ApiMemberController.class)
+                .slash("/my-info")
+                .slash(id)
+                .withSelfRel());
+        resource.add(linkTo(ApiMemberController.class)
+                .slash("my-info")
+                .slash(id)
+                .withRel("update-myInfo"));
+        return resource;
+    }
+
+    private UpdateMemberResponseResource applyHateoasToUpdate(Member updatedMember, Long id) {
+        UpdateMemberResponseResource resource
+                = new UpdateMemberResponseResource(UpdateMemberResponseView.of(updatedMember));
+        resource.add(linkTo(ApiMemberController.class).slash("my-info").slash(id).withSelfRel());
+        resource.add(new Link("/docs/api-guide.html#resources-members-update-myInfo").withRel("profile"));
+        return resource;
     }
 }
