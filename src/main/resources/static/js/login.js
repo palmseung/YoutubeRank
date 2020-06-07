@@ -35,7 +35,7 @@ login = function () {
                     localStorage.getItem('accessToken').replace(/^"(.*)"$/, '$1'));
                 }},
                 success: function(response) {
-                  alert('login success');
+                  alert('로그인 되었습니다.');
                   window.location.href = '/';
                 },
                 error: function() {
