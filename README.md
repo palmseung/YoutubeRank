@@ -119,7 +119,7 @@
 #### Controller와 View 레이어에서 준영속 상태가 되는 엔티티의 데이터를 확보하기 위해 별도의 QueryService 를 구현하고 있습니다. 
 - 기존의 Service 클래스 외에 QueryService 클래스를 별도로 생성하였습니다.
 - 이를 통해, OSIV(Open Session In View) 설정을 false로 설정하더라도 Lazy Loading으로 설정된 데이터를 Controller와 View에서 할용할 수 있도록 구성하였습니다.
-- [MemberQueryService 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/members/service/MemberService.java)
+- [AdminQueryService 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/admin/service/AdminQueryService.java)
 - [KeywordQueryService 코드](https://github.com/palmseung/YoutubeRank/blob/master/src/main/java/com/palmseung/modules/keywords/service/KeywordQueryService.java)
 
 
