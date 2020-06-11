@@ -29,14 +29,14 @@ public class AdminQueryService {
     @Transactional(readOnly = true)
     public List<AdminMemberResponseView> getAllMembers() {
         return memberService.findAll().stream()
-                .map(member -> AdminMemberResponseView.of(member))
+                .map(AdminMemberResponseView::of)
                 .collect(toList());
     }
 
     @Transactional(readOnly = true)
     public List<KeywordResponseView> getAllKeywords() {
         return keywordService.findAll().stream()
-                .map(keyword -> KeywordResponseView.of(keyword))
+                .map(KeywordResponseView::of)
                 .collect(toList());
     }
 }

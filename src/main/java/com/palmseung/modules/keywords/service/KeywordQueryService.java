@@ -21,7 +21,7 @@ public class KeywordQueryService {
     public List<KeywordResponseView> getKeywords(Member loginUser) {
         return myKeywordRepository.findAllByMemberId(loginUser.getId())
                 .stream()
-                .map(m -> MyKeywordResponseView.of(m))
+                .map(MyKeywordResponseView::of)
                 .map(view -> new KeywordResponseView(view.getKeyword()))
                 .collect(toList());
     }
