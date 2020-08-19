@@ -1,16 +1,17 @@
 package com.palmseung.modules.admin.service;
 
-import com.palmseung.BaseContainerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.palmseung.modules.members.MemberConstant.TEST_MEMBER;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
-public class AdminServiceTest extends BaseContainerTest {
+@ExtendWith(MockitoExtension.class)
+public class AdminServiceTest {
     @InjectMocks
     private AdminService adminService;
 

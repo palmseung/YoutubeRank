@@ -1,6 +1,5 @@
 package com.palmseung.modules.main;
 
-import com.palmseung.BaseContainerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HomeControllerTest extends BaseContainerTest {
+public class HomeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 

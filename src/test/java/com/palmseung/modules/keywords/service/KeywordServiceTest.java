@@ -1,6 +1,5 @@
 package com.palmseung.modules.keywords.service;
 
-import com.palmseung.BaseContainerTest;
 import com.palmseung.modules.keywords.domain.Keyword;
 import com.palmseung.modules.keywords.domain.KeywordRepository;
 import com.palmseung.modules.keywords.domain.MyKeyword;
@@ -12,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
@@ -27,8 +27,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@ExtendWith(MockitoExtension.class)
-public class KeywordServiceTest extends BaseContainerTest {
+@SpringBootTest
+public class KeywordServiceTest {
     @Autowired
     private KeywordService keywordService;
 

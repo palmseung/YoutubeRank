@@ -1,6 +1,5 @@
 package com.palmseung.infra.jwt;
 
-import com.palmseung.BaseContainerTest;
 import com.palmseung.modules.members.UserMember;
 import com.palmseung.modules.members.domain.Member;
 import com.palmseung.modules.members.domain.MemberRepository;
@@ -22,7 +21,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class JwtTokenProviderTest extends BaseContainerTest {
+public class JwtTokenProviderTest {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 

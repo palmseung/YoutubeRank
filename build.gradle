@@ -21,21 +21,23 @@ dependencies {
     implementation 'org.jgrapht:jgrapht-core:1.0.1'
     implementation 'net.rakugakibox.spring.boot:logback-access-spring-boot-starter:2.7.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.projectlombok:lombok'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'org.springframework.boot:spring-boot-starter-security:2.1.9.RELEASE'
     implementation 'org.springframework.security:spring-security-test'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
     implementation 'com.google.apis:google-api-services-youtube:v3-rev20200423-1.30.9'
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
 
     annotationProcessor 'org.projectlombok:lombok'
+    compileOnly("org.projectlombok:lombok:1.16.18")
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 
     testImplementation "org.testcontainers:junit-jupiter:1.12.4"
-    testImplementation "org.testcontainers:postgresql"
-    testCompile "org.testcontainers:postgresql:1.14.2"
+    testImplementation "org.testcontainers:mysql"
+    testCompile "org.testcontainers:mysql:1.14.3"
+    compile("org.mariadb.jdbc:mariadb-java-client")
+    runtimeOnly 'mysql:mysql-connector-java'
+    compile("org.mariadb.jdbc:mariadb-java-client")
 
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc:2.0.3.RELEASE'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
