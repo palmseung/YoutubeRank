@@ -199,5 +199,5 @@ gradle-app.setting
 **/build/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,gradle,intellij,java
-.gitsecret/keys/random_seed
+#.gitsecret/keys/random_seed
 !*.secret
