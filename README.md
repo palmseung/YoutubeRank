@@ -63,17 +63,11 @@
 - 인수테스트 (Acceptance Test) 
 - 컨트롤러 테스트 (Controller Test)
 - 서비스 테스트 (Service Test)
-- 도메인 테스트 (Domain / Repository Test)
-#### 테스트는 [TestContainers](https://www.testcontainers.org)를 이용하여 진행합니다.
-- 운영과 동일한 형태의 개발 환경에서 테스트 하기 위해 TestContainers(PostgreSQL)를 이용하여 테스트를 진행합니다.
-- TestContainers를 실행시키는 BaseContainerTest(추상클래스)를 생성한 후, 각각의 테스트 클래스가 BaseContainerTest를 상속받도록 구현하였습니다.
+- 도메인 테스트 (Domain Test)
 #### Acceptance Test는 아래와 같이 진행합니다.
+- 인수테스트 단계에서는 'API를 호출하는 클라이언트 측의 요구사항을 충족하는가'에 중점을 두고 테스트를 진행하였습니다.
 - WebTestClient를 사용하였습니다. 
 - 실제 Servlet을 띄워, 실제 운영 환경과 유사한 상황에서 테스트를 진행하였습니다.
-- 인수테스트 단계에서는 'API를 호출하는 클라이언트 측의 요구사항을 충족하는가'에 중점을 두고 테스트를 진행하였습니다.
-#### Repository Test는 아래와 같은 환경에서 진행하였습니다.
-- TestContainers와 @DataJpaTest가 호환되지 않아 @SpringBootTest 어노테이션을 사용하여 진행하였습니다.
-- Repository Test는 앞서서 정의한 BaseContainerTest를 상속받지 않고, 클래스 내부에 TestConatiners를 실행할 수 있도록 별도로 구현하였습니다.
 #### 마지막 커밋을 기준으로 Test Coverage는 다음과 같습니다.
 - 94% classes, 88% lines covered
 
