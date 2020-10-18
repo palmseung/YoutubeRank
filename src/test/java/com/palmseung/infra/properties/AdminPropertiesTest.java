@@ -12,7 +12,7 @@ public class AdminPropertiesTest {
     @Autowired
     private AdminProperties adminProperties;
 
-    @DisplayName("application.properties 에서 관리자 가입 허용 이메일/비밀번호 불러오기")
+    @DisplayName("프로퍼티 파일에서 관리자 가입 허용 이메일/비밀번호 불러오기")
     @Test
     public void readAdminProperties() {
         assertThat(adminProperties.getEmail()).isNotNull();

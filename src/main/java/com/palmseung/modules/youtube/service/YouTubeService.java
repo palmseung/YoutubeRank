@@ -7,6 +7,7 @@ import com.google.api.services.youtube.model.SearchResult;
 import com.palmseung.infra.properties.YoutubeProperties;
 import com.palmseung.modules.youtube.domain.YouTubeVideo;
 import com.palmseung.modules.youtube.domain.YouTubeVideos;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
