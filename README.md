@@ -32,9 +32,10 @@
 - Java 8
 - Spring boot 2.2.4.
 - Spring Security / JWT 
-- Spring Data JPA / PostgreSQL
+- Spring Data JPA / MySQL
 - JUnit5, Mockito
 - Spring RestDocs
+- AWS Parameter Store
 
 #### Front-end는 다음의 기술로 구성됩니다.
 
