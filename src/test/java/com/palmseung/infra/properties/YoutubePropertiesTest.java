@@ -12,7 +12,7 @@ public class YoutubePropertiesTest {
     @Autowired
     private YoutubeProperties youtubeProperties;
 
-    @DisplayName("Youtube api-key 읽어 오기")
+    @DisplayName("프로퍼티 파일에서 Youtube api-key 읽어 오기")
     @Test
     void read() {
         assertThat(youtubeProperties.getApiKey()).isNotNull();

@@ -3,7 +3,6 @@
 *.iml
 *.ipr
 out/
-application.properties
 
 *.DS_Store
 
