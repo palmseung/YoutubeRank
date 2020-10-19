@@ -36,6 +36,8 @@
 - JUnit5, Mockito
 - Spring RestDocs
 - AWS Parameter Store
+- AWS EC2
+- AWS RDS
 
 #### Front-end는 다음의 기술로 구성됩니다.
 
