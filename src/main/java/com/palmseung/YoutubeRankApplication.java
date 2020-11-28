@@ -3,12 +3,11 @@ package com.palmseung;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.test.context.ActiveProfiles;
 
 @EnableJpaAuditing
 @SpringBootApplication
-public class MainApplication {
+public class YoutubeRankApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class, args);
+        SpringApplication.run(YoutubeRankApplication.class, args);
     }
 }
